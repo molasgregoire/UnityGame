@@ -1,23 +1,4 @@
-﻿/*using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class oParticule : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}*/
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,12 +26,12 @@ public class oParticule : MonoBehaviour
         ratio = 1 / particule.GetComponent<SpriteRenderer>().size.x;
         ratio *= 0.5f;
         particule.transform.localScale = new Vector3(ratio, ratio, ratio);
-
+        /*
         cercle = new GameObject();
         cercle.AddComponent<SpriteRenderer>();
         cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circle") as Sprite;
 
-        cercle.transform.localScale = new Vector3(2, 2, 0);
+        cercle.transform.localScale = new Vector3(2, 2, 0);*/
 
     }
 
@@ -95,7 +76,7 @@ public class oParticule : MonoBehaviour
 
 
 
-        particule.transform.position = new Vector3(x, y, 0);
+        particule.transform.position = new Vector3(x, y, -1);
     }
 }
 
