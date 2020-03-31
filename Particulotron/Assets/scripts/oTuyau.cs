@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class oTuyau : MonoBehaviour
 {
-    public GameObject backCircle;
-    public GameObject frontCircle;
-    public GameObject moveCircle;
     //public GameObject neonTest;
 
     public List<GameObject> circles;
-    public int nbCircles = 11;
+    public int nbCircles = 17;
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +33,8 @@ public class oTuyau : MonoBehaviour
         moveCircle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circle") as Sprite;
         moveCircle.transform.localScale = new Vector3(0.1f, 0.1f, 0);*/
 
-        float dist = 1 / (nbCircles - 1.0f);
-        for( int i = 0; i < nbCircles ; i++ )
+        float dist = 1/ (nbCircles-1.0f);
+        for( int i = 1; i < nbCircles ; i++ )
         {
             GameObject tmp = new GameObject();
             
@@ -45,8 +42,13 @@ public class oTuyau : MonoBehaviour
             tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
             tmp.transform.localScale = new Vector3(i*dist,i*dist , 0);
             tmp.transform.position = new Vector3(0, 0, 0.5f);
-            tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);
+            if (i % 2 == 0)
+            {
+                tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);
+            }
+            //else { tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f); }
             circles.Add(tmp);
+            
         }
         /*
         neonTest = new GameObject();
@@ -62,9 +64,10 @@ public class oTuyau : MonoBehaviour
         // growAndBack(moveCircle);
         for (int i = 0; i < nbCircles; i++)
         {
+            //transparency(circles[i]);
             growAndBack(circles[i]);
 
-            transparency(circles[i]);
+            
         }
     }
 
@@ -84,6 +87,6 @@ public class oTuyau : MonoBehaviour
     {
         float size = subject.transform.localScale.x;
         float trans = ( size) / 1.1f;
-        subject.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, trans);
+        subject.GetComponent<SpriteRenderer>().color += new Color(0,0,0, trans);
     }
 }
