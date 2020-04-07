@@ -16,7 +16,7 @@ public class oParticule : MonoBehaviour
     public float vitesseRayon = 0.1f;
 
     public float angle = 0.0f;
-    public float vitesseAngle = 0.05f;
+    public float vitesseAngle = 0.1f;
 
     public GameObject particule;
     public GameObject cercle;
@@ -47,12 +47,12 @@ public class oParticule : MonoBehaviour
     // Update is called once per frame
     void Update()
     {        
-            //deplacementCirculaire();
-            //posCirc();
+            deplacementCirculaire();
+            posCirc();
         
         
         
-            deplacement();
+            //deplacement();
         
         
 
@@ -97,11 +97,11 @@ public class oParticule : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            angle -= vitesseAngle;
+            angle -= vitesseAngle/rayon;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            angle += vitesseAngle;
+            angle += vitesseAngle/rayon;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {

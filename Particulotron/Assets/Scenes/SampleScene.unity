@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circles: []
   nbCircles: 10
+  vitesseEvol: 0.005
 --- !u!4 &36521760
 Transform:
   m_ObjectHideFlags: 0
@@ -731,8 +732,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46b8c7eca6ba9824a87933545cfad981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  circularMvt: 0
   x: 0
   y: 0
+  rayon: 3
+  rayonMax: 4
+  rayonMin: 1
+  vitesseRayon: 0.1
+  angle: 0
+  vitesseAngle: 0.05
   particule: {fileID: 0}
   cercle: {fileID: 0}
   vitesse: 0.1
@@ -1084,7 +1092,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853182899}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
