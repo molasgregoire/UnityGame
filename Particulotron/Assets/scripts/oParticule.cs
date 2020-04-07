@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class oParticule : MonoBehaviour
 {
-
+    public bool circularMvt = false;
     //coordonnées
     public float x = 0;
     public float y = 0;
+
+    public float rayon = 3.0f;
+    public float rayonMax = 4.0f;
+    public float rayonMin = 1.0f;
+    public float vitesseRayon = 0.1f;
+
+    public float angle = 0.0f;
+    public float vitesseAngle = 0.05f;
 
     public GameObject particule;
     public GameObject cercle;
@@ -37,10 +46,15 @@ public class oParticule : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-
-        deplacement();
-
+    {        
+            //deplacementCirculaire();
+            //posCirc();
+        
+        
+        
+            deplacement();
+        
+        
 
     }
 
@@ -76,6 +90,39 @@ public class oParticule : MonoBehaviour
 
 
 
+        particule.transform.position = new Vector3(x, y, -1);
+    }
+
+    void deplacementCirculaire()
+    {
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            angle -= vitesseAngle;
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            angle += vitesseAngle;
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            if( rayon < rayonMax )
+            rayon += vitesseRayon;
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            if( rayon > rayonMin )
+            rayon -= vitesseRayon;
+        }
+
+        //ajustements
+        if( rayon < rayonMin) { rayon = rayonMin; }
+        if (rayon > rayonMax) { rayon = rayonMax; }
+    }
+
+    void posCirc()
+    {
+        x = rayon * Convert.ToSingle(Math.Cos(angle));
+        y = rayon * Convert.ToSingle(Math.Sin(angle));
         particule.transform.position = new Vector3(x, y, -1);
     }
 }

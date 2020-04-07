@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class oTuyau : MonoBehaviour
 {
     //public GameObject neonTest;
 
     public List<GameObject> circles;
-    public int nbCircles = 17;
+    public int nbCircles = 9;
+    public float vitesseEvol = 0.005f;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +64,7 @@ public class oTuyau : MonoBehaviour
     void Update()
     {
         // growAndBack(moveCircle);
-        for (int i = 0; i < nbCircles; i++)
+        for (int i = 0; i < nbCircles-1; i++)
         {
             //transparency(circles[i]);
             growAndBack(circles[i]);
@@ -75,7 +77,8 @@ public class oTuyau : MonoBehaviour
     {
         if (subject.transform.localScale.x < 1.1f)
         {
-            subject.transform.localScale += new Vector3(0.01f, 0.01f, 0);
+            subject.transform.localScale += new Vector3(vitesseEvol, vitesseEvol, 0);
+
         }
         else
         {
@@ -86,7 +89,7 @@ public class oTuyau : MonoBehaviour
     void transparency(GameObject subject)
     {
         float size = subject.transform.localScale.x;
-        float trans = ( size) / 1.1f;
+        float trans = (255* size) / 1.1f;
         subject.GetComponent<SpriteRenderer>().color += new Color(0,0,0, trans);
     }
 }
