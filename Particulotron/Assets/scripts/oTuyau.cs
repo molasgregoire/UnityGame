@@ -8,13 +8,13 @@ public class oTuyau : MonoBehaviour
     //public GameObject neonTest;
 
     public List<GameObject> circles;
-    public int nbCircles = 9;
+    public int nbCircles = 5;
     public float vitesseEvol = 0.005f;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        
+
         /*
         backCircle = new GameObject();
         backCircle.AddComponent<SpriteRenderer>();
@@ -35,6 +35,7 @@ public class oTuyau : MonoBehaviour
         moveCircle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circle") as Sprite;
         moveCircle.transform.localScale = new Vector3(0.1f, 0.1f, 0);*/
 
+        circles = new List<GameObject>();
         float dist = 1/ (nbCircles-1.0f);
         for( int i = 1; i < nbCircles ; i++ )
         {
@@ -61,10 +62,10 @@ public class oTuyau : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         // growAndBack(moveCircle);
-        for (int i = 0; i < nbCircles-1; i++)
+        for (int i = 0; i < circles.Count; i++)
         {
             //transparency(circles[i]);
             growAndBack(circles[i]);
@@ -73,16 +74,17 @@ public class oTuyau : MonoBehaviour
         }
     }
 
-    void growAndBack( GameObject subject )
+   public void growAndBack( GameObject subject )
     {
         if (subject.transform.localScale.x < 1.1f)
         {
+            
             subject.transform.localScale += new Vector3(vitesseEvol, vitesseEvol, 0);
 
         }
         else
         {
-            subject.transform.localScale = new Vector3(0.1f, 0.1f, 0);
+            subject.transform.localScale = new Vector3(0.001f, 0.001f, 0);
         }
     }
 

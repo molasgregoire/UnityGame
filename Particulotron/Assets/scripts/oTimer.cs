@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class oTimer : MonoBehaviour
 {
-    public float tps;
+    public static float tps=new float();
 
     // Start is called before the first frame update
     void Start()

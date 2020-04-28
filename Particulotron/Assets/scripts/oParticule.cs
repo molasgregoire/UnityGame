@@ -23,9 +23,10 @@ public class oParticule : MonoBehaviour
 
     public float vitesse = 0.1f;
 
+    
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
 
         particule = new GameObject();
@@ -35,26 +36,26 @@ public class oParticule : MonoBehaviour
         ratio = 1 / particule.GetComponent<SpriteRenderer>().size.x;
         ratio *= 0.5f;
         particule.transform.localScale = new Vector3(ratio, ratio, ratio);
-        /*
+        
         cercle = new GameObject();
         cercle.AddComponent<SpriteRenderer>();
-        cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circle") as Sprite;
+        cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circleThin") as Sprite;
 
-        cercle.transform.localScale = new Vector3(2, 2, 0);*/
+        cercle.transform.localScale = new Vector3(rayon*0.42f, rayon*0.42f, 0);
 
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {        
             deplacementCirculaire();
             posCirc();
-        
-        
-        
-            //deplacement();
-        
-        
+
+
+        cercle.transform.localScale = new Vector3(rayon * 0.42f, rayon * 0.42f, 0);
+        //deplacement();
+
+
 
     }
 
