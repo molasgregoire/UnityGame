@@ -8,13 +8,17 @@ public class oEnv : MonoBehaviour
     public oParticule Particule;
     public static oTimer Timer;
     public oTuyau Tuyau;
+    public oJauge Jauge;
 
     public GameObject Main;
 
     public oObstacle test;
     public List<oObstacle> listObs = new List<oObstacle>();
+    public List<oObstacle> listObsSuperpos = new List<oObstacle>();
 
     public int compteur = 0;
+    public float maxTime = 60f;
+    public float startTime = 3f;
 
     // Start is called before the first frame update
     public void Start()
@@ -24,8 +28,11 @@ public class oEnv : MonoBehaviour
         Particule = Main.AddComponent<oParticule>();
         Timer = Main.AddComponent<oTimer>();
         Tuyau = Main.AddComponent<oTuyau>();
+        Jauge = Main.AddComponent<oJauge>();
 
-        randomGeneration( 3.0f, 60.0f, 1.0f);
+        randomGeneration( startTime, maxTime, 0.4f);
+        Jauge.max = maxTime;
+        Jauge.current = 0f;
 
         /*test = Main.AddComponent<oObstacle>();
         test.alloc(0.5f,3f,0f,2f,"football");*/
@@ -69,6 +76,8 @@ public class oEnv : MonoBehaviour
         demarrageObstacles();
         particleGetHit();
         destroyObstacle();
+
+
     }
 
     public void demarrageObstacles()
@@ -84,40 +93,32 @@ public class oEnv : MonoBehaviour
 
     public void particleGetHit()
     {
-        /*
-        if (test.started && test.normalizeSized() > 0.95f)
+        /* foreach( oObstacle obst in listObs )
+         {
+             if (obst.started && obst.normalizeSized() > 0.95f)
+             {
+                 float calcul = Mathf.Pow(Particule.x - obst.obs.transform.position.x, 2) + Mathf.Pow(Particule.y - obst.obs.transform.position.y, 2) - Mathf.Pow(obst.finalRayon * obst.ratio, 2);
+                 if (calcul < 0 && !obst.hit)
+                 {
+                     //print("BOOM");
+                     obst.hit = true;
+                     compteur += 1;
+                 }
+             }
+         }*/
+        overlaping();
+        foreach (oObstacle obst in listObsSuperpos)
         {
-            float calcul = Mathf.Pow(Particule.x - test.obs.transform.position.x, 2) + Mathf.Pow(Particule.y - test.obs.transform.position.y, 2) - Mathf.Pow(test.finalRayon*test.ratio, 2);
-            if( calcul < 0 )
+            if( obst.normalizeSized() > 0.95f && !obst.hit)
             {
-                print("BOOM");
-            }
-        }*/
-
-        foreach( oObstacle obst in listObs )
-        {
-            if (obst.started && obst.normalizeSized() > 0.95f)
-            {
-                float calcul = Mathf.Pow(Particule.x - obst.obs.transform.position.x, 2) + Mathf.Pow(Particule.y - obst.obs.transform.position.y, 2) - Mathf.Pow(obst.finalRayon * obst.ratio, 2);
-                if (calcul < 0 && !obst.hit)
-                {
-                    //print("BOOM");
-                    obst.hit = true;
-                    compteur += 1;
-                }
+                obst.hit = true;
+                compteur += 1;
             }
         }
     }
 
     public void destroyObstacle()
     {
-        /*
-        if ( test.normalizeSized() > 1.0f)
-        {
-            Destroy(test.obs);
-            test = null;
-        }*/
-        //foreach (oObstacle obst in listObs)
 
         List<int> listIndex = new List<int>();
         for (int i = 0; i < listObs.Count; i++)
@@ -146,8 +147,38 @@ public class oEnv : MonoBehaviour
         for( int i=0 ;i<nb ; i++)
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
-            tmp.alloc(startTime + i + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
+            tmp.alloc(startTime + i*interval + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
             listObs.Add(tmp);
+        }
+    }
+
+    void OnGUI()
+    {
+        if ( oTimer.tps < maxTime )
+        {
+            float score = oTimer.tps - (float)compteur - startTime;
+            GUI.Label(new Rect(15, 300, 2500, 1000), "score = " + score);
+            Jauge.current = score;
+        }
+        /*overlaping();
+        GUI.Label(new Rect(15, 300, 2500, 1000), "Over Lap : " + listObsSuperpos.Count);*/
+    }
+
+    public void overlaping()
+    {
+        listObsSuperpos = new List<oObstacle>();
+        List<Collider2D> tmp = new List<Collider2D>();
+        Particule.particule.GetComponent<CircleCollider2D>().OverlapCollider(new ContactFilter2D(), tmp);
+
+        foreach( Collider2D collider in tmp )
+        {
+            foreach (oObstacle obstacle in listObs)
+            {
+                if (collider.gameObject == obstacle.obs)
+                {
+                    listObsSuperpos.Add(obstacle);
+                }
+            }
         }
     }
 }
