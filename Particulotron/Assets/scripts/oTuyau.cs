@@ -8,13 +8,13 @@ public class oTuyau : MonoBehaviour
     //public GameObject neonTest;
 
     public List<GameObject> circles;
-    public int nbCircles = 9;
-    public float vitesseEvol = 0.005f;
+    public int nbCircles = 5;
+    public float vitesseEvol = 4.0f;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        
+
         /*
         backCircle = new GameObject();
         backCircle.AddComponent<SpriteRenderer>();
@@ -35,19 +35,19 @@ public class oTuyau : MonoBehaviour
         moveCircle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circle") as Sprite;
         moveCircle.transform.localScale = new Vector3(0.1f, 0.1f, 0);*/
 
-        float dist = 1/ (nbCircles-1.0f);
+        circles = new List<GameObject>();
+        float dist = 10f*1f/ (nbCircles-1.0f);
         for( int i = 1; i < nbCircles ; i++ )
         {
             GameObject tmp = new GameObject();
             
             tmp.AddComponent<SpriteRenderer>();
-            tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
+            //tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
+            tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
+            
             tmp.transform.localScale = new Vector3(i*dist,i*dist , 0);
             tmp.transform.position = new Vector3(0, 0, 0.5f);
-            if (i % 2 == 0)
-            {
-                tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);
-            }
+            //if (i % 2 == 0)            {                tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);            }
             //else { tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f); }
             circles.Add(tmp);
             
@@ -61,10 +61,10 @@ public class oTuyau : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         // growAndBack(moveCircle);
-        for (int i = 0; i < nbCircles-1; i++)
+        for (int i = 0; i < circles.Count; i++)
         {
             //transparency(circles[i]);
             growAndBack(circles[i]);
@@ -73,16 +73,17 @@ public class oTuyau : MonoBehaviour
         }
     }
 
-    void growAndBack( GameObject subject )
+   public void growAndBack( GameObject subject )
     {
-        if (subject.transform.localScale.x < 1.1f)
+        if (subject.transform.localScale.x < 10.1f)
         {
-            subject.transform.localScale += new Vector3(vitesseEvol, vitesseEvol, 0);
+            
+            subject.transform.localScale += new Vector3(vitesseEvol* Time.deltaTime, vitesseEvol * Time.deltaTime, 0);
 
         }
         else
         {
-            subject.transform.localScale = new Vector3(0.1f, 0.1f, 0);
+            subject.transform.localScale = new Vector3(0.001f, 0.001f, 0);
         }
     }
 
