@@ -10,13 +10,13 @@ public class oParticule : MonoBehaviour
     public float x = 0;
     public float y = 0;
 
-    public float rayon = 3.0f;
-    public float rayonMax = 4.0f;
-    public float rayonMin = 1.0f;
-    public float vitesseRayon = 0.1f;
+    public float rayon = 1.0f;
+    public float rayonMax = 2.0f;
+    public float rayonMin = 0.5f;
+    public float vitesseRayon = 3.0f;
 
     public float angle = 0.0f;
-    public float vitesseAngle = 0.1f;
+    public float vitesseAngle = 3.0f;
 
     public GameObject particule;
     public GameObject cercle;
@@ -104,21 +104,21 @@ public class oParticule : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            angle -= vitesseAngle/rayon;
+            angle -= Time.deltaTime*vitesseAngle / rayon;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            angle += vitesseAngle/rayon;
+            angle += Time.deltaTime*vitesseAngle / rayon;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
             if( rayon < rayonMax )
-            rayon += vitesseRayon;
+            rayon += Time.deltaTime*vitesseRayon;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
             if( rayon > rayonMin )
-            rayon -= vitesseRayon;
+            rayon -= Time.deltaTime*vitesseRayon;
         }
 
         //ajustements

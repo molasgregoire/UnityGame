@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using System;
+using System;
 
 public class oEnv : MonoBehaviour
 {
@@ -31,8 +31,7 @@ public class oEnv : MonoBehaviour
         Jauge = Main.AddComponent<oJauge>();
 
         randomGeneration( startTime, maxTime, 0.4f);
-        randomGeneration( startTime, maxTime, 0.4f);
-        randomGeneration( startTime, maxTime, 0.4f);
+        
 
         Jauge.max = maxTime;
         Jauge.current = 0f;
@@ -127,7 +126,15 @@ public class oEnv : MonoBehaviour
         for( int i=0 ;i<nb ; i++)
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
-            tmp.alloc(startTime + i*interval + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
+
+            float tmpR = UnityEngine.Random.Range(0.5f, 2.5f);
+            float tmpA = UnityEngine.Random.Range(0f, 3.141f);
+
+            float tmpX = tmpR * (float)(Math.Cos(tmpA));
+            float tmpY = tmpR * (float)(Math.Sin(tmpA));
+
+            //tmp.alloc(startTime + i*interval + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
+            tmp.alloc(startTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 2f + UnityEngine.Random.Range(-0.2f, 0.2f), "football");
             listObs.Add(tmp);
         }
     }
@@ -168,7 +175,7 @@ public class oEnv : MonoBehaviour
         ecran.AddComponent<SpriteRenderer>();
         ecran.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran") as Sprite;
         ecran.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        ecran.transform.position = new Vector3(0.0f, 0.0f, 2.0f);
+        ecran.transform.position = new Vector3(0.0f, -0.2f, 2.0f);
 
         GameObject bar1 = new GameObject();
         bar1.AddComponent<SpriteRenderer>();
@@ -186,6 +193,6 @@ public class oEnv : MonoBehaviour
         lignes.AddComponent<SpriteRenderer>();
         lignes.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("lignes") as Sprite;
         lignes.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        lignes.transform.position = new Vector3(0.0f, 0.0f, 1.9f);
+        lignes.transform.position = new Vector3(0.0f, -0.364f, 1.9f);
     }
 }

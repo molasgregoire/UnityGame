@@ -36,8 +36,8 @@ public class oTuyau : MonoBehaviour
         moveCircle.transform.localScale = new Vector3(0.1f, 0.1f, 0);*/
 
         circles = new List<GameObject>();
-        float dist = 10f*1f/ (nbCircles-1.0f);
-        for( int i = 1; i < nbCircles ; i++ )
+        float dist = 5f*1f/ (nbCircles-1.0f);
+        for( int i = 0; i < nbCircles-1 ; i++ )
         {
             GameObject tmp = new GameObject();
             
@@ -75,7 +75,7 @@ public class oTuyau : MonoBehaviour
 
    public void growAndBack( GameObject subject )
     {
-        if (subject.transform.localScale.x < 10.1f)
+        if (subject.transform.localScale.x < 5.1f)
         {
             
             subject.transform.localScale += new Vector3(vitesseEvol* Time.deltaTime, vitesseEvol * Time.deltaTime, 0);
