@@ -46,7 +46,7 @@ public class oParticule : MonoBehaviour
         cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circleThin") as Sprite;
 
         cercle.transform.localScale = new Vector3(rayon*0.42f, rayon*0.42f, 0);
-
+        cercle.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
     }
 
     // Update is called once per frame

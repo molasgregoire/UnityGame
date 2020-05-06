@@ -8,11 +8,11 @@ public class oJauge : MonoBehaviour
     public GameObject jauge;
     public GameObject mask;
 
-    public float height = 1.5f;
+    public float height = 1.286f;
     public float min = 0f;
     public float max = 1f;
     public float current = 0.5f;
-    public float vitesse = 0.1f;
+    public float vitesse = 1f;
     
     
     // Start is called before the first frame update
@@ -21,8 +21,8 @@ public class oJauge : MonoBehaviour
         jauge = new GameObject();
         jauge.AddComponent<SpriteRenderer>();
         jauge.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("rainbow") as Sprite;
-        jauge.transform.localScale = new Vector3(height, 1f, 0);
-        jauge.transform.position = new Vector3(10, 3, 0);
+        jauge.transform.localScale = new Vector3(height, 0.448f, 0);
+        jauge.transform.position = new Vector3(3.3f, 3.08f, 1);
         jauge.transform.rotation = Quaternion.Euler(0,0,90f);
         jauge.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         /* float ratio;
@@ -33,8 +33,8 @@ public class oJauge : MonoBehaviour
         mask = new GameObject();
         mask.AddComponent<SpriteMask>();
         mask.GetComponent<SpriteMask>().sprite = Resources.Load<Sprite>("rainbow") as Sprite;
-        mask.transform.localScale = new Vector3(height, 1f, 0);
-        mask.transform.position = new Vector3(10, 3, 0);
+        mask.transform.localScale = new Vector3(height, 0.448f, 0);
+        mask.transform.position = new Vector3(3.3f, 3.08f, 1);
         mask.transform.rotation = Quaternion.Euler(0, 0, 90f);
 
     }
@@ -49,7 +49,7 @@ public class oJauge : MonoBehaviour
     {
         float quotient = height * (1- current / (max - min));
         quotient -= mask.transform.localScale.x;
-        mask.transform.localScale += new Vector3(quotient*vitesse, 0, 0);
+        mask.transform.localScale += new Vector3(quotient*vitesse* Time.deltaTime, 0, 0);
         /*
         if( quotient > 0)
         {

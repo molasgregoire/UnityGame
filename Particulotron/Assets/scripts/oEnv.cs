@@ -31,33 +31,13 @@ public class oEnv : MonoBehaviour
         Jauge = Main.AddComponent<oJauge>();
 
         randomGeneration( startTime, maxTime, 0.4f);
+        randomGeneration( startTime, maxTime, 0.4f);
+        randomGeneration( startTime, maxTime, 0.4f);
+
         Jauge.max = maxTime;
         Jauge.current = 0f;
 
-        /*test = Main.AddComponent<oObstacle>();
-        test.alloc(0.5f,3f,0f,2f,"football");*/
-        /*
-        oObstacle test1 = Main.AddComponent<oObstacle>();
-        test1.alloc(0.5f, 3f, 0f, 2f, "football");
-        oObstacle test2 = Main.AddComponent<oObstacle>();
-        test2.alloc(1.5f, -3f, 0f, 2f, "football");
-        oObstacle test3 = Main.AddComponent<oObstacle>();
-        test3.alloc(2.5f, 0f, 3f, 2f, "football");
-        oObstacle test4 = Main.AddComponent<oObstacle>();
-        test4.alloc(3.5f, 0f, -3f, 2f, "football");
-
-        listObs.Add(test1);
-        listObs.Add(test2);
-        listObs.Add(test3);
-        listObs.Add(test4);*/
-        /*
-        print(listObs.Count);
-        destroyObstacle();
-        print(listObs.Count);
-        */
-        //how to random flaot
-        //print(Random.Range(0.0f, 1.0f));
-
+        designWow();
     }
 
     // Update is called once per frame
@@ -180,5 +160,32 @@ public class oEnv : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void designWow()
+    {
+        GameObject ecran = new GameObject();
+        ecran.AddComponent<SpriteRenderer>();
+        ecran.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran") as Sprite;
+        ecran.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+        ecran.transform.position = new Vector3(0.0f, 0.0f, 2.0f);
+
+        GameObject bar1 = new GameObject();
+        bar1.AddComponent<SpriteRenderer>();
+        bar1.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Jauge_droite_avec") as Sprite;
+        bar1.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+        bar1.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+
+        GameObject bar2 = new GameObject();
+        bar2.AddComponent<SpriteRenderer>();
+        bar2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Jauge_haut") as Sprite;
+        bar2.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+        bar2.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+
+        GameObject lignes = new GameObject();
+        lignes.AddComponent<SpriteRenderer>();
+        lignes.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("lignes") as Sprite;
+        lignes.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+        lignes.transform.position = new Vector3(0.0f, 0.0f, 1.9f);
     }
 }

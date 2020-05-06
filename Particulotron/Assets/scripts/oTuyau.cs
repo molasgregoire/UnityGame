@@ -9,7 +9,7 @@ public class oTuyau : MonoBehaviour
 
     public List<GameObject> circles;
     public int nbCircles = 5;
-    public float vitesseEvol = 0.05f;
+    public float vitesseEvol = 4.0f;
 
     // Start is called before the first frame update
     public void Start()
@@ -42,14 +42,12 @@ public class oTuyau : MonoBehaviour
             GameObject tmp = new GameObject();
             
             tmp.AddComponent<SpriteRenderer>();
-            tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
+            //tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
+            tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
             
             tmp.transform.localScale = new Vector3(i*dist,i*dist , 0);
             tmp.transform.position = new Vector3(0, 0, 0.5f);
-            if (i % 2 == 0)
-            {
-                tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);
-            }
+            //if (i % 2 == 0)            {                tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);            }
             //else { tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f); }
             circles.Add(tmp);
             
@@ -80,7 +78,7 @@ public class oTuyau : MonoBehaviour
         if (subject.transform.localScale.x < 10.1f)
         {
             
-            subject.transform.localScale += new Vector3(vitesseEvol , vitesseEvol , 0);
+            subject.transform.localScale += new Vector3(vitesseEvol* Time.deltaTime, vitesseEvol * Time.deltaTime, 0);
 
         }
         else

@@ -20,7 +20,8 @@ public class oObstacle : MonoBehaviour
 
     public float ratio=0f;
 
-    public float vitesse = 0.5f;
+    public float vitesse = 1.0f;
+    public float dist = 1f;
 
     // Start is called before the first frame update
     public void Start()
@@ -29,9 +30,9 @@ public class oObstacle : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update() { }
+    public void Update() //{ }
 
-    void OnGUI()
+    //void OnGUI()
     {
         /*
         if (started && obs.transform.localScale.x < 0.25f)
@@ -47,7 +48,8 @@ public class oObstacle : MonoBehaviour
             /*float ratio;
             ratio = 1 / obs.GetComponent<SpriteRenderer>().size.x;
             ratio *= 0.5f;*/
-            obs.transform.localScale = new Vector3(tmp*ratio, tmp*ratio, 0);
+            //obs.transform.localScale += new Vector3(tmp*ratio, tmp*ratio, 0);
+            obs.transform.localScale += new Vector3(tmp, tmp, 0);
             linPos();
         }
         colorMeRed();
@@ -56,14 +58,18 @@ public class oObstacle : MonoBehaviour
     public float linScale( float time )
     {
         // div maxTime
-        return (time - apparitionTime) * finalRayon*vitesse;
+        float maxTime = dist / vitesse;
+        return Time.deltaTime * finalRayon /  maxTime;
     }
 
     public void linPos()
     {
-        float newX = (oTimer.tps - apparitionTime) * finalX * vitesse; // / 3f;
-        float newY = (oTimer.tps - apparitionTime) * finalY * vitesse; // / 3f;
-        obs.transform.position = new Vector3(newX, newY, 0);
+        /*float newX = (oTimer.tps - apparitionTime) * finalX * vitesse; // / 3f;
+        float newY = (oTimer.tps - apparitionTime) * finalY * vitesse; // / 3f;*/
+        float maxTime = dist / vitesse;
+        float newX = Time.deltaTime * finalX / maxTime; // / 3f;
+        float newY = Time.deltaTime * finalY / maxTime; // / 3f;
+        obs.transform.position += new Vector3(newX, newY, 0);
 
     }
 
@@ -74,7 +80,7 @@ public class oObstacle : MonoBehaviour
         finalY = fy;
         finalRayon = fr;
         image=im;
-        
+        dist = ( new Vector2(fx,fy) ).magnitude ;
     }
 
     public void demarrage()
