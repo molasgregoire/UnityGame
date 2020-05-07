@@ -14,8 +14,8 @@ public class oMusic : MonoBehaviour
         channel1 = radio.AddComponent<AudioSource>();
         //radio.GetComponent<AudioSource>().loop = true;
         //radio.GetComponent<AudioSource>().PlayOneShot( (AudioClip)Resources.Load("musicTest") ) ;
-        channel1.loop = true;
-        channel1.PlayOneShot((AudioClip)Resources.Load("musicTest"));
+        //channel1.loop = true;
+        //channel1.PlayOneShot((AudioClip)Resources.Load("musicTest"));
     }
 
     // Update is called once per frame
@@ -23,4 +23,10 @@ public class oMusic : MonoBehaviour
     {
         
     }
+
+    public void playMe( string titre)
+    {
+        channel1.PlayOneShot((AudioClip)Resources.Load(titre));
+    }
 }
+

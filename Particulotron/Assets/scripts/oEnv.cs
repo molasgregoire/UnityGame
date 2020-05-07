@@ -9,6 +9,7 @@ public class oEnv : MonoBehaviour
     public static oTimer Timer;
     public oTuyau Tuyau;
     public oJauge Jauge;
+    public oMusic Music;
 
     public GameObject Main;
 
@@ -29,6 +30,7 @@ public class oEnv : MonoBehaviour
         Timer = Main.AddComponent<oTimer>();
         Tuyau = Main.AddComponent<oTuyau>();
         Jauge = Main.AddComponent<oJauge>();
+        Music = Main.AddComponent<oMusic>();
 
         randomGeneration( startTime, maxTime, 0.4f);
         
@@ -92,6 +94,7 @@ public class oEnv : MonoBehaviour
             {
                 obst.hit = true;
                 compteur += 1;
+                Music.playMe("hit1");
             }
         }
     }
