@@ -12,7 +12,7 @@ public class oTuyau : MonoBehaviour
     public GameObject activated;
 
     public int nbCircles = 5;
-    public float vitesseEvol = 4.0f;
+    public float vitesseEvol = 2.0f;
 
     // Start is called before the first frame update
     public void Start()
