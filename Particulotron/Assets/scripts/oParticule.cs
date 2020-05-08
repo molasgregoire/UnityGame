@@ -31,7 +31,7 @@ public class oParticule : MonoBehaviour
 
         particule = new GameObject();
         particule.AddComponent<SpriteRenderer>();
-        particule.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("red-point") as Sprite;
+        particule.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("rond") as Sprite;
         float ratio;
         ratio = 1 / particule.GetComponent<SpriteRenderer>().size.x;
         ratio *= 0.5f;
@@ -43,10 +43,10 @@ public class oParticule : MonoBehaviour
         
         cercle = new GameObject();
         cercle.AddComponent<SpriteRenderer>();
-        cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circleThin") as Sprite;
+        cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("whiteCircle") as Sprite;
 
         cercle.transform.localScale = new Vector3(rayon*0.42f, rayon*0.42f, 0);
-        cercle.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        //cercle.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
     }
 
     // Update is called once per frame

@@ -42,7 +42,7 @@ public class oObstacle : MonoBehaviour
         
         
 
-        if (started && obs.transform.localScale.x < finalRayon*ratio)
+        if (started && obs.transform.localScale.x < finalRayon)//*ratio)
         {
             float tmp = linScale(oTimer.tps);
             /*float ratio;
@@ -51,15 +51,22 @@ public class oObstacle : MonoBehaviour
             //obs.transform.localScale += new Vector3(tmp*ratio, tmp*ratio, 0);
             obs.transform.localScale += new Vector3(tmp, tmp, 0);
             linPos();
+
+            //color transparency
+
+            Color tmpColor = obs.GetComponent<SpriteRenderer>().color;
+            tmpColor.a = normalizeSized();
+            obs.GetComponent<SpriteRenderer>().color = tmpColor;
         }
         colorMeRed();
+        
     }
 
     public float linScale( float time )
     {
         // div maxTime
         float maxTime = dist / vitesse;
-        return Time.deltaTime * finalRayon /  maxTime;
+        return Time.deltaTime * finalRayon /  maxTime ;
     }
 
     public void linPos()
@@ -92,10 +99,10 @@ public class oObstacle : MonoBehaviour
         obs.AddComponent<SpriteRenderer>();
         obs.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(image) as Sprite;
         obs.transform.localScale = new Vector3( 0.0f,  0.0f, 0);
-        obs.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, 0.5f);
+        obs.GetComponent<SpriteRenderer>().color = new Color(1f,0f,0.73f,0f);
 
         obs.AddComponent<CircleCollider2D>();
-        obs.GetComponent<CircleCollider2D>().radius=0.5f;
+        obs.GetComponent<CircleCollider2D>().radius=0.43f;
 
         ratio = 1 / obs.GetComponent<SpriteRenderer>().size.x;
         ratio *= 0.5f;
@@ -104,7 +111,7 @@ public class oObstacle : MonoBehaviour
 
     public float normalizeSized()
     {
-        return obs.transform.localScale.x / (ratio * finalRayon);
+        return obs.transform.localScale.x / finalRayon;//(ratio * finalRayon);
     }
 
     public void colorMeRed()

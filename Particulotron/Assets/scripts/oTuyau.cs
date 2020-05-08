@@ -8,6 +8,9 @@ public class oTuyau : MonoBehaviour
     //public GameObject neonTest;
 
     public List<GameObject> circles;
+    public GameObject newest;
+    public GameObject activated;
+
     public int nbCircles = 5;
     public float vitesseEvol = 4.0f;
 
@@ -44,7 +47,8 @@ public class oTuyau : MonoBehaviour
             tmp.AddComponent<SpriteRenderer>();
             //tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
             tmp.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
-            
+            //tmp.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+
             tmp.transform.localScale = new Vector3(i*dist,i*dist , 0);
             tmp.transform.position = new Vector3(0, 0, 0.5f);
             //if (i % 2 == 0)            {                tmp.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 0.8f);            }
@@ -84,6 +88,11 @@ public class oTuyau : MonoBehaviour
         else
         {
             subject.transform.localScale = new Vector3(0.001f, 0.001f, 0);
+            newest = subject;
+            //refresh color
+            newest.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f,1f);
+            //reset activated
+            if( newest == activated) { activated = null;  }
         }
     }
 
@@ -92,5 +101,11 @@ public class oTuyau : MonoBehaviour
         float size = subject.transform.localScale.x;
         float trans = (255* size) / 1.1f;
         subject.GetComponent<SpriteRenderer>().color += new Color(0,0,0, trans);
+    }
+
+    public void activation()
+    {
+        activated = newest;
+        activated.GetComponent<SpriteRenderer>().color = new Color(1f, 0, 0,1f);
     }
 }

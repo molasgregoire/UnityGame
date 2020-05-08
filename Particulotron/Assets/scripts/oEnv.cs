@@ -33,6 +33,7 @@ public class oEnv : MonoBehaviour
         Music = Main.AddComponent<oMusic>();
 
         randomGeneration( startTime, maxTime, 0.4f);
+        randomGeneration( startTime, maxTime, 0.4f);
         
 
         Jauge.max = maxTime;
@@ -58,7 +59,7 @@ public class oEnv : MonoBehaviour
         particleGetHit();
         destroyObstacle();
 
-
+        tmpFunction();
     }
 
     public void demarrageObstacles()
@@ -94,7 +95,7 @@ public class oEnv : MonoBehaviour
             {
                 obst.hit = true;
                 compteur += 1;
-                Music.playMe("hit1");
+                Music.playMe("hit");
             }
         }
     }
@@ -130,14 +131,14 @@ public class oEnv : MonoBehaviour
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
 
-            float tmpR = UnityEngine.Random.Range(0.5f, 2.5f);
-            float tmpA = UnityEngine.Random.Range(0f, 3.141f);
+            float tmpR = UnityEngine.Random.Range(0.5f, 2f);
+            float tmpA = UnityEngine.Random.Range(0f, 3.141f*2f);
 
             float tmpX = tmpR * (float)(Math.Cos(tmpA));
             float tmpY = tmpR * (float)(Math.Sin(tmpA));
 
             //tmp.alloc(startTime + i*interval + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
-            tmp.alloc(startTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 2f + UnityEngine.Random.Range(-0.2f, 0.2f), "football");
+            tmp.alloc(startTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
             listObs.Add(tmp);
         }
     }
@@ -198,4 +199,13 @@ public class oEnv : MonoBehaviour
         lignes.transform.localScale = new Vector3(0.5f, 0.5f, 0);
         lignes.transform.position = new Vector3(0.0f, -0.364f, 1.9f);
     }
+
+    void tmpFunction()
+    {
+        if( oTimer.tps > 10f && Tuyau.activated == null )
+        {
+            Tuyau.activation();
+        }
+    }
+
 }
