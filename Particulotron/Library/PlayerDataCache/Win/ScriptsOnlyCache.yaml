@@ -166,7 +166,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 16382}
     - Class: 114
-      Script: {instanceID: 16878}
+      Script: {instanceID: 16796}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1221,4 +1221,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Crafting.unity
   - Assets/Scenes/SampleRace.unity
-  playerPath: "C:/Users/Gr\xE9goire/Documents/gameSHS/Particulotron.exe"
+  playerPath: "C:/Users/Gr\xE9goire/Documents/gameSHS2/Particulotron.exe"

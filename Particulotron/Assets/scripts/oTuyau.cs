@@ -108,7 +108,12 @@ public class oTuyau : MonoBehaviour
     {
         float trans = subject.transform.localScale.x/5f;
         Color tmpCol = subject.GetComponent<SpriteRenderer>().color;
-        tmpCol.a = trans;
+
+        if( trans < 0.2 )
+        {   tmpCol.a = 0f;    }
+        else { tmpCol.a = trans; }
+
+        
         subject.GetComponent<SpriteRenderer>().color = tmpCol;
     }
 

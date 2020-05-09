@@ -198,7 +198,11 @@ public class oEnv : MonoBehaviour
         if( Tuyau.activatedOnEdge()  && Input.GetKeyDown(KeyCode.Space) )
         {
             score += 3;
-            print("nice");
+            Music.playMe("boost");
+            /*foreach( GameObject g in listAimants)
+            {
+                g.GetComponent<SpriteRenderer>().color = Color.green;
+            }*/
         }
     }
 
@@ -227,12 +231,26 @@ public class oEnv : MonoBehaviour
         lignes.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("lignes") as Sprite;
         lignes.transform.localScale = new Vector3(0.5f, 0.5f, 0);
         lignes.transform.position = new Vector3(0.0f, -0.364f, 1.9f);
+        lignes.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
 
         GameObject bordure = new GameObject();
         bordure.AddComponent<SpriteRenderer>();
         bordure.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
         bordure.transform.localScale = new Vector3(5f, 5f, 0);
         bordure.transform.position = new Vector3(0.0f, 0.0f, -1f);
+
+        GameObject bordure2 = new GameObject();
+        bordure2.AddComponent<SpriteRenderer>();
+        bordure2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
+        bordure2.transform.localScale = new Vector3(1f, 1f, 0);
+        bordure2.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.2f);
+        //bordure2.transform.position = new Vector3(0.0f, 0.0f, -1f);
+
+        //mask
+        GameObject mask = new GameObject();
+        mask.AddComponent<SpriteMask>();
+        mask.GetComponent<SpriteMask>().sprite = Resources.Load<Sprite>("Particule_blanche") as Sprite;
+        mask.GetComponent<SpriteMask>().alphaCutoff = 0.3f;
     }
 
     public void aimants()

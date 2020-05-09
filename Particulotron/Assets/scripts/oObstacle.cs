@@ -53,13 +53,20 @@ public class oObstacle : MonoBehaviour
             linPos();
 
             //color transparency
-
-            Color tmpColor = obs.GetComponent<SpriteRenderer>().color;
-            tmpColor.a = normalizeSized();
-            obs.GetComponent<SpriteRenderer>().color = tmpColor;
+            transparency();
+            
         }
         colorMeRed();
         
+    }
+
+    public void transparency()
+    {
+        Color tmpColor = obs.GetComponent<SpriteRenderer>().color;
+        float calcul = obs.transform.position.x * obs.transform.position.x + obs.transform.position.y * obs.transform.position.y;
+        if (calcul < 0.125f) { tmpColor.a = 0f; }
+        else { tmpColor.a = normalizeSized(); }
+        obs.GetComponent<SpriteRenderer>().color = tmpColor;
     }
 
     public float linScale( float time )
