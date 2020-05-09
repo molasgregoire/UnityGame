@@ -16,9 +16,14 @@ public class Inventory : MonoBehaviour
   private void Start() {
     instance = this;
 
-
+    //Initiate Elementary particles
     AddItem(1);
     AddItem(2);
+    AddItem(3);
+    AddItem(4);
+    AddItem(5);
+    AddItem(6);
+
     updatePanelSlots();
     updateCaftingSlots();
     updateParticle();
@@ -62,7 +67,13 @@ public class Inventory : MonoBehaviour
     int idToCraft = GetIdCraft();
     Debug.Log("CraftId : " + idToCraft.ToString());
     if (idToCraft != 0) {
-      this.particle = itemDatabase.GetBaryon(idToCraft);
+      Item baryon = itemDatabase.GetBaryon(idToCraft);
+      if (baryon != null) {
+        this.particle = baryon;
+      }
+      else {
+        this.particle = itemDatabase.GetBaryon(8);
+      }
     }
     else {
       this.particle = null;
