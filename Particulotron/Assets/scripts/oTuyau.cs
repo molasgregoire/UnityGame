@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.InteropServices;
 
 public class oTuyau : MonoBehaviour
 {
@@ -11,8 +12,11 @@ public class oTuyau : MonoBehaviour
     public GameObject newest;
     public GameObject activated;
 
-    public int nbCircles = 5;
+    public int nbCircles = 7;
     public float vitesseEvol = 2.0f;
+
+    //tableau de tps dapparition pour cercle activable
+    public List<float> listRed = new List<float>();
 
     // Start is called before the first frame update
     public void Start()
@@ -62,6 +66,9 @@ public class oTuyau : MonoBehaviour
         neonTest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonLine") as Sprite;
         neonTest.transform.localScale = new Vector3(0.45f, 0.5f, 1);
         neonTest.transform.position = new Vector3(0, 0, 1);*/
+
+        //ontrie la liste pour avoir une list ordonnée
+        listRed.Sort();
     }
 
     // Update is called once per frame
@@ -70,11 +77,12 @@ public class oTuyau : MonoBehaviour
         // growAndBack(moveCircle);
         for (int i = 0; i < circles.Count; i++)
         {
-            //transparency(circles[i]);
+            transparency(circles[i]);
             growAndBack(circles[i]);
-
-            
         }
+
+        //cercles rouges
+        redOverTime();
     }
 
    public void growAndBack( GameObject subject )
@@ -98,14 +106,32 @@ public class oTuyau : MonoBehaviour
 
     void transparency(GameObject subject)
     {
-        float size = subject.transform.localScale.x;
-        float trans = (255* size) / 1.1f;
-        subject.GetComponent<SpriteRenderer>().color += new Color(0,0,0, trans);
+        float trans = subject.transform.localScale.x/5f;
+        Color tmpCol = subject.GetComponent<SpriteRenderer>().color;
+        tmpCol.a = trans;
+        subject.GetComponent<SpriteRenderer>().color = tmpCol;
     }
 
-    public void activation()
+    public void activation( Color neon)
     {
         activated = newest;
-        activated.GetComponent<SpriteRenderer>().color = new Color(1f, 0, 0,1f);
+        activated.GetComponent<SpriteRenderer>().color =  neon;
+    }
+
+    //run dans update pour activé les cerlces rouges
+    public void redOverTime()
+    {
+        if (oTimer.tps > 1f /*listRed[0]*/ && activated == null)
+        {
+            activation(Color.green);
+            listRed.RemoveAt(0);
+        }
+    }
+
+    //dis si le cercle activé est suffisant grand pour pour etre au niveau de la particule
+    public bool activatedOnEdge()
+    {
+        if(activated == null) { return false; }
+        return (activated.transform.localScale.x / 5f > 0.95f);
     }
 }

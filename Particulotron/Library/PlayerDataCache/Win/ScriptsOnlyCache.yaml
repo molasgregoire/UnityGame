@@ -166,7 +166,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 16382}
     - Class: 114
-      Script: {instanceID: 16804}
+      Script: {instanceID: 16878}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -775,7 +775,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 5dabe4861dcfcd9779d3e0a4a4a7c44c
+      Hash: c6f14c24a363af55c27115e29c3ab65c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oTuyau
@@ -967,7 +967,7 @@ ScriptsOnlyBuild:
     className: CinemachineUniversalPixelPerfect
   - hash:
       serializedVersion: 2
-      Hash: 551c7a2540613d113823107689474511
+      Hash: 02dea6a87135d610196f32017f60b7c0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oEnv
@@ -1221,4 +1221,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Crafting.unity
   - Assets/Scenes/SampleRace.unity
-  playerPath: "C:/Users/Gr\xE9goire/Documents/GitHub/Particulotron.exe"
+  playerPath: "C:/Users/Gr\xE9goire/Documents/gameSHS/Particulotron.exe"

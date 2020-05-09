@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.InteropServices;
 
 public class oEnv : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class oEnv : MonoBehaviour
     public List<oObstacle> listObs = new List<oObstacle>();
     public List<oObstacle> listObsSuperpos = new List<oObstacle>();
 
+    public float score = 0f;
     public int compteur = 0;
     public float maxTime = 60f;
     public float startTime = 3f;
@@ -26,7 +28,7 @@ public class oEnv : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-
+        //ajout des scripts
         Main = new GameObject();
         Particule = Main.AddComponent<oParticule>();
         Timer = Main.AddComponent<oTimer>();
@@ -34,10 +36,11 @@ public class oEnv : MonoBehaviour
         Jauge = Main.AddComponent<oJauge>();
         Music = Main.AddComponent<oMusic>();
 
+        //pose des obstacles
         randomGeneration( startTime, maxTime, 0.4f);
         randomGeneration( startTime, maxTime, 0.4f);
         
-
+        //set de la jauge (en fonction du score max)
         Jauge.max = maxTime;
         Jauge.current = 0f;
 
@@ -57,12 +60,16 @@ public class oEnv : MonoBehaviour
         particleGetHit();
 
         destroyObstacle();*/
-        
+        //gestion du score
+        if (oTimer.tps < maxTime && oTimer.tps > startTime) { score += Time.deltaTime; }
+
+
         demarrageObstacles();
         particleGetHit();
         destroyObstacle();
+        activeCircle();
 
-        // tmpFunction();
+        //tmpFunction();
         tmpAltAimants();
     }
 
@@ -98,7 +105,8 @@ public class oEnv : MonoBehaviour
             if( obst.normalizeSized() > 0.95f && !obst.hit)
             {
                 obst.hit = true;
-                compteur += 1;
+                //compteur += 1;
+                score -= 1;
                 Music.playMe("hit");
             }
         }
@@ -130,6 +138,7 @@ public class oEnv : MonoBehaviour
     //alloc(float at, float fx, float fy, float fr, string im)
     void randomGeneration( float startTime , float totalTime , float interval )
     {
+        //generation obstacles
         int nb = (int)( (totalTime - startTime) / interval);
         for( int i=0 ;i<nb ; i++)
         {
@@ -145,13 +154,20 @@ public class oEnv : MonoBehaviour
             tmp.alloc(startTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
             listObs.Add(tmp);
         }
+        //generation cercle (on va dire 1 par seconde pour le moment)
+        List<float> tmpList = new List<float>();
+        for( int i = (int)startTime +1 ; i < (int)totalTime ; i++)
+        {
+            tmpList.Add((float)i);
+        }
+        Tuyau.listRed = tmpList;
     }
 
     void OnGUI()
     {
-        if ( oTimer.tps < maxTime )
+        if ( oTimer.tps < maxTime && oTimer.tps > startTime)
         {
-            float score = oTimer.tps - (float)compteur - startTime;
+            //float score = oTimer.tps - (float)compteur - startTime;
             GUI.Label(new Rect(15, 300, 2500, 1000), "score = " + score);
             Jauge.current = score;
         }
@@ -174,6 +190,15 @@ public class oEnv : MonoBehaviour
                     listObsSuperpos.Add(obstacle);
                 }
             }
+        }
+    }
+
+    public void activeCircle()
+    {
+        if( Tuyau.activatedOnEdge()  && Input.GetKeyDown(KeyCode.Space) )
+        {
+            score += 3;
+            print("nice");
         }
     }
 
@@ -300,7 +325,7 @@ public class oEnv : MonoBehaviour
     {
         if( oTimer.tps > 10f && Tuyau.activated == null )
         {
-            Tuyau.activation();
+            Tuyau.activation( Color.green);
         }
     }
 
