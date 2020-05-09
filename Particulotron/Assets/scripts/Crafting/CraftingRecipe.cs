@@ -2,13 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public struct ItemAmount
-{
-	public Item Item;
-	[Range(1, 3)]
-	public int Amount;
-}
 
 [CreateAssetMenu]
 public class CraftingRecipe : ScriptableObject

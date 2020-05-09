@@ -6,28 +6,33 @@ using UnityEngine.UI;
 public class UIParticle : MonoBehaviour
 {
     public Item item;
-    public CraftingRecipe craftingRecipe;
-    //private Image spriteImage;
 
   private void Start() {
-    UpdateParticle();
+    UpdateParticle(null);
+  }
+
+  void Update() {
+    Inventory.instance.Craft();
+    //UpdateParticle();
   }
 
   public void Craft() {
-    Inventory.instance.ChangeParticle(craftingRecipe.Craft());
-    UpdateParticle();
-    Debug.Log("Craft showed");
+    //Inventory.instance.Craft();
   }
 
-    public void UpdateParticle() {
+    public void UpdateParticle(Item particle) {
 
+      this.item = particle;
       Image displayImage = transform.Find("Icon").GetComponent<Image>();
+      Text displayText = transform.Find("Name").GetComponent<Text>();
 
-      if (item) {
+      if (this.item != null) {
+        displayText.text = item.title;
         displayImage.sprite = item.icon;
         displayImage.color = Color.white;
       }
       else {
+        displayText.text = "";
         displayImage.sprite = null;
         displayImage.color = Color.clear;
       }

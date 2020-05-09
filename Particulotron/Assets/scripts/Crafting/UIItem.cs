@@ -9,26 +9,27 @@ public class UIItem : MonoBehaviour
     //private Image spriteImage;
 
   private void Start() {
-    UpdateItem();
+    UpdateItem(null);
   }
 
     public void Use() {
-      if(item) {
+      if(this.item != null) {
         item.Use();
         Debug.Log("You clicked on : " + item.title);
       }
     }
 
     public void UseCraft() {
-      if(item) {
+      if(this.item != null) {
         item.UseCraft();
       }
     }
 
-    public void UpdateItem() {
+    public void UpdateItem(Item quark) {
+      this.item = quark;
       Image displayImage = transform.Find("Icon").GetComponent<Image>();
 
-      if (item) {
+      if (this.item != null) {
         displayImage.sprite = item.icon;
         displayImage.color = Color.white;
       }

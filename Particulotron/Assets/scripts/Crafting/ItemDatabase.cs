@@ -1,44 +1,43 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour {
-    public List<Item> items = new List<Item>();
+    public List<Baryon> baryons = new List<Baryon>();
+    public List<ElmParticule> quarks = new List<ElmParticule>();
 
-    void Awake()
-    {
-        BuildItemDatabase();
+    private void Awake() {
+      BuildBaryons();
+      BuildQuarks();
     }
 
-    public Item GetItem(int id)
-    {
-        return items.Find(item => item.id == id);
+    public Item GetBaryon(int id) {
+      return baryons.Find(item => item.id == id);
     }
 
-    public Item GetItem(string title)
-    {
-        return items.Find(item => item.title == title);
+    public Item GetBaryon(string title) {
+      return baryons.Find(item => item.title == title);
     }
 
-    void BuildItemDatabase()
-    {
-        items = new List<Item>()
-        {
-            new ElmParticule(1, "Quark Up", "Quark...",
-            new Dictionary<string, int> {
-                { "charge", 42 },
-                { "acharge qs", -1 }
-            }),
-            new ElmParticule(2, "Quark down", "Another quark",
-            new Dictionary<string, int> {
-              { "charge", 66 },
-              { "acharge qs", 1 }
-            }),
-            new Baryon(3, "Proton", "That thing in the atom",
-            new Dictionary<string, int> {
-              { "charge", 42 },
-              { "acharge qs", 0 }
-            })
-        };
+    public Item GetQuark(int id) {
+      return quarks.Find(item => item.id == id);
+    }
+
+    public Item GetQuark(string title) {
+      return quarks.Find(item => item.title == title);
+    }
+
+    void BuildBaryons() {
+      baryons = new List<Baryon>() {
+                new Baryon(211, "Proton", "lol",1,0,0,0),
+                new Baryon(221, "Neutron", "lol",0,0,0,0),
+      };
+    }
+
+    void BuildQuarks() {
+      quarks = new List<ElmParticule>() {
+                new ElmParticule(1, "Quark Up", "u"),
+                new ElmParticule(2, "Quark Down", "d"),
+      };
     }
 }
