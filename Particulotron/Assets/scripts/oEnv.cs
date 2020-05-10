@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 public class oEnv : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class oEnv : MonoBehaviour
     public float startTime = 3f;
 
     public List<GameObject> listAimants = new List<GameObject>();
+    public float chrono = 0f;
 
     // Start is called before the first frame update
     public void Start()
@@ -37,8 +39,9 @@ public class oEnv : MonoBehaviour
         Music = Main.AddComponent<oMusic>();
 
         //pose des obstacles
+        randomGeneration( startTime, maxTime, 0.1f);
         randomGeneration( startTime, maxTime, 0.4f);
-        randomGeneration( startTime, maxTime, 0.4f);
+        randomGeneration( startTime, maxTime, 1.0f);
         
         //set de la jauge (en fonction du score max)
         Jauge.max = maxTime;
@@ -69,8 +72,11 @@ public class oEnv : MonoBehaviour
         destroyObstacle();
         activeCircle();
 
-        //tmpFunction();
-        tmpAltAimants();
+        if (chrono + 0.5f > oTimer.tps)
+        {
+            greenMagnets();
+        }
+        else { tmpAltAimants(); }
     }
 
     public void demarrageObstacles()
@@ -144,7 +150,7 @@ public class oEnv : MonoBehaviour
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
 
-            float tmpR = UnityEngine.Random.Range(0.5f, 2f);
+            float tmpR = UnityEngine.Random.Range(0.5f, 2.5f);
             float tmpA = UnityEngine.Random.Range(0f, 3.141f*2f);
 
             float tmpX = tmpR * (float)(Math.Cos(tmpA));
@@ -199,10 +205,7 @@ public class oEnv : MonoBehaviour
         {
             score += 3;
             Music.playMe("boost");
-            /*foreach( GameObject g in listAimants)
-            {
-                g.GetComponent<SpriteRenderer>().color = Color.green;
-            }*/
+            chrono = oTimer.tps;
         }
     }
 
@@ -336,6 +339,14 @@ public class oEnv : MonoBehaviour
                 listAimants[2 * i].GetComponent<SpriteRenderer>().color = new Color(0, 0, 1f);
                 listAimants[2 * i+1].GetComponent<SpriteRenderer>().color = new Color(1f, 0, 0);
             }
+        }
+    }
+
+    public void greenMagnets()
+    {
+        foreach( GameObject magnet in listAimants)
+        {
+            magnet.GetComponent<SpriteRenderer>().color = new Color(0, 1f, 0);
         }
     }
 

@@ -137,6 +137,6 @@ public class oTuyau : MonoBehaviour
     public bool activatedOnEdge()
     {
         if(activated == null) { return false; }
-        return (activated.transform.localScale.x / 5f > 0.95f);
+        return (activated.transform.localScale.x / 5f > 0.92f);
     }
 }
