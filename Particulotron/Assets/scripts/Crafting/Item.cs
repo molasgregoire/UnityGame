@@ -9,12 +9,12 @@ public class Item {
     public Sprite icon;
     //public Dictionary<string, int> stats = new Dictionary<string, int>();
 
-    protected Item(int id, string title, string description)
+    protected Item(int id, string title, string description, string sprite)
     {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.icon = Resources.Load<Sprite>("red-point");
+        this.icon = Resources.Load<Sprite>(sprite);
     }
 
     protected Item(Item item)

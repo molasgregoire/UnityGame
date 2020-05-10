@@ -21,7 +21,7 @@ public class Baryon : Item {
   public List<ItemAmount> Materials;
 
     public Baryon(int id, string title, string description, int Q, int S, int B, int C)
-      : base(id, title, description) {
+      : base(id, title, description, "red-point") {
         this.Q = Q;
         this.S = S;
         this.B = B;

@@ -112,12 +112,12 @@ public class ItemDatabase : MonoBehaviour {
 
     void BuildQuarks() {
       quarks = new List<ElmParticule>() {
-                new ElmParticule(1, "Quark Up", "u"),
-                new ElmParticule(2, "Quark Down", "d"),
-                new ElmParticule(3, "Quark Strange", "s"),
-                new ElmParticule(4, "Quark Charm", "c"),
-                new ElmParticule(5, "Quark Bottom", "b"),
-                new ElmParticule(6, "Quark Top", "t")
+                new ElmParticule(1, "Quark Up", "u", "up"),
+                new ElmParticule(2, "Quark Down", "d", "down"),
+                new ElmParticule(3, "Quark Strange", "s", "strange"),
+                new ElmParticule(4, "Quark Charm", "c", "charm"),
+                new ElmParticule(6, "Quark Bottom", "b", "red-point"),
+                new ElmParticule(5, "Quark Top", "t", "red-point")
       };
     }
 }

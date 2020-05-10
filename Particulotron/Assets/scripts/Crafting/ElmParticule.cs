@@ -5,8 +5,8 @@ using UnityEngine;
 //[CreateAssetMenu]
 public class ElmParticule : Item {
 
-    public ElmParticule(int id, string title, string description)
-      : base(id, title, description) {
+    public ElmParticule(int id, string title, string description, string sprite)
+      : base(id, title, description, "Quarks/" + sprite) {
       }
 
     public override void Use()  {
