@@ -55,6 +55,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+Particulotron/Library/*
 # Crashlytics generated file
 crashlytics-build.properties
 
