@@ -21,9 +21,10 @@ public class oParticule : MonoBehaviour
     public GameObject particule;
     public GameObject cercle;
 
-    public float vitesse = 0.1f;
+    public float vitesse = 1f;
 
-    
+    //mettre ici les composant des particules
+    public int magnetisme = 1;
 
     // Use this for initialization
     public void Start()
@@ -39,8 +40,9 @@ public class oParticule : MonoBehaviour
 
         //test collison
         particule.AddComponent<CircleCollider2D>();
-        
-        
+        particule.GetComponent<CircleCollider2D>().radius = 0.43f;
+
+
         cercle = new GameObject();
         cercle.AddComponent<SpriteRenderer>();
         cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("whiteCircle") as Sprite;
@@ -69,7 +71,7 @@ public class oParticule : MonoBehaviour
     {
         float rayonCarre = x * x + y * y;
 
-        if (rayonCarre > 16)
+        if (rayonCarre > 4)
         {
             if (x > 0) { x -= vitesse; } else { x += vitesse; }
             if (y > 0) { y -= vitesse; } else { y += vitesse; }
@@ -79,19 +81,19 @@ public class oParticule : MonoBehaviour
         //{
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            x += vitesse;
+            x += vitesse * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            x -= vitesse;
+            x -= vitesse * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            y += vitesse;
+            y += vitesse * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            y -= vitesse;
+            y -= vitesse * Time.deltaTime;
         }
         // }
 

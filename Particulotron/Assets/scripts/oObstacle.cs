@@ -20,7 +20,7 @@ public class oObstacle : MonoBehaviour
 
     public float ratio=0f;
 
-    public float vitesse = 1.0f;
+    public static float vitesse = 0.5f;
     public float dist = 1f;
 
     // Start is called before the first frame update
@@ -64,8 +64,10 @@ public class oObstacle : MonoBehaviour
     {
         Color tmpColor = obs.GetComponent<SpriteRenderer>().color;
         float calcul = obs.transform.position.x * obs.transform.position.x + obs.transform.position.y * obs.transform.position.y;
-        if (calcul < 0.125f) { tmpColor.a = 0f; }
-        else { tmpColor.a = normalizeSized(); }
+        /*if (calcul < 0.125f) { tmpColor.a = 0f; }
+        else {*/
+        tmpColor.a = normalizeSized();// * normalizeSized(); 
+        //}
         obs.GetComponent<SpriteRenderer>().color = tmpColor;
     }
 
@@ -73,7 +75,7 @@ public class oObstacle : MonoBehaviour
     {
         // div maxTime
         float maxTime = dist / vitesse;
-        return Time.deltaTime * finalRayon /  maxTime ;
+        return Time.deltaTime * finalRayon * vitesse;//  maxTime ;
     }
 
     public void linPos()
@@ -81,13 +83,13 @@ public class oObstacle : MonoBehaviour
         /*float newX = (oTimer.tps - apparitionTime) * finalX * vitesse; // / 3f;
         float newY = (oTimer.tps - apparitionTime) * finalY * vitesse; // / 3f;*/
         float maxTime = dist / vitesse;
-        float newX = Time.deltaTime * finalX / maxTime; // / 3f;
-        float newY = Time.deltaTime * finalY / maxTime; // / 3f;
+        float newX = Time.deltaTime * finalX * vitesse; // maxTime; // / 3f;
+        float newY = Time.deltaTime * finalY * vitesse; // maxTime; // / 3f;
         obs.transform.position += new Vector3(newX, newY, 0);
 
     }
 
-    public void alloc( float at, float fx , float fy , float fr , string im  )
+    public virtual void alloc( float at, float fx , float fy , float fr , string im  )
     {
         apparitionTime = at;
         finalX = fx;
@@ -97,7 +99,7 @@ public class oObstacle : MonoBehaviour
         dist = ( new Vector2(fx,fy) ).magnitude ;
     }
 
-    public void demarrage()
+    public virtual void demarrage()
     {
         started = true;
         //print("DEMARRAGE");

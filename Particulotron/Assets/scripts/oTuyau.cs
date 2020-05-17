@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 public class oTuyau : MonoBehaviour
 {
@@ -17,31 +18,11 @@ public class oTuyau : MonoBehaviour
 
     //tableau de tps dapparition pour cercle activable
     public List<float> listRed = new List<float>();
+    public bool fail = false;
 
     // Start is called before the first frame update
     public void Start()
     {
-
-        /*
-        backCircle = new GameObject();
-        backCircle.AddComponent<SpriteRenderer>();
-        backCircle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
-        float ratioC = 1 / backCircle.GetComponent<SpriteRenderer>().size.x;
-        
-        backCircle.transform.localScale = new Vector3(0.1f, 0.1f, 0);
-        backCircle.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 200);
-
-        frontCircle = new GameObject();
-        frontCircle.AddComponent<SpriteRenderer>();
-        frontCircle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("neonCircle") as Sprite;
-        frontCircle.transform.localScale = new Vector3(1.1f, 1.1f, 0);
-        frontCircle.GetComponent<SpriteRenderer>().color = new Color(209, 0, 250, 200);
-        /*
-        moveCircle = new GameObject();
-        moveCircle.AddComponent<SpriteRenderer>();
-        moveCircle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("circle") as Sprite;
-        moveCircle.transform.localScale = new Vector3(0.1f, 0.1f, 0);*/
-
         circles = new List<GameObject>();
         float dist = 5f*1f/ (nbCircles-1.0f);
         for( int i = 0; i < nbCircles-1 ; i++ )
@@ -87,7 +68,7 @@ public class oTuyau : MonoBehaviour
 
    public void growAndBack( GameObject subject )
     {
-        if (subject.transform.localScale.x < 5.1f)
+        if (subject.transform.localScale.x < 5.0f)
         {
             
             subject.transform.localScale += new Vector3(vitesseEvol* Time.deltaTime, vitesseEvol * Time.deltaTime, 0);
@@ -100,7 +81,11 @@ public class oTuyau : MonoBehaviour
             //refresh color
             newest.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f,1f);
             //reset activated
-            if( newest == activated) { activated = null;  }
+            if( newest == activated) 
+            { 
+                activated = null;
+                fail = false;
+            }
         }
     }
 
@@ -126,7 +111,7 @@ public class oTuyau : MonoBehaviour
     //run dans update pour activé les cerlces rouges
     public void redOverTime()
     {
-        if (oTimer.tps > 1f /*listRed[0]*/ && activated == null)
+        if ( listRed.Any() && oTimer.tps > /*1f*/ listRed[0] && activated == null)
         {
             activation(Color.green);
             listRed.RemoveAt(0);
@@ -137,6 +122,7 @@ public class oTuyau : MonoBehaviour
     public bool activatedOnEdge()
     {
         if(activated == null) { return false; }
-        return (activated.transform.localScale.x / 5f > 0.92f);
+        if(fail == true) { return false; }
+        return (activated.transform.localScale.x / 5f > 0.85f);
     }
 }

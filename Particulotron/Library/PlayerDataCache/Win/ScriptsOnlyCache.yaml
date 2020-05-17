@@ -118,55 +118,55 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13662}
     - Class: 114
-      Script: {instanceID: 14036}
+      Script: {instanceID: 14038}
     - Class: 114
-      Script: {instanceID: 14070}
+      Script: {instanceID: 14072}
     - Class: 114
-      Script: {instanceID: 14244}
+      Script: {instanceID: 14246}
     - Class: 114
-      Script: {instanceID: 14252}
+      Script: {instanceID: 14254}
     - Class: 114
-      Script: {instanceID: 14446}
+      Script: {instanceID: 14448}
     - Class: 114
-      Script: {instanceID: 14534}
+      Script: {instanceID: 14536}
     - Class: 114
-      Script: {instanceID: 14558}
+      Script: {instanceID: 14560}
     - Class: 114
-      Script: {instanceID: 14720}
+      Script: {instanceID: 14722}
     - Class: 114
-      Script: {instanceID: 14764}
+      Script: {instanceID: 14766}
     - Class: 114
-      Script: {instanceID: 14776}
+      Script: {instanceID: 14778}
     - Class: 114
-      Script: {instanceID: 15170}
+      Script: {instanceID: 15172}
     - Class: 114
-      Script: {instanceID: 15190}
+      Script: {instanceID: 15192}
     - Class: 114
-      Script: {instanceID: 15260}
+      Script: {instanceID: 15262}
     - Class: 114
-      Script: {instanceID: 15358}
+      Script: {instanceID: 15360}
     - Class: 114
-      Script: {instanceID: 15580}
+      Script: {instanceID: 15582}
     - Class: 114
-      Script: {instanceID: 15826}
+      Script: {instanceID: 15828}
     - Class: 114
-      Script: {instanceID: 15882}
+      Script: {instanceID: 15884}
     - Class: 114
-      Script: {instanceID: 16146}
+      Script: {instanceID: 16148}
     - Class: 114
-      Script: {instanceID: 16150}
+      Script: {instanceID: 16152}
     - Class: 114
-      Script: {instanceID: 16194}
-    - Class: 114
-      Script: {instanceID: 16224}
+      Script: {instanceID: 16196}
     - Class: 114
       Script: {instanceID: 16226}
     - Class: 114
-      Script: {instanceID: 16376}
+      Script: {instanceID: 16228}
     - Class: 114
-      Script: {instanceID: 16382}
+      Script: {instanceID: 16378}
     - Class: 114
-      Script: {instanceID: 16796}
+      Script: {instanceID: 16384}
+    - Class: 114
+      Script: {instanceID: 16838}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -203,11 +203,11 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 14252}
+      Script: {instanceID: 14254}
     - Class: 114
-      Script: {instanceID: 14596}
+      Script: {instanceID: 14598}
     - Class: 114
-      Script: {instanceID: 15372}
+      Script: {instanceID: 15374}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -271,7 +271,7 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: a8681e5c3647aaba1e6444f1bf170b98
+      Hash: 41acaca3d767bc868592e113cad6b649
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oJauge
@@ -697,6 +697,12 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
+      Hash: d49d528f35dab56c0ed159c02838c660
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: oAimant
+  - hash:
+      serializedVersion: 2
       Hash: a53651ee3996fbba20dfe0fce02f0b23
     assemblyName: Unity.Postprocessing.Runtime.dll
     namespaceName: UnityEngine.Rendering.PostProcessing
@@ -775,7 +781,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: c6f14c24a363af55c27115e29c3ab65c
+      Hash: 1dd162d87c8264888f9580040720a749
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oTuyau
@@ -967,13 +973,13 @@ ScriptsOnlyBuild:
     className: CinemachineUniversalPixelPerfect
   - hash:
       serializedVersion: 2
-      Hash: 02dea6a87135d610196f32017f60b7c0
+      Hash: 60b61673323c40b1ec59eb70f3fe4e74
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oEnv
   - hash:
       serializedVersion: 2
-      Hash: 68aa4614ceb1c6d7a1238cd10f597fb5
+      Hash: 8d99befefdb60eaaa6427d891fc35f25
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oParticule
@@ -1063,7 +1069,7 @@ ScriptsOnlyBuild:
     className: SceneRenderPipeline
   - hash:
       serializedVersion: 2
-      Hash: 8e1ea96cb4e9a23d29b03cd20575e6ac
+      Hash: 944771c145dd948caffb5882dbd30273
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: oObstacle
@@ -1221,4 +1227,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/Crafting.unity
   - Assets/Scenes/SampleRace.unity
-  playerPath: "C:/Users/Gr\xE9goire/Documents/gameSHS2/Particulotron.exe"
+  playerPath: "C:/Users/Gr\xE9goire/Documents/gameSHSv2/Particulotron.exe"
