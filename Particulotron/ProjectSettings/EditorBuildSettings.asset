@@ -8,10 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Crafting.unity
     guid: 76dcaff3f582764419e4341d8ab8f49d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleRace.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/StartMenu.unity
-    guid: 74328c6f12679924980dc46381adde0e
+    path: Assets/Scenes/RenameBeforeMerge.unity
+    guid: 7019462892dffcc4a999894423fed6d9
   m_configObjects: {}
