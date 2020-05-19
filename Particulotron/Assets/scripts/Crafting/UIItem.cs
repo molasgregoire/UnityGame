@@ -30,8 +30,12 @@ public class UIItem : MonoBehaviour
       Image displayImage = transform.Find("Icon").GetComponent<Image>();
 
       if (this.item != null) {
-        displayImage.sprite = item.icon;
-        displayImage.color = Color.white;
+            
+                displayImage.sprite = item.icon;
+                displayImage.color = Color.white;
+            
+            
+        
       }
       else {
         displayImage.sprite = null;
