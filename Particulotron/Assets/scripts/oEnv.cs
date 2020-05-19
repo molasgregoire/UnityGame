@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Security.Cryptography;
 
 public class oEnv : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class oEnv : MonoBehaviour
     public oTuyau Tuyau;
     public oJauge Jauge;
     public oMusic Music;
+    public oAimant Aimant;
 
     public GameObject Main;
 
@@ -22,11 +24,20 @@ public class oEnv : MonoBehaviour
     public float score = 0f;
     public int compteur = 0;
     public float maxTime = 60f;
-    public float startTime = 3f;
+    public float startTime = 1f;
 
-    public List<GameObject> listAimants = new List<GameObject>();
-    public float chrono = 0f;
+    public float chronoTarget = 0f;
 
+    //modif vitesse
+    public float speedFactor = 1.0f;
+
+    //constante de score (à equilibré)
+    public float scoreMalusObs = 1f;
+    public float scoreBonusCircle = 3f;
+    public float scoreBonusTime = 1f;
+
+    //poubelle
+    List<GameObject> corbeille = new List<GameObject>();
     // Start is called before the first frame update
     public void Start()
     {
@@ -37,34 +48,47 @@ public class oEnv : MonoBehaviour
         Tuyau = Main.AddComponent<oTuyau>();
         Jauge = Main.AddComponent<oJauge>();
         Music = Main.AddComponent<oMusic>();
+        Aimant = Main.AddComponent<oAimant>();
+        Aimant.Part = Particule;
+        chronoTarget = startTime;
 
         //pose des obstacles
-        randomGeneration( startTime, maxTime, 0.1f);
-        randomGeneration( startTime, maxTime, 0.4f);
-        randomGeneration( startTime, maxTime, 1.0f);
-        
+        // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
+        float intervalTest = 0.5f;
+        randomGeneration( startTime, maxTime, intervalTest);
+        randomGeneration( startTime, maxTime, intervalTest);
+        //randomGeneration( startTime, maxTime, intervalTest);
+        randomGeneration( maxTime/3f, maxTime, intervalTest);
+        //randomGeneration(maxTime / 3f, maxTime, intervalTest);
+        //randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
+        randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
+        circleGeneration(5f);
+        //test
+        zoneGeneration(startTime, maxTime, 3f);
+
         //set de la jauge (en fonction du score max)
         Jauge.max = maxTime;
         Jauge.current = 0f;
+        Jauge.startTime = startTime;
+        Jauge.endTime = maxTime;
 
+        //decor
         designWow();
-        aimants();
+        //aimants();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        /*
-        if( !test.started  &&  oTimer.tps > test.apparitionTime  )
-        {
-            //print("vroum");
-            test.demarrage();
+       
+        //gestion du score + chose sur timer
+        if (oTimer.tps < maxTime && oTimer.tps > startTime) 
+        { 
+            score += Time.deltaTime*scoreBonusTime;
+            linearSpeedChange();
+            tourni();
+            obsTraqueurs(1f);
         }
-        particleGetHit();
-
-        destroyObstacle();*/
-        //gestion du score
-        if (oTimer.tps < maxTime && oTimer.tps > startTime) { score += Time.deltaTime; }
 
 
         demarrageObstacles();
@@ -72,11 +96,10 @@ public class oEnv : MonoBehaviour
         destroyObstacle();
         activeCircle();
 
-        if (chrono + 0.5f > oTimer.tps)
-        {
-            greenMagnets();
-        }
-        else { tmpAltAimants(); }
+        //addMagnetOverTime();
+       
+        //test destruction
+        //if( oTimer.tps > maxTime+startTime) { deleteAll(); }
     }
 
     public void demarrageObstacles()
@@ -92,19 +115,6 @@ public class oEnv : MonoBehaviour
 
     public void particleGetHit()
     {
-        /* foreach( oObstacle obst in listObs )
-         {
-             if (obst.started && obst.normalizeSized() > 0.95f)
-             {
-                 float calcul = Mathf.Pow(Particule.x - obst.obs.transform.position.x, 2) + Mathf.Pow(Particule.y - obst.obs.transform.position.y, 2) - Mathf.Pow(obst.finalRayon * obst.ratio, 2);
-                 if (calcul < 0 && !obst.hit)
-                 {
-                     //print("BOOM");
-                     obst.hit = true;
-                     compteur += 1;
-                 }
-             }
-         }*/
         overlaping();
         foreach (oObstacle obst in listObsSuperpos)
         {
@@ -112,7 +122,7 @@ public class oEnv : MonoBehaviour
             {
                 obst.hit = true;
                 //compteur += 1;
-                score -= 1;
+                score -= scoreMalusObs;
                 Music.playMe("hit");
             }
         }
@@ -130,6 +140,9 @@ public class oEnv : MonoBehaviour
             }
         }
 
+        listIndex.Sort();
+        listIndex.Reverse();
+
         foreach (int i in listIndex)
         {
 
@@ -142,31 +155,69 @@ public class oEnv : MonoBehaviour
     }
 
     //alloc(float at, float fx, float fy, float fr, string im)
-    void randomGeneration( float startTime , float totalTime , float interval )
+    void randomGeneration( float firstTime , float totalTime , float interval )
     {
         //generation obstacles
-        int nb = (int)( (totalTime - startTime) / interval);
+        int nb = (int)( (totalTime - firstTime -3f) / interval);
         for( int i=0 ;i<nb ; i++)
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
 
-            float tmpR = UnityEngine.Random.Range(0.5f, 2.5f);
+            float tmpR = UnityEngine.Random.Range(0.7f, 2.5f);
             float tmpA = UnityEngine.Random.Range(0f, 3.141f*2f);
 
             float tmpX = tmpR * (float)(Math.Cos(tmpA));
             float tmpY = tmpR * (float)(Math.Sin(tmpA));
 
             //tmp.alloc(startTime + i*interval + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
-            tmp.alloc(startTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
+            tmp.alloc( firstTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
             listObs.Add(tmp);
         }
-        //generation cercle (on va dire 1 par seconde pour le moment)
-        List<float> tmpList = new List<float>();
-        for( int i = (int)startTime +1 ; i < (int)totalTime ; i++)
+        
+    }
+
+    List<float> zoneAngles =  new List<float>{ 0f, 90f, 180f, 270f };
+    List<float> zoneX = new List<float>{ -0.6f, 0.6f , 0.6f ,-0.6f};
+    List<float> zoneY = new List<float>{ -0.6f, -0.6f , 0.6f, 0.6f};
+
+    public void zoneGeneration(float firstTime, float totalTime, float interval)
+    {
+        int nb = (int)((totalTime - firstTime - 3f) / interval);
+        for (int i = 0; i < nb; i++)
         {
-            tmpList.Add((float)i);
+            int taille = (1 + UnityEngine.Random.Range(0, 2));
+            int which = UnityEngine.Random.Range(0, 4);
+
+            oZone tmp = Main.AddComponent<oZone>();
+            float tmpX = taille * zoneX[which];
+            float tmpY = taille * zoneY[which];
+            tmp.alloc((float)( firstTime + i * interval), tmpX, tmpY, 0.5f * taille, "Obstacle_2");
+            tmp.rotate(zoneAngles[which]);
+            listObs.Add(tmp);
+        }
+    }
+
+    public void circleGeneration( float tempoCercle )
+    {
+        //generation cercle (on va dire 5 par seconde pour le moment)
+        List<float> tmpList = new List<float>();
+        //float tempoCercle = 5.0f;
+        for (int i = 1; i < (int)(maxTime / tempoCercle); i++)
+        {
+            tmpList.Add((float)i * tempoCercle + startTime);
         }
         Tuyau.listRed = tmpList;
+    }
+
+    public void obsTraqueurs( float interval)
+    {
+        if (chronoTarget < oTimer.tps )
+        {
+            chronoTarget += interval;
+            oObstacle tmp = Main.AddComponent<oObstacle>();
+            tmp.alloc(oTimer.tps + 0.5f, Particule.x, Particule.y, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
+            listObs.Add(tmp);
+        }
     }
 
     void OnGUI()
@@ -201,11 +252,23 @@ public class oEnv : MonoBehaviour
 
     public void activeCircle()
     {
-        if( Tuyau.activatedOnEdge()  && Input.GetKeyDown(KeyCode.Space) )
+        if (Input.GetKeyDown(KeyCode.Space) && !Tuyau.fail)
         {
-            score += 3;
-            Music.playMe("boost");
-            chrono = oTimer.tps;
+            if (Tuyau.activatedOnEdge())
+            {
+                score += scoreBonusCircle;
+                Music.playMe("boost");
+                Aimant.chronoGreen = oTimer.tps;
+
+            }
+            else if( Tuyau.activated != null && Tuyau.activated.transform.localScale.x/5.0f > 0.05)
+            {
+                Tuyau.activated.GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 1f, 1f);
+                Tuyau.fail = true;
+                Music.playMe("null");
+                Aimant.chronoPurple = oTimer.tps;
+            }
+            
         }
     }
 
@@ -236,7 +299,7 @@ public class oEnv : MonoBehaviour
         lignes.transform.position = new Vector3(0.0f, -0.364f, 1.9f);
         lignes.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
 
-        GameObject bordure = new GameObject();
+        /*GameObject*/ bordure = new GameObject();
         bordure.AddComponent<SpriteRenderer>();
         bordure.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
         bordure.transform.localScale = new Vector3(5f, 5f, 0);
@@ -256,98 +319,10 @@ public class oEnv : MonoBehaviour
         mask.GetComponent<SpriteMask>().alphaCutoff = 0.3f;
     }
 
-    public void aimants()
+    public GameObject bordure;
+    public void tourni()
     {
-        ///listAimants
-        //nord
-        GameObject nord = new GameObject();
-        nord.AddComponent<SpriteRenderer>();
-        nord.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        nord.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        nord.transform.position = new Vector3(0.02f, 2.473f, 0.0f);
-        nord.transform.rotation = Quaternion.Euler(0, 0, 22.5f);
-        listAimants.Add(nord);
-        //nord est
-        GameObject nordEst = new GameObject();
-        nordEst.AddComponent<SpriteRenderer>();
-        nordEst.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        nordEst.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        nordEst.transform.position = new Vector3(1.768f, 1.768f, 0.0f);
-        nordEst.transform.rotation = Quaternion.Euler(0, 0, 337.5f);
-        listAimants.Add(nordEst);
-        //est
-        GameObject est = new GameObject();
-        est.AddComponent<SpriteRenderer>();
-        est.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        est.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        est.transform.position = new Vector3(2.47f, 0.02f, 0.0f);
-        est.transform.rotation = Quaternion.Euler(0, 0, 292.5f);
-        listAimants.Add(est);
-        //sud est
-        GameObject sudEst = new GameObject();
-        sudEst.AddComponent<SpriteRenderer>();
-        sudEst.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        sudEst.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        sudEst.transform.position = new Vector3(1.71f, -1.739f, 0.0f);
-        sudEst.transform.rotation = Quaternion.Euler(0, 0, 247.5f);
-        listAimants.Add(sudEst);
-        //sud
-        GameObject sud = new GameObject();
-        sud.AddComponent<SpriteRenderer>();
-        sud.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        sud.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        sud.transform.position = new Vector3(-0.029f, -2.437f, 0.0f);
-        sud.transform.rotation = Quaternion.Euler(0, 0, 202.5f);
-        listAimants.Add(sud);
-        //sud ouest
-        GameObject sudOuest = new GameObject();
-        sudOuest.AddComponent<SpriteRenderer>();
-        sudOuest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        sudOuest.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        sudOuest.transform.position = new Vector3(-1.769f, -1.7f, 0.0f);
-        sudOuest.transform.rotation = Quaternion.Euler(0, 0, 157.5f);
-        listAimants.Add(sudOuest);
-        //ouest
-        GameObject ouest = new GameObject();
-        ouest.AddComponent<SpriteRenderer>();
-        ouest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        ouest.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        ouest.transform.position = new Vector3(-2.467f, 0.046f, 0.0f);
-        ouest.transform.rotation = Quaternion.Euler(0, 0, 112.5f);
-        listAimants.Add(ouest);
-        //nord ouest
-        GameObject nordouest = new GameObject();
-        nordouest.AddComponent<SpriteRenderer>();
-        nordouest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        nordouest.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        nordouest.transform.position = new Vector3(-1.735f, 1.762f, 0.0f);
-        nordouest.transform.rotation = Quaternion.Euler(0, 0, 67.5f);
-        listAimants.Add(nordouest);
-    }
-
-    public void tmpAltAimants()
-    {
-        for( int i = 0; i < 4; i++)
-        {
-            if( (int)oTimer.tps % 2 == 0 )
-            {
-                listAimants[2*i].GetComponent<SpriteRenderer>().color = new Color(1f, 0, 0);
-                listAimants[2*i+1].GetComponent<SpriteRenderer>().color = new Color(0, 0, 1f);
-            }
-            else
-            {
-                listAimants[2 * i].GetComponent<SpriteRenderer>().color = new Color(0, 0, 1f);
-                listAimants[2 * i+1].GetComponent<SpriteRenderer>().color = new Color(1f, 0, 0);
-            }
-        }
-    }
-
-    public void greenMagnets()
-    {
-        foreach( GameObject magnet in listAimants)
-        {
-            magnet.GetComponent<SpriteRenderer>().color = new Color(0, 1f, 0);
-        }
+        bordure.transform.rotation = Quaternion.Euler(0, 0, 360f / maxTime * oTimer.tps* oTimer.tps);
     }
 
     void tmpFunction()
@@ -358,4 +333,44 @@ public class oEnv : MonoBehaviour
         }
     }
 
+    public void linearSpeedChange()
+    {
+        oObstacle.vitesse += speedFactor * 0.5f * Time.deltaTime / maxTime;
+        Tuyau.vitesseEvol += speedFactor * 2f * Time.deltaTime / maxTime;
+    }
+
+
+    bool add1 = true;
+    bool add2 = true;
+    public void addMagnetOverTime()
+    {
+        if ( add1 && oTimer.tps > maxTime * 0.5)
+        {
+            Aimant.listCharge[1] = 1;
+            Aimant.listCharge[5] = -1;
+            add1 = false;
+        }
+        if (add2 && oTimer.tps > maxTime * 0.75)
+        {
+            Aimant.listCharge[2] = 1;
+            Aimant.listCharge[6] = -1;
+            add2 = false;
+        }
+    }
+
+    /*public void deleteAll()
+    {
+        /*foreach( GameObject o in GameObject.FindObjectOfType<GameObject>())
+        {
+            Destroy(o);
+        }
+
+        var tab = GameObject.FindObjectOfType<GameObject>();
+        foreach (GameObject go in tab)
+        {
+            tab.Remove(go); // else there will be pointer to null
+            GameObject.Destroy(go);
+
+        }
+    }*/
 }

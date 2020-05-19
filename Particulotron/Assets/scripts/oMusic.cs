@@ -15,7 +15,7 @@ public class oMusic : MonoBehaviour
         channel1 = radio.AddComponent<AudioSource>();
         mainTheme = radio.AddComponent<AudioSource>();
         mainTheme.loop = true;
-        mainTheme.clip = (AudioClip)Resources.Load("LvL1");
+        mainTheme.clip = (AudioClip)Resources.Load("full");
         mainTheme.Play();
         //radio.GetComponent<AudioSource>().loop = true;
         //radio.GetComponent<AudioSource>().PlayOneShot( (AudioClip)Resources.Load("musicTest") ) ;
