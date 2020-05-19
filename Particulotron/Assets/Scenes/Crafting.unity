@@ -1071,7 +1071,7 @@ MonoBehaviour:
   listObsSuperpos: []
   score: 0
   compteur: 0
-  maxTime: 60
+  maxTime: 10
   startTime: 1
   chronoTarget: 0
   speedFactor: 1

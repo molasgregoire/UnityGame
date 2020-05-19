@@ -21,7 +21,7 @@ public class oParticule : MonoBehaviour
     public GameObject particule;
     public GameObject cercle;
 
-    public float vitesse = 1f;
+    public float vitesse = 1.0f;
 
     //mettre ici les composant des particules
     public int magnetisme = 1;
@@ -42,13 +42,13 @@ public class oParticule : MonoBehaviour
         particule.AddComponent<CircleCollider2D>();
         particule.GetComponent<CircleCollider2D>().radius = 0.43f;
 
-
+        
         cercle = new GameObject();
         cercle.AddComponent<SpriteRenderer>();
         cercle.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("whiteCircle") as Sprite;
 
         cercle.transform.localScale = new Vector3(rayon*0.42f, rayon*0.42f, 0);
-        //cercle.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        cercle.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0,0.5f);
     }
 
     // Update is called once per frame
@@ -73,8 +73,8 @@ public class oParticule : MonoBehaviour
 
         if (rayonCarre > 4)
         {
-            if (x > 0) { x -= vitesse; } else { x += vitesse; }
-            if (y > 0) { y -= vitesse; } else { y += vitesse; }
+            if (x > 0) { x -= vitesse * Time.deltaTime; } else { x += vitesse * Time.deltaTime; }
+            if (y > 0) { y -= vitesse * Time.deltaTime; } else { y += vitesse * Time.deltaTime; }
 
         }
         //if ((x + vitesse) * (x + vitesse) + y * y < 16)

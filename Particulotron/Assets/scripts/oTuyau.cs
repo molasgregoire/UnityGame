@@ -13,7 +13,7 @@ public class oTuyau : MonoBehaviour
     public GameObject newest;
     public GameObject activated;
 
-    public int nbCircles = 7;
+    public int nbCircles = 3;
     public float vitesseEvol = 2.0f;
 
     //tableau de tps dapparition pour cercle activable

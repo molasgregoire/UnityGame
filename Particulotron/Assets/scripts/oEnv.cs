@@ -36,6 +36,8 @@ public class oEnv : MonoBehaviour
     public float scoreBonusCircle = 3f;
     public float scoreBonusTime = 1f;
 
+    //poubelle
+    List<GameObject> corbeille = new List<GameObject>();
     // Start is called before the first frame update
     public void Start()
     {
@@ -85,7 +87,7 @@ public class oEnv : MonoBehaviour
             score += Time.deltaTime*scoreBonusTime;
             linearSpeedChange();
             tourni();
-            //obsTraqueurs(1f);
+            obsTraqueurs(1f);
         }
 
 
@@ -96,6 +98,8 @@ public class oEnv : MonoBehaviour
 
         //addMagnetOverTime();
        
+        //test destruction
+        //if( oTimer.tps > maxTime+startTime) { deleteAll(); }
     }
 
     public void demarrageObstacles()
@@ -354,5 +358,19 @@ public class oEnv : MonoBehaviour
         }
     }
 
-    
+    /*public void deleteAll()
+    {
+        /*foreach( GameObject o in GameObject.FindObjectOfType<GameObject>())
+        {
+            Destroy(o);
+        }
+
+        var tab = GameObject.FindObjectOfType<GameObject>();
+        foreach (GameObject go in tab)
+        {
+            tab.Remove(go); // else there will be pointer to null
+            GameObject.Destroy(go);
+
+        }
+    }*/
 }
