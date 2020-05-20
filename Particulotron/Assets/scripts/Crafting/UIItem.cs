@@ -32,9 +32,21 @@ public class UIItem : MonoBehaviour
 
                 displayImage.sprite = item.icon;
                 displayImage.color = Color.white;
+      }
+      else {
+        displayImage.sprite = null;
+        displayImage.color = Color.clear;
+      }
+    }
 
+    public void UpdateItemCraft(ElmParticule quark) {
+      this.item = quark;
+      Image displayImage = transform.Find("Icon").GetComponent<Image>();
 
+      if (this.item != null) {
 
+                displayImage.sprite = item.icon2;
+                displayImage.color = Color.white;
       }
       else {
         displayImage.sprite = null;

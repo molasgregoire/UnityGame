@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
   public List<Item> itemList = new List<Item>();
-  public List<Item> itemCraft = new List<Item>();
+  public List<ElmParticule> itemCraft = new List<ElmParticule>();
   public Item particle;
   public ItemDatabase itemDatabase;
   public GameObject inventoryPanel;
@@ -52,12 +52,12 @@ public class Inventory : MonoBehaviour
     foreach(Transform child in craftingPanel.transform) {
       UIItem slot = child.GetComponent<UIItem>();
       if (index < itemCraft.Count) {
-        slot.UpdateItem(itemCraft[index]);
+        slot.UpdateItemCraft(itemCraft[index]);
         //slot.item = itemCraft[index];
       }
       else {
         //slot.item=null;
-        slot.UpdateItem(null);
+        slot.UpdateItemCraft(null);
       }
       index++;
     }
@@ -87,7 +87,7 @@ public class Inventory : MonoBehaviour
     }
   }
 
-  public List<Item> GetCraftList() {
+  public List<ElmParticule> GetCraftList() {
     return itemCraft;
   }
 
@@ -150,18 +150,18 @@ public class Inventory : MonoBehaviour
 
     if (itemCraft.Count < 3) {
       //itemList.Add(item);
-      Item itemToAdd = itemDatabase.GetQuark(id);
+      ElmParticule itemToAdd = itemDatabase.GetQuark(id);
       itemCraft.Add(itemToAdd);
     }
     updateCaftingSlots();
   }
 
-  public Item CheckForCraft(int id) {
+  public ElmParticule CheckForCraft(int id) {
     return itemCraft.Find(item => item.id == id);
   }
 
   public void RemoveCraft(int id) {
-    Item item = CheckForCraft(id);
+    ElmParticule item = CheckForCraft(id);
     if (item != null) {
         itemCraft.Remove(item);
     }
