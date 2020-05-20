@@ -26,6 +26,11 @@ public class oParticule : MonoBehaviour
     //mettre ici les composant des particules
     public int magnetisme = 1;
 
+    //test pour ajouter de l'inertie au bordel
+    public float inertieAngle = 0f;
+    public float inertieRayon = 0f;
+    public float mass = 3.0f;
+
     // Use this for initialization
     public void Start()
     {
@@ -56,9 +61,9 @@ public class oParticule : MonoBehaviour
 
     //void OnGUI()
     {        
-            deplacementCirculaire();
-            posCirc();
-
+        deplacementCirculaire();
+        posCirc();
+        inertie();
 
         cercle.transform.localScale = new Vector3(rayon * 0.42f, rayon * 0.42f, 0);
         //deplacement();
@@ -107,20 +112,24 @@ public class oParticule : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
         {
             angle += Time.deltaTime*vitesseAngle / rayon;
+            if (inertieAngle < 1) { inertieAngle += Time.deltaTime * 3; }
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             angle -= Time.deltaTime*vitesseAngle / rayon;
+            if (inertieAngle > -1) { inertieAngle -= Time.deltaTime * 3; }
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            if( rayon < rayonMax )
-            rayon += Time.deltaTime*vitesseRayon;
+            if (rayon < rayonMax)
+            { rayon += Time.deltaTime * vitesseRayon; }
+            inertieRayon += Time.deltaTime*3;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            if( rayon > rayonMin )
-            rayon -= Time.deltaTime*vitesseRayon;
+            if (rayon > rayonMin)
+            { rayon -= Time.deltaTime * vitesseRayon; }
+            inertieRayon -= Time.deltaTime*3;
         }
 
         //ajustements
@@ -135,6 +144,19 @@ public class oParticule : MonoBehaviour
         x = rayon * (float)(Math.Cos(angle));
         y = rayon * (float)(Math.Sin(angle));
         particule.transform.position = new Vector3(x, y, -1);
+    }
+
+    void inertie()
+    {
+        angle += mass*Time.deltaTime * inertieAngle / rayon;
+
+        rayon += 2*mass*Time.deltaTime * inertieRayon;
+
+        //reduction de linertie avec le temps
+        if( inertieAngle > 0) { inertieAngle -= Time.deltaTime; }
+        if (inertieAngle < 0) { inertieAngle += Time.deltaTime; }
+        if (inertieRayon > 0) { inertieRayon -= Time.deltaTime; }
+        if (inertieRayon < 0) { inertieRayon += Time.deltaTime; }
     }
 
     public int howManyOverlap()

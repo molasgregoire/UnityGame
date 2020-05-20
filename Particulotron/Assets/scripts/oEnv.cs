@@ -27,7 +27,7 @@ public class oEnv : MonoBehaviour
 
     public float score = 0f;
     public int compteur = 0;
-    public float maxTime = 2f; //60
+    public float maxTime = 60f; //60
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
