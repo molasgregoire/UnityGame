@@ -11,12 +11,12 @@ public class oParticule : MonoBehaviour
     public float y = 0;
 
     public float rayon = 1.0f;
-    public float rayonMax = 2.0f;
+    public float rayonMax = 3.0f;
     public float rayonMin = 0.5f;
-    public float vitesseRayon = 3.0f;
+    public float vitesseRayon = 3.5f;
 
     public float angle = 0.0f;
-    public float vitesseAngle = 3.0f;
+    public float vitesseAngle = 3.5f;
 
     public GameObject particule;
     public GameObject cercle;
@@ -32,10 +32,10 @@ public class oParticule : MonoBehaviour
 
         particule = new GameObject();
         particule.AddComponent<SpriteRenderer>();
-        particule.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("rond") as Sprite;
+        particule.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Particule_blanche") as Sprite;
         float ratio;
         ratio = 1 / particule.GetComponent<SpriteRenderer>().size.x;
-        ratio *= 0.5f;
+        //ratio *= 0.5f;
         particule.transform.localScale = new Vector3(ratio, ratio, ratio);
 
         //test collison
@@ -71,7 +71,7 @@ public class oParticule : MonoBehaviour
     {
         float rayonCarre = x * x + y * y;
 
-        if (rayonCarre > 4)
+        if (rayonCarre > 36f)
         {
             if (x > 0) { x -= vitesse * Time.deltaTime; } else { x += vitesse * Time.deltaTime; }
             if (y > 0) { y -= vitesse * Time.deltaTime; } else { y += vitesse * Time.deltaTime; }

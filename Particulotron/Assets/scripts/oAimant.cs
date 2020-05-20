@@ -54,64 +54,64 @@ public class oAimant : MonoBehaviour
         GameObject nord = new GameObject();
         nord.AddComponent<SpriteRenderer>();
         nord.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        nord.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        nord.transform.position = new Vector3(0.02f, 2.473f, 0.0f);
+        nord.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        nord.transform.position = new Vector3(0.02f, 2.473f+1f, 0.0f);
         nord.transform.rotation = Quaternion.Euler(0, 0, 22.5f);
         listAimants.Add(nord);
         //nord est
         GameObject nordEst = new GameObject();
         nordEst.AddComponent<SpriteRenderer>();
         nordEst.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        nordEst.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        nordEst.transform.position = new Vector3(1.768f, 1.768f, 0.0f);
+        nordEst.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        nordEst.transform.position = new Vector3(1.768f + 0.71f, 1.768f + 0.71f, 0.0f);
         nordEst.transform.rotation = Quaternion.Euler(0, 0, 337.5f);
         listAimants.Add(nordEst);
         //est
         GameObject est = new GameObject();
         est.AddComponent<SpriteRenderer>();
         est.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        est.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        est.transform.position = new Vector3(2.47f, 0.02f, 0.0f);
+        est.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        est.transform.position = new Vector3(2.47f+1f, 0.02f, 0.0f);
         est.transform.rotation = Quaternion.Euler(0, 0, 292.5f);
         listAimants.Add(est);
         //sud est
         GameObject sudEst = new GameObject();
         sudEst.AddComponent<SpriteRenderer>();
         sudEst.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        sudEst.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        sudEst.transform.position = new Vector3(1.71f, -1.739f, 0.0f);
+        sudEst.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        sudEst.transform.position = new Vector3(1.71f + 0.71f, -1.739f - 0.71f, 0.0f);
         sudEst.transform.rotation = Quaternion.Euler(0, 0, 247.5f);
         listAimants.Add(sudEst);
         //sud
         GameObject sud = new GameObject();
         sud.AddComponent<SpriteRenderer>();
         sud.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        sud.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        sud.transform.position = new Vector3(-0.029f, -2.437f, 0.0f);
+        sud.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        sud.transform.position = new Vector3(-0.029f, -2.437f-1f, 0.0f);
         sud.transform.rotation = Quaternion.Euler(0, 0, 202.5f);
         listAimants.Add(sud);
         //sud ouest
         GameObject sudOuest = new GameObject();
         sudOuest.AddComponent<SpriteRenderer>();
         sudOuest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        sudOuest.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        sudOuest.transform.position = new Vector3(-1.769f, -1.7f, 0.0f);
+        sudOuest.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        sudOuest.transform.position = new Vector3(-1.769f - 0.71f, -1.7f - 0.71f, 0.0f);
         sudOuest.transform.rotation = Quaternion.Euler(0, 0, 157.5f);
         listAimants.Add(sudOuest);
         //ouest
         GameObject ouest = new GameObject();
         ouest.AddComponent<SpriteRenderer>();
         ouest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        ouest.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        ouest.transform.position = new Vector3(-2.467f, 0.046f, 0.0f);
+        ouest.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        ouest.transform.position = new Vector3(-2.467f-1f, 0.046f, 0.0f);
         ouest.transform.rotation = Quaternion.Euler(0, 0, 112.5f);
         listAimants.Add(ouest);
         //nord ouest
         GameObject nordouest = new GameObject();
         nordouest.AddComponent<SpriteRenderer>();
         nordouest.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Aimant") as Sprite;
-        nordouest.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        nordouest.transform.position = new Vector3(-1.735f, 1.762f, 0.0f);
+        nordouest.transform.localScale = new Vector3(0.65f, 0.65f, 0);
+        nordouest.transform.position = new Vector3(-1.735f - 0.71f, 1.762f + 0.71f, 0.0f);
         nordouest.transform.rotation = Quaternion.Euler(0, 0, 67.5f);
         listAimants.Add(nordouest);
     }
@@ -181,7 +181,7 @@ public class oAimant : MonoBehaviour
         }
     }
 
-    float factor = 1.0f;
+    float factor = 1.5f;
     void affectRayon()
     {
         Part.rayon -= factor*Time.deltaTime * Part.magnetisme * listCharge[indexTab()];

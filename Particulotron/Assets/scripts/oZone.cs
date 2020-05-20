@@ -18,7 +18,7 @@ public class oZone : oObstacle
         apparitionTime = at;
         finalX = fx;
         finalY = fy;
-        finalRayon = fr*0.5f;
+        finalRayon = fr;
         image = im;
         dist = (new Vector2(fx, fy)).magnitude;
     }

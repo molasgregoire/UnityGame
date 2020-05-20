@@ -32,6 +32,7 @@ public class oEnv : MonoBehaviour
     public float speedFactor = 1.0f;
 
     //constante de score (à equilibré)
+    public float maxScore = 100f;
     public float scoreMalusObs = 1f;
     public float scoreBonusCircle = 3f;
     public float scoreBonusTime = 1f;
@@ -67,7 +68,7 @@ public class oEnv : MonoBehaviour
         zoneGeneration(startTime, maxTime, 3f);
 
         //set de la jauge (en fonction du score max)
-        Jauge.max = maxTime;
+        Jauge.max = maxScore;
         Jauge.current = 0f;
         Jauge.startTime = startTime;
         Jauge.endTime = maxTime;
@@ -85,7 +86,8 @@ public class oEnv : MonoBehaviour
         if (oTimer.tps < maxTime && oTimer.tps > startTime) 
         { 
             score += Time.deltaTime*scoreBonusTime;
-            linearSpeedChange();
+            //linearSpeedChange();
+            proportionalSpeedChange();
             tourni();
             obsTraqueurs(1f);
         }
@@ -163,35 +165,36 @@ public class oEnv : MonoBehaviour
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
 
-            float tmpR = UnityEngine.Random.Range(0.7f, 2.5f);
+            float tmpR = UnityEngine.Random.Range(0.7f, 3.0f);
             float tmpA = UnityEngine.Random.Range(0f, 3.141f*2f);
 
             float tmpX = tmpR * (float)(Math.Cos(tmpA));
             float tmpY = tmpR * (float)(Math.Sin(tmpA));
 
             //tmp.alloc(startTime + i*interval + Random.Range(-0.25f*interval, 0.25f*interval), Random.Range(-3.0f, 3.0f), Random.Range(-3.0f, 3.0f), 4f + Random.Range(-1.0f, 1.0f), "football");
-            tmp.alloc( firstTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
+            tmp.alloc( firstTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1.2f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
             listObs.Add(tmp);
         }
         
     }
 
     List<float> zoneAngles =  new List<float>{ 0f, 90f, 180f, 270f };
-    List<float> zoneX = new List<float>{ -0.6f, 0.6f , 0.6f ,-0.6f};
-    List<float> zoneY = new List<float>{ -0.6f, -0.6f , 0.6f, 0.6f};
+    List<float> zoneX = new List<float>{ -1.6f, 1.6f , 1.6f ,-1.6f};
+    List<float> zoneY = new List<float>{ -1.6f, -1.6f , 1.6f, 1.6f};
 
     public void zoneGeneration(float firstTime, float totalTime, float interval)
     {
         int nb = (int)((totalTime - firstTime - 3f) / interval);
         for (int i = 0; i < nb; i++)
         {
-            int taille = (1 + UnityEngine.Random.Range(0, 2));
+            //int taille = (1 + UnityEngine.Random.Range(0, 2));
+            int taille = 2;
             int which = UnityEngine.Random.Range(0, 4);
 
             oZone tmp = Main.AddComponent<oZone>();
-            float tmpX = taille * zoneX[which];
-            float tmpY = taille * zoneY[which];
-            tmp.alloc((float)( firstTime + i * interval), tmpX, tmpY, 0.5f * taille, "Obstacle_2");
+            float tmpX = zoneX[which];
+            float tmpY = zoneY[which];
+            tmp.alloc((float)( firstTime + i * interval), tmpX, tmpY, 0.7f, "Obstacle_2");
             tmp.rotate(zoneAngles[which]);
             listObs.Add(tmp);
         }
@@ -274,35 +277,35 @@ public class oEnv : MonoBehaviour
 
     public void designWow()
     {
-        GameObject ecran = new GameObject();
+        /*GameObject ecran = new GameObject();
         ecran.AddComponent<SpriteRenderer>();
-        ecran.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran") as Sprite;
-        ecran.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        ecran.transform.position = new Vector3(0.0f, -0.4f, 2.0f);
+        ecran.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran_clean") as Sprite;
+        ecran.transform.localScale = new Vector3(0.75f, 0.75f, 0);
+        ecran.transform.position = new Vector3(0.0f, -1f, 2.0f);*/
 
         GameObject bar1 = new GameObject();
         bar1.AddComponent<SpriteRenderer>();
         bar1.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Jauge_droite_avec") as Sprite;
-        bar1.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        bar1.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        bar1.transform.localScale = new Vector3(0.75f, 0.75f, 0);
+        bar1.transform.position = new Vector3(0.0f, -1.0f, 0.0f);
 
         GameObject bar2 = new GameObject();
         bar2.AddComponent<SpriteRenderer>();
         bar2.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Jauge_haut") as Sprite;
-        bar2.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        bar2.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+        bar2.transform.localScale = new Vector3(0.75f, 0.75f, 0);
+        bar2.transform.position = new Vector3(0.0f, -0.5f, 0.0f);
 
         GameObject lignes = new GameObject();
         lignes.AddComponent<SpriteRenderer>();
         lignes.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("lignes") as Sprite;
-        lignes.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-        lignes.transform.position = new Vector3(0.0f, -0.364f, 1.9f);
+        lignes.transform.localScale = new Vector3(0.69f, 0.69f, 0);
+        lignes.transform.position = new Vector3(0.0f, -0.5f, 1.9f);
         lignes.GetComponent<SpriteRenderer>().maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
 
         /*GameObject*/ bordure = new GameObject();
         bordure.AddComponent<SpriteRenderer>();
         bordure.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Polygone_c") as Sprite;
-        bordure.transform.localScale = new Vector3(5f, 5f, 0);
+        bordure.transform.localScale = new Vector3(7f, 7f, 0);
         bordure.transform.position = new Vector3(0.0f, 0.0f, -1f);
 
         GameObject bordure2 = new GameObject();
@@ -339,6 +342,12 @@ public class oEnv : MonoBehaviour
         Tuyau.vitesseEvol += speedFactor * 2f * Time.deltaTime / maxTime;
     }
 
+    public void proportionalSpeedChange()
+    {
+        float factor = (1 + speedFactor * score / maxScore);//(maxTime - startTime));
+        oObstacle.vitesse = factor * 0.5f;
+        Tuyau.vitesseEvol = factor * 2f;
+    }
 
     bool add1 = true;
     bool add2 = true;
