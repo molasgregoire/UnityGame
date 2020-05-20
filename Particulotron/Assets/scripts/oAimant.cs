@@ -8,14 +8,15 @@ public class oAimant : MonoBehaviour
 {
     public List<GameObject> listAimants = new List<GameObject>();
     public List<int> listCharge = new List<int>();
-    public float chronoGreen = 0f;
-    public float chronoPurple = 0f;
+    public float chronoGreen = -10f;
+    public float chronoPurple = -10f;
     public float cstAngle = 3.141f / 8f;
     public oParticule Part;
     public float currentAngle = 0f;
 
     float brillance = 0.2f;
 
+    public GameObject speed;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +39,14 @@ public class oAimant : MonoBehaviour
         if (chronoPurple + 0.5f > oTimer.tps)
         {
             colorMagnets(new Color(1, 0, 1));
+            
         }
         else if (chronoGreen + 0.5f > oTimer.tps)
         {
             colorMagnets(new Color(0, 1, 0));
+            speed.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         }
+        else { speed.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, Time.deltaTime*2f); }
         // else { tmpAltAimants(); }
         affectRayon();
     }

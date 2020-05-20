@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Security.Cryptography;
 using UnityEngine.UI;
+using System.Collections.Specialized;
 
 public class oEnv : MonoBehaviour
 {
@@ -85,7 +86,7 @@ public class oEnv : MonoBehaviour
         Score.AddComponent<SpriteRenderer>();
         designWow();
         //aimants();
-
+        Aimant.speed = speed;
         //affichageScore();
     }
 
@@ -360,8 +361,17 @@ public class oEnv : MonoBehaviour
         mask.AddComponent<SpriteMask>();
         mask.GetComponent<SpriteMask>().sprite = Resources.Load<Sprite>("Particule_blanche") as Sprite;
         mask.GetComponent<SpriteMask>().alphaCutoff = 0.3f;
+
+        //speed lines
+        speed = new GameObject();
+        speed.AddComponent<SpriteRenderer>();
+        speed.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("speed") as Sprite;
+        speed.transform.localScale = new Vector3(1.814f, 1.24f, 0);
+        speed.transform.position = new Vector3(-0.031f, -0.031f, 0.0f);
+        speed.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
     }
 
+    public GameObject speed;
     public GameObject bordure;
     public void tourni()
     {
