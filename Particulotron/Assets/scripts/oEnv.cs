@@ -17,8 +17,7 @@ public class oEnv : MonoBehaviour
     public oAimant Aimant;
 
     public GameObject Main;
-    public GameObject Score; //Pour le panneau de score
-    public GameObject Scoretext;
+    public GameObject Score;
 
     public oObstacle test;
     public List<oObstacle> listObs = new List<oObstacle>();
@@ -56,7 +55,6 @@ public class oEnv : MonoBehaviour
         Aimant = Main.AddComponent<oAimant>();
         Aimant.Part = Particule;
         chronoTarget = startTime;
-        Scoretext.SetActive(false);
 
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
@@ -113,7 +111,6 @@ public class oEnv : MonoBehaviour
         //Affichage du score
         if(oTimer.tps > maxTime+Time.deltaTime && oTimer.tps < maxTime+2*Time.deltaTime) {
           affichageScore();
-          Scoretext.SetActive(true);
         }
     }
 
@@ -297,7 +294,16 @@ public class oEnv : MonoBehaviour
       Score.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.7f);
       Score.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
-      Scoretext.GetComponentInChildren<Text>().text = "Score\n" + score.ToString();
+      //Score.AddComponent<Canvas>();
+      //Score.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+      //Score.AddComponent<Text>();
+      //Text CompText = Score.GetComponent<Text>();
+      //CompText.fontSize = 30;
+      //CompText.color = Color.white;
+      //Score.GetComponent<RectTransform>().sizeDelta = new Vector2(CompText.fontSize * 10, 100);
+      //CompText.text = "Score : " + score.ToString();
+      //Score.GetComponent<Meshrenderer>().enabled = false;
+
     }
 
     public void designWow()
