@@ -18,6 +18,7 @@ public class oEnv : MonoBehaviour
 
     public GameObject Main;
     public GameObject Score;
+    public GameObject Scoretext;
 
     public oObstacle test;
     public List<oObstacle> listObs = new List<oObstacle>();
@@ -25,7 +26,7 @@ public class oEnv : MonoBehaviour
 
     public float score = 0f;
     public int compteur = 0;
-    public float maxTime = 2f; //60
+    public float maxTime = 20f; //60
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
@@ -47,6 +48,7 @@ public class oEnv : MonoBehaviour
         //ajout des scripts
         Main = new GameObject();
         Score = new GameObject();
+        Scoretext = GameObject.Find("Scoretext");
         Particule = Main.AddComponent<oParticule>();
         Timer = Main.AddComponent<oTimer>();
         Tuyau = Main.AddComponent<oTuyau>();
@@ -77,6 +79,7 @@ public class oEnv : MonoBehaviour
         Jauge.endTime = maxTime;
 
         //decor
+        Scoretext.SetActive(false);
         designWow();
         //aimants();
 
@@ -110,6 +113,7 @@ public class oEnv : MonoBehaviour
 
         //Affichage du score
         if(oTimer.tps > maxTime+Time.deltaTime && oTimer.tps < maxTime+2*Time.deltaTime) {
+          Scoretext.SetActive(true);
           affichageScore();
         }
     }
@@ -288,21 +292,13 @@ public class oEnv : MonoBehaviour
     public void affichageScore() {
       //GameObject Score = new GameObject();
       Score.AddComponent<SpriteRenderer>();
-      Score.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran") as Sprite;
-      Score.transform.localScale = new Vector3(0.5f, 0.5f, 0);
-      Score.transform.position = new Vector3(0.0f, -0.4f, 2.0f);
+      Score.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran_clean") as Sprite;
+      Score.transform.localScale = new Vector3(0.75f, 0.75f, 0);
+      Score.transform.position = new Vector3(0f, -1f, 3f);;
       Score.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.7f);
       Score.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
-      //Score.AddComponent<Canvas>();
-      //Score.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-      //Score.AddComponent<Text>();
-      //Text CompText = Score.GetComponent<Text>();
-      //CompText.fontSize = 30;
-      //CompText.color = Color.white;
-      //Score.GetComponent<RectTransform>().sizeDelta = new Vector2(CompText.fontSize * 10, 100);
-      //CompText.text = "Score : " + score.ToString();
-      //Score.GetComponent<Meshrenderer>().enabled = false;
+      Scoretext.GetComponentInChildren<Text>().text = "Score\n" + score.ToString();
 
     }
 

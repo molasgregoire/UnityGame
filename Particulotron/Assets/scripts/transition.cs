@@ -49,7 +49,7 @@ public class transition : MonoBehaviour
             cumulTime += Time.deltaTime;
 
             //scale
-            
+
             float newScale = Time.deltaTime * (scaleF - scale0) /transitTime;
             ecranTransition.transform.localScale += new Vector3(newScale, newScale, 0);
 
