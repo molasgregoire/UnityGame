@@ -15,7 +15,6 @@ public class UIItem : MonoBehaviour
     public void Use() {
       if(this.item != null) {
         item.Use();
-        Debug.Log("You clicked on : " + item.title);
       }
     }
 
@@ -30,12 +29,12 @@ public class UIItem : MonoBehaviour
       Image displayImage = transform.Find("Icon").GetComponent<Image>();
 
       if (this.item != null) {
-            
+
                 displayImage.sprite = item.icon;
                 displayImage.color = Color.white;
-            
-            
-        
+
+
+
       }
       else {
         displayImage.sprite = null;

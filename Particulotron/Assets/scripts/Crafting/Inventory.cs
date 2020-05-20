@@ -65,7 +65,6 @@ public class Inventory : MonoBehaviour
 
   public void Craft() {
     int idToCraft = GetIdCraft();
-    Debug.Log("CraftId : " + idToCraft.ToString());
     if (idToCraft != 0) {
       Item baryon = itemDatabase.GetBaryon(idToCraft);
       if (baryon != null) {
