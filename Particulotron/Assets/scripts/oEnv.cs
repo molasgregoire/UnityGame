@@ -5,6 +5,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Security.Cryptography;
+using UnityEngine.UI;
 
 public class oEnv : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class oEnv : MonoBehaviour
     public oAimant Aimant;
 
     public GameObject Main;
+    public GameObject Score; //Pour le panneau de score
+    public GameObject Scoretext;
 
     public oObstacle test;
     public List<oObstacle> listObs = new List<oObstacle>();
@@ -23,7 +26,7 @@ public class oEnv : MonoBehaviour
 
     public float score = 0f;
     public int compteur = 0;
-    public float maxTime = 60f;
+    public float maxTime = 2f; //60
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
@@ -44,6 +47,7 @@ public class oEnv : MonoBehaviour
     {
         //ajout des scripts
         Main = new GameObject();
+        Score = new GameObject();
         Particule = Main.AddComponent<oParticule>();
         Timer = Main.AddComponent<oTimer>();
         Tuyau = Main.AddComponent<oTuyau>();
@@ -52,6 +56,7 @@ public class oEnv : MonoBehaviour
         Aimant = Main.AddComponent<oAimant>();
         Aimant.Part = Particule;
         chronoTarget = startTime;
+        Scoretext.SetActive(false);
 
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
@@ -76,15 +81,17 @@ public class oEnv : MonoBehaviour
         //decor
         designWow();
         //aimants();
+
+        //affichageScore();
     }
 
     // Update is called once per frame
     public void Update()
     {
-       
+
         //gestion du score + chose sur timer
-        if (oTimer.tps < maxTime && oTimer.tps > startTime) 
-        { 
+        if (oTimer.tps < maxTime && oTimer.tps > startTime)
+        {
             score += Time.deltaTime*scoreBonusTime;
             //linearSpeedChange();
             proportionalSpeedChange();
@@ -99,9 +106,15 @@ public class oEnv : MonoBehaviour
         activeCircle();
 
         //addMagnetOverTime();
-       
+
         //test destruction
         //if( oTimer.tps > maxTime+startTime) { deleteAll(); }
+
+        //Affichage du score
+        if(oTimer.tps > maxTime+Time.deltaTime && oTimer.tps < maxTime+2*Time.deltaTime) {
+          affichageScore();
+          Scoretext.SetActive(true);
+        }
     }
 
     public void demarrageObstacles()
@@ -150,10 +163,10 @@ public class oEnv : MonoBehaviour
 
             Destroy(listObs[i].obs);
             Destroy(listObs[i]);
-            
+
             listObs.RemoveAt(i);
         }
-        
+
     }
 
     //alloc(float at, float fx, float fy, float fr, string im)
@@ -175,7 +188,7 @@ public class oEnv : MonoBehaviour
             tmp.alloc( firstTime + i*interval + UnityEngine.Random.Range(-0.25f*interval, 0.25f*interval), tmpX, tmpY, 1.2f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
             listObs.Add(tmp);
         }
-        
+
     }
 
     List<float> zoneAngles =  new List<float>{ 0f, 90f, 180f, 270f };
@@ -271,8 +284,20 @@ public class oEnv : MonoBehaviour
                 Music.playMe("null");
                 Aimant.chronoPurple = oTimer.tps;
             }
-            
+
         }
+    }
+
+    public void affichageScore() {
+      //GameObject Score = new GameObject();
+      Score.AddComponent<SpriteRenderer>();
+      Score.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran") as Sprite;
+      Score.transform.localScale = new Vector3(0.5f, 0.5f, 0);
+      Score.transform.position = new Vector3(0.0f, -0.4f, 2.0f);
+      Score.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.7f);
+      Score.GetComponent<SpriteRenderer>().sortingOrder = 2;
+
+      Scoretext.GetComponentInChildren<Text>().text = "Score\n" + score.ToString();
     }
 
     public void designWow()

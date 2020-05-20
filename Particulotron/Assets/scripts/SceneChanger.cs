@@ -9,4 +9,10 @@ public class SceneChanger : MonoBehaviour
       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
+    public void Crafting() {
+      Debug.Log("Click !");
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+      Debug.Log("Click !");
+    }
+
 }
