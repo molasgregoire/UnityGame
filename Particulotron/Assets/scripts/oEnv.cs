@@ -298,7 +298,11 @@ public class oEnv : MonoBehaviour
       Score.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.7f);
       Score.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
-      Scoretext.GetComponentInChildren<Text>().text = "Score\n" + score.ToString();
+        //Scoretext.GetComponentInChildren<Text>().text = "Score\n" + score.ToString();
+        foreach (Text txt in Scoretext.GetComponentsInChildren<Text>())
+        {     
+            txt.text = "Score\n\n" + score.ToString();
+        }
 
     }
 

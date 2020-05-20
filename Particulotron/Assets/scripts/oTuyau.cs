@@ -123,6 +123,6 @@ public class oTuyau : MonoBehaviour
     {
         if(activated == null) { return false; }
         if(fail == true) { return false; }
-        return (activated.transform.localScale.x / 5f > 0.9f);
+        return (activated.transform.localScale.x / 7f > 0.9f);
     }
 }

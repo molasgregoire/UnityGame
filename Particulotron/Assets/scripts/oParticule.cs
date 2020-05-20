@@ -106,11 +106,11 @@ public class oParticule : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            angle -= Time.deltaTime*vitesseAngle / rayon;
+            angle += Time.deltaTime*vitesseAngle / rayon;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            angle += Time.deltaTime*vitesseAngle / rayon;
+            angle -= Time.deltaTime*vitesseAngle / rayon;
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
