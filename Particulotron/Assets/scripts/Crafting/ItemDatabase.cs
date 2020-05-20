@@ -19,11 +19,11 @@ public class ItemDatabase : MonoBehaviour {
       return baryons.Find(item => item.title == title);
     }
 
-    public Item GetQuark(int id) {
+    public ElmParticule GetQuark(int id) {
       return quarks.Find(item => item.id == id);
     }
 
-    public Item GetQuark(string title) {
+    public ElmParticule GetQuark(string title) {
       return quarks.Find(item => item.title == title);
     }
 
@@ -72,10 +72,10 @@ public class ItemDatabase : MonoBehaviour {
                 new Baryon(663,"Ω-bb","double bottom Omega",-1,-1,0,-2),
                 new Baryon(664,"Ω0cbb","charmed double bottom Omega",0,0,1,-2),
                 //Baryon J1.5
-                new Baryon(111,"Δ++(1232)","Delta",2,0,0,0),
+                new Baryon(111,"Δ++\n(1232)","Delta",2,0,0,0),
                 //new Baryon(211,"Δ+(1232)","Delta",1,0,0,0),
                 //new Baryon(221,"Δ0(1232)","Delta",0,0,0,0),
-                new Baryon(222,"Δ-(1232)","Delta",-1,0,0,0),
+                new Baryon(222,"Δ-\n(1232)","Delta",-1,0,0,0),
                 //new Baryon(311,"Σ∗+(1385)","Sigma",1,-1,0,0),
                 //new Baryon(321,"Σ∗0(1385)","Sigma",0,-1,0,0),
                 //new Baryon(322,"Σ∗-(1385)","Sigma",-1,-1,0,0),
@@ -112,12 +112,12 @@ public class ItemDatabase : MonoBehaviour {
 
     void BuildQuarks() {
       quarks = new List<ElmParticule>() {
-                new ElmParticule(1, "Quark Up", "u", "postit_UP"),
-                new ElmParticule(2, "Quark Down", "d", "postit_DOWN"),
-                new ElmParticule(3, "Quark Strange", "s", "postit_STRANGE"),
-                new ElmParticule(4, "Quark Charm", "c", "postit_CHARM"),
-                new ElmParticule(6, "Quark Bottom", "b", "postit_BOTTOM"),
-                new ElmParticule(5, "Quark Top", "t", "postit_TOP")
+                new ElmParticule(1, "Quark Up", "u", "postit_UP", "icon_UP"),
+                new ElmParticule(2, "Quark Down", "d", "postit_DOWN", "icon_DOWN"),
+                new ElmParticule(3, "Quark Strange", "s", "postit_STRANGE", "icon_STRANGE"),
+                new ElmParticule(4, "Quark Charm", "c", "postit_CHARM", "icon_CHARM"),
+                new ElmParticule(6, "Quark Bottom", "b", "postit_BOTTOM", "icon_BOTTOM"),
+                new ElmParticule(5, "Quark Top", "t", "postit_TOP", "icon_TOP")
       };
     }
 }
