@@ -82,6 +82,8 @@ public class oEnv : MonoBehaviour
         Jauge.endTime = maxTime;
 
         //decor
+
+        //Score
         Scoretext.SetActive(false);
         Score.AddComponent<SpriteRenderer>();
         designWow();
@@ -311,7 +313,8 @@ public class oEnv : MonoBehaviour
       //Scoretext.GetComponentsInChildren<Text>().text = "Score\n" + score.ToString() + "\n\n\nM to Menu";
       foreach( Text txt in Scoretext.GetComponentsInChildren<Text>())
         {
-            txt.text = "Score\n\n" + score.ToString() + "\n\nM to Menu";
+          double scoreint = Math.Round(score*1000);
+          txt.text = "Score\n\n" + scoreint.ToString() + "\n\nPress M to Menu";
         }
 
     }

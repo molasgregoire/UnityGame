@@ -2540,8 +2540,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 127, y: 22.375}
-  m_SizeDelta: {x: 180, y: 168}
+  m_AnchoredPosition: {x: 121, y: 22.375}
+  m_SizeDelta: {x: 182, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8225281808189819280
 MonoBehaviour:
@@ -2668,7 +2668,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -319.6, y: 145}
-  m_SizeDelta: {x: 180, y: 168}
+  m_SizeDelta: {x: 182, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8287758272878359928
 RectTransform:
@@ -2686,8 +2686,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -34.100006, y: -116.75}
-  m_SizeDelta: {x: 180, y: 168}
+  m_AnchoredPosition: {x: -31, y: -116.75}
+  m_SizeDelta: {x: 182, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8287758273492019956
 RectTransform:
@@ -2706,7 +2706,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -163.4, y: 26.274994}
-  m_SizeDelta: {x: 180, y: 168}
+  m_SizeDelta: {x: 182, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8287758273532776131
 RectTransform:
@@ -2743,8 +2743,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: 154}
-  m_SizeDelta: {x: 180, y: 168}
+  m_AnchoredPosition: {x: -17, y: 154}
+  m_SizeDelta: {x: 182, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8287758273871895736
 RectTransform:
@@ -2762,6 +2762,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -321.2, y: -106.20001}
-  m_SizeDelta: {x: 180, y: 168}
+  m_AnchoredPosition: {x: -320.2, y: -106.20001}
+  m_SizeDelta: {x: 182, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
