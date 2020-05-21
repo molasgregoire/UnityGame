@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class UIItem : MonoBehaviour
 {
-    public Item item;
-    //private Image spriteImage;
+  public Item item;
 
   private void Start() {
-    UpdateItem(null);
+    //UpdateItem(null);
   }
 
     public void Use() {
@@ -26,10 +25,10 @@ public class UIItem : MonoBehaviour
 
     public void UpdateItem(Item quark) {
       this.item = quark;
+      /*
+      this.item = quark;
       Image displayImage = transform.Find("Icon").GetComponent<Image>();
-
       if (this.item != null) {
-
                 displayImage.sprite = item.icon;
                 displayImage.color = Color.white;
       }
@@ -37,12 +36,12 @@ public class UIItem : MonoBehaviour
         displayImage.sprite = null;
         displayImage.color = Color.clear;
       }
+      */
     }
-
+/*
     public void UpdateItemCraft(ElmParticule quark) {
       this.item = quark;
       Image displayImage = transform.Find("Icon").GetComponent<Image>();
-
       if (this.item != null) {
 
                 displayImage.sprite = item.icon2;
@@ -52,5 +51,5 @@ public class UIItem : MonoBehaviour
         displayImage.sprite = null;
         displayImage.color = Color.clear;
       }
-    }
+    }*/
 }

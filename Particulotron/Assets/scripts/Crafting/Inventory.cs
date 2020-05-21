@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -24,42 +25,54 @@ public class Inventory : MonoBehaviour
     AddItem(5);
     AddItem(6);
 
-    updatePanelSlots();
-    updateCaftingSlots();
+    initializeSlots();
+    initializeCraftingSlots();
+    //updatePanelSlots();
+    //updateCaftingSlots();
     updateParticle();
 
   }
 
-  void updatePanelSlots() {
-    int index =0;
-    foreach(Transform child in inventoryPanel.transform) {
-      UIItem slot = child.GetComponent<UIItem>();
+  void initializeSlots() {
+    for(int index=0; index < 6; index++) {
       if (index < itemList.Count) {
-        slot.UpdateItem(itemList[index]);
-        //slot.item = itemCraft[index];
+        GameObject slot = GameObject.Find("Slot"+index.ToString());
+        Image Icon = slot.GetComponent<Image>();
+        Icon.color = Color.white;
+        Icon.sprite = itemList[index].icon;
+
+        UIItem oslot = slot.GetComponent<UIItem>();
+        oslot.item = itemList[index];
       }
       else {
-        //slot.item=null;
-        slot.UpdateItem(null);
+        GameObject slot = GameObject.Find("Slot"+index.ToString());
+        Image Icon = slot.GetComponent<Image>();
+        Icon.color = Color.clear;
+
+        UIItem oslot = slot.GetComponent<UIItem>();
+        oslot.item = null;
       }
-      //slot.UpdateItem();
-      index++;
     }
   }
 
-  void updateCaftingSlots() {
-    int index =0;
-    foreach(Transform child in craftingPanel.transform) {
-      UIItem slot = child.GetComponent<UIItem>();
-      if (index < itemCraft.Count) {
-        slot.UpdateItemCraft(itemCraft[index]);
-        //slot.item = itemCraft[index];
+  void initializeCraftingSlots() {
+    for(int index=0; index < 3; index++) {
+      GameObject slot = GameObject.Find("CraftingSlot"+index.ToString());
+      Image Icon = slot.GetComponent<Image>();
+      if (Icon != null && index < itemCraft.Count) {
+        Icon.color = Color.white;
+        Icon.sprite = itemCraft[index].icon2;
+
+        UIItem oslot = slot.GetComponent<UIItem>();
+        oslot.item = itemCraft[index];
       }
       else {
-        //slot.item=null;
-        slot.UpdateItemCraft(null);
+        Icon.color = Color.clear;
+        Icon.sprite = null;
+
+        UIItem oslot = slot.GetComponent<UIItem>();
+        oslot.item = null;
       }
-      index++;
     }
   }
 
@@ -153,7 +166,8 @@ public class Inventory : MonoBehaviour
       ElmParticule itemToAdd = itemDatabase.GetQuark(id);
       itemCraft.Add(itemToAdd);
     }
-    updateCaftingSlots();
+    initializeCraftingSlots();
+    //updateCaftingSlots();
   }
 
   public ElmParticule CheckForCraft(int id) {
@@ -165,7 +179,8 @@ public class Inventory : MonoBehaviour
     if (item != null) {
         itemCraft.Remove(item);
     }
-    updateCaftingSlots();
+    initializeCraftingSlots();
+    //updateCaftingSlots();
   }
 
 
@@ -176,7 +191,8 @@ public class Inventory : MonoBehaviour
       Item itemToAdd = itemDatabase.GetQuark(id);
       itemList.Add(itemToAdd);
     }
-    updatePanelSlots();
+    initializeSlots();
+    //updatePanelSlots();
   }
 
   public Item CheckForItem(int id) {
@@ -188,6 +204,45 @@ public class Inventory : MonoBehaviour
     if (item != null) {
         itemList.Remove(item);
     }
-    updatePanelSlots();
+    initializeSlots();
+    //updatePanelSlots();
   }
 }
+
+
+/*
+  void updatePanelSlots() {
+    int index =0;
+    foreach(Transform child in inventoryPanel.transform) {
+      UIItem slot = child.GetComponent<UIItem>();
+      if (index < itemList.Count) {
+        slot.UpdateItem(itemList[index]);
+        //Debug.Log("slot index "+index.ToString());
+        //slot.item = itemCraft[index];
+      }
+      else {
+        //slot.item=null;
+        slot.UpdateItem(null);
+      }
+      //slot.UpdateItem();
+      index++;
+    }
+  }
+
+  void updateCaftingSlots() {
+    int index =0;
+    foreach(Transform child in craftingPanel.transform) {
+      UIItem slot = child.GetComponent<UIItem>();
+      if (index < itemCraft.Count) {
+        slot.UpdateItemCraft(itemCraft[index]);
+        //slot.item = itemCraft[index];
+      }
+      else {
+        //slot.item=null;
+        slot.UpdateItemCraft(null);
+      }
+      index++;
+    }
+  }
+
+*/
