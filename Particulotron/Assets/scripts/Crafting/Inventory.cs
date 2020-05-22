@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
 {
   public List<Item> itemList = new List<Item>();
   public List<ElmParticule> itemCraft = new List<ElmParticule>();
-  public Item particle;
+  public Baryon particle;
   public ItemDatabase itemDatabase;
   public GameObject inventoryPanel;
   public GameObject craftingPanel;
@@ -79,7 +79,7 @@ public class Inventory : MonoBehaviour
   public void Craft() {
     int idToCraft = GetIdCraft();
     if (idToCraft != 0) {
-      Item baryon = itemDatabase.GetBaryon(idToCraft);
+      Baryon baryon = itemDatabase.GetBaryon(idToCraft);
       if (baryon != null) {
         this.particle = baryon;
       }

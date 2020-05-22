@@ -11,11 +11,11 @@ public class ItemDatabase : MonoBehaviour {
       BuildQuarks();
     }
 
-    public Item GetBaryon(int id) {
+    public Baryon GetBaryon(int id) {
       return baryons.Find(item => item.id == id);
     }
 
-    public Item GetBaryon(string title) {
+    public Baryon GetBaryon(string title) {
       return baryons.Find(item => item.title == title);
     }
 

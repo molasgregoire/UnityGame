@@ -6,7 +6,7 @@ public class Inventory2 : MonoBehaviour
 {
   public List<Item> itemList = new List<Item>();
   public List<Item> itemCraft = new List<Item>();
-  public Item particle;
+  public Baryon particle;
   public ItemDatabase itemDatabase;
   public GameObject inventoryPanel;
   public GameObject craftingPanel;
@@ -17,7 +17,7 @@ public class Inventory2 : MonoBehaviour
         instance = this;
     }
   private void Start() {
-    
+
 
     //Initiate Elementary particles
     AddItem(1);
@@ -70,7 +70,7 @@ public class Inventory2 : MonoBehaviour
     int idToCraft = GetIdCraft();
     Debug.Log("CraftId : " + idToCraft.ToString());
     if (idToCraft != 0) {
-      Item baryon = itemDatabase.GetBaryon(idToCraft);
+      Baryon baryon = itemDatabase.GetBaryon(idToCraft);
       if (baryon != null) {
         this.particle = baryon;
       }
