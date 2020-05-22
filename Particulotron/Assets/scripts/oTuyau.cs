@@ -24,7 +24,7 @@ public class oTuyau : MonoBehaviour
     public void Start()
     {
         circles = new List<GameObject>();
-        float dist = 5f*1f/ (nbCircles-1.0f);
+        float dist = 7f*1f/ (nbCircles-1.0f);
         for( int i = 0; i < nbCircles-1 ; i++ )
         {
             GameObject tmp = new GameObject();

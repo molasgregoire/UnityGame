@@ -56,7 +56,12 @@ public class oObstacle : MonoBehaviour
             transparency();
             
         }
-        colorMeRed();
+        
+        if(started)
+        {
+            selfDestruction();
+            colorMeRed();
+        }
         
     }
 
@@ -128,6 +133,15 @@ public class oObstacle : MonoBehaviour
         if( started && normalizeSized() > 0.95f)
         {
             obs.GetComponent<SpriteRenderer>().color = new Color(200, 0, 0);
+        }
+    }
+
+    public void selfDestruction()
+    {
+        if(normalizeSized() > 1f)
+        {
+            Destroy(obs);
+            Destroy(this);
         }
     }
 }

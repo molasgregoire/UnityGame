@@ -20,6 +20,8 @@ public class transition : MonoBehaviour
     public GameObject ecranTransition ;
     public GameObject font;
 
+    //levelCreator lancement = new levelCreator();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,11 +61,18 @@ public class transition : MonoBehaviour
             ecranTransition.transform.position += new Vector3(newX, newY, 0.0f);
         }
         else {
-            GameObject tmp = new GameObject();
-            tmp.AddComponent<oEnv>();
+            
+            /*GameObject tmp = new GameObject();
+            tmp.AddComponent<oEnv>();*/
 
-            //Destroy(ecranTransition);
-            //Destroy(font);
+            //passer par levelCreator ici
+            levelCreator.level = 0;
+            GameObject tmp = new GameObject();
+            levelCreator lancement = tmp.AddComponent<levelCreator>();
+            //lancement.Go();*/
+
+
+
             Destroy(this);
         }
     }

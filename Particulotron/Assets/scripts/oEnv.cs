@@ -26,7 +26,7 @@ public class oEnv : MonoBehaviour
     public oObstacle test;
     //public List<oObstacle> listObs = new List<oObstacle>();
     public List<oObstacle> listObsSuperpos = new List<oObstacle>();
-    public List<oObstacle> listObs;
+    public List<oObstacle> listObs = new List<oObstacle>();
 
     public float score = 0f;
     public int compteur = 0;
@@ -47,7 +47,9 @@ public class oEnv : MonoBehaviour
     //poubelle
     List<GameObject> corbeille = new List<GameObject>();
     // Start is called before the first frame update
-    public void Start()
+    public void Start() { }
+
+    public void initialisation()
     {
         //ajout des scripts
         Main = new GameObject();
@@ -65,9 +67,23 @@ public class oEnv : MonoBehaviour
 
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
+        /*
         generationObs = Main.AddComponent<GenerationObs>();
+
         listObs = generationObs.listObs; //Obstacles
         Tuyau = generationObs.listCircle(Tuyau); //Circle
+        */
+
+        //ZONE DE TEST
+        /*
+        for (int i = 0; i < 5; i++)
+        {
+            geometryLine((float)i, 3, 0f, 0.05f*(float)i);
+        }*/
+        //randomGeneration(0f, 30f, 0.5f);
+
+       // geometryBalayage(1f, 31f, 0.2f, 3, 0, 0.01f);
+
 
         //set de la jauge (en fonction du score max)
         Jauge.max = maxScore;
@@ -97,13 +113,14 @@ public class oEnv : MonoBehaviour
             //linearSpeedChange();
             proportionalSpeedChange();
             tourni();
-            obsTraqueurs(1f);
+            //!!!!!!!!!!!
+            //obsTraqueurs(1f);
         }
-        if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
+        /*if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
         {
             score += Time.deltaTime * scoreBonusTime*2f;
             obsTraqueurs(0.001f);
-        }
+        }*/
 
 
         demarrageObstacles();
@@ -126,7 +143,8 @@ public class oEnv : MonoBehaviour
 
     public void demarrageObstacles()
     {
-        foreach (oObstacle obst in listObs)
+        //foreach (oObstacle obst in listObs)
+        foreach (oObstacle obst in listObs.GetRange(0, Math.Min(1000,listObs.Count)))
         {
             if (!obst.started && oTimer.tps > obst.apparitionTime)
             {
@@ -152,7 +170,8 @@ public class oEnv : MonoBehaviour
 
     public void destroyObstacle()
     {
-
+        listObs.RemoveAll(item => item == null);
+        /*
         List<int> listIndex = new List<int>();
         for (int i = 0; i < listObs.Count; i++)
         {
@@ -168,12 +187,12 @@ public class oEnv : MonoBehaviour
         foreach (int i in listIndex)
         {
 
-            Destroy(listObs[i].obs);
+            //Destroy(listObs[i].obs);
             Destroy(listObs[i]);
 
             listObs.RemoveAt(i);
         }
-
+        */
     }
 
     public void obsTraqueurs( float interval)
@@ -186,21 +205,9 @@ public class oEnv : MonoBehaviour
             listObs.Add(tmp);
         }
     }
-/*
-    public void geometryGenerator( float time , int polygone, float rayon, float angle  )
-    {
-        float angleFix = 2f * 3.141f / (float)polygone;
-        for( int i = 0 ; i < polygone ; i++)
-        {
-            float tmpX = rayon * (float)(Math.Cos( (float)i * angleFix + angle ));
-            float tmpY = rayon * (float)(Math.Sin( (float)i * angleFix + angle ));
 
-            oObstacle tmp = Main.AddComponent<oObstacle>();
-            tmp.alloc( time, tmpX, tmpY, 0.5f , "rond");
-            listObs.Add(tmp);
-        }
-    }
-*/
+    
+
     void OnGUI()
     {
         if ( oTimer.tps < maxTime && oTimer.tps > startTime)
@@ -395,7 +402,7 @@ public class oEnv : MonoBehaviour
 
 
     //alloc(float at, float fx, float fy, float fr, string im)
-    /*void randomGeneration( float firstTime , float totalTime , float interval )
+    public void randomGeneration( float firstTime , float totalTime , float interval )
     {
         //generation obstacles
         int nb = (int)( (totalTime - firstTime -3f) / interval);
@@ -426,7 +433,7 @@ public class oEnv : MonoBehaviour
         for (int i = 0; i < nb; i++)
         {
             //int taille = (1 + UnityEngine.Random.Range(0, 2));
-            int taille = 2;
+            //int taille = 2;
             int which = UnityEngine.Random.Range(0, 4);
 
             oZone tmp = Main.AddComponent<oZone>();
@@ -448,5 +455,38 @@ public class oEnv : MonoBehaviour
             tmpList.Add((float)i * tempoCercle + startTime);
         }
         Tuyau.listRed = tmpList;
-    }*/
+    }
+
+    public void geometryGenerator(float time, int polygone, float rayon, float angle)
+    {
+        float angleFix = 2f * 3.141f / (float)polygone;
+        for (int i = 0; i < polygone; i++)
+        {
+            float tmpX = rayon * (float)(Math.Cos((float)i * angleFix + angle));
+            float tmpY = rayon * (float)(Math.Sin((float)i * angleFix + angle));
+
+            oObstacle tmp = Main.AddComponent<oObstacle>();
+            tmp.alloc(time, tmpX, tmpY, 0.5f, "rond");
+            listObs.Add(tmp);
+        }
+    }
+
+    public void geometryLine( float time, int polygone , float angle , float coubure )
+    {
+        for( int i = 0; i < 14;i++)
+        {
+            geometryGenerator(time, polygone, /*0.15f*/ 0.25f * (float)i, angle + coubure * (float)i);
+        }
+    }
+
+    public void geometryBalayage( float timeMin ,  float timeMax , float interval , int polygone, float angle, float coubure )
+    {
+        int nb = (int)( (timeMax-timeMin)/interval );
+        float alpha = 2f * 3.141f / nb;
+        for( int i = 0; i < nb; i++)
+        {
+            geometryLine( timeMin+(float)i*interval , polygone, angle+i*alpha , -coubure  );
+        }
+    }
 }
+
