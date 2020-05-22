@@ -28,7 +28,7 @@ public class oEnv : MonoBehaviour
 
     public float score = 0f;
     public int compteur = 0;
-    public float maxTime = 60f; //60
+    public float maxTime = 70f; //60
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
@@ -60,21 +60,31 @@ public class oEnv : MonoBehaviour
         sceneChanger = Main.AddComponent<SceneChanger>();
         Aimant.Part = Particule;
         chronoTarget = startTime;
-
+        
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
         float intervalTest = 0.5f;
-        randomGeneration( startTime, maxTime, intervalTest);
-        randomGeneration( startTime, maxTime, intervalTest);
+        randomGeneration( startTime, maxTime-10f, intervalTest);
+        randomGeneration( startTime, maxTime-10f, intervalTest);
         //randomGeneration( startTime, maxTime, intervalTest);
         randomGeneration( maxTime/3f, maxTime, intervalTest);
         //randomGeneration(maxTime / 3f, maxTime, intervalTest);
         //randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
-        randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
+        randomGeneration( 2f* maxTime / 3f, maxTime-10f, intervalTest);
         circleGeneration(5f);
         //test
-        zoneGeneration(startTime, maxTime, 3f);
+        zoneGeneration(startTime, maxTime-10f, 3f);
+        
 
+        //test geometry
+        /*
+        for (int i = 2; i < 10; i++)
+        { 
+            for (int j = 0; j < 21; j++)
+            {
+                geometryGenerator((float)i, i, (float)j*0.15f, (float)j*0.1f);
+            }
+        }*/
         //set de la jauge (en fonction du score max)
         Jauge.max = maxScore;
         Jauge.current = 0f;
@@ -97,7 +107,7 @@ public class oEnv : MonoBehaviour
     {
 
         //gestion du score + chose sur timer
-        if (oTimer.tps < maxTime && oTimer.tps > startTime)
+        if (oTimer.tps < maxTime-10f && oTimer.tps > startTime)
         {
             score += Time.deltaTime*scoreBonusTime;
             //linearSpeedChange();
@@ -105,9 +115,14 @@ public class oEnv : MonoBehaviour
             tourni();
             obsTraqueurs(1f);
         }
+        if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
+        {
+            score += Time.deltaTime * scoreBonusTime*2f;
+            obsTraqueurs(0.001f);
+        }
 
 
-        demarrageObstacles();
+            demarrageObstacles();
         particleGetHit();
         destroyObstacle();
         activeCircle();
@@ -240,6 +255,20 @@ public class oEnv : MonoBehaviour
             chronoTarget += interval;
             oObstacle tmp = Main.AddComponent<oObstacle>();
             tmp.alloc(oTimer.tps + 0.5f, Particule.x, Particule.y, 1f + UnityEngine.Random.Range(-0.2f, 0.2f), "rond");
+            listObs.Add(tmp);
+        }
+    }
+
+    public void geometryGenerator( float time , int polygone, float rayon, float angle  )
+    {
+        float angleFix = 2f * 3.141f / (float)polygone;
+        for( int i = 0 ; i < polygone ; i++)
+        {
+            float tmpX = rayon * (float)(Math.Cos( (float)i * angleFix + angle ));
+            float tmpY = rayon * (float)(Math.Sin( (float)i * angleFix + angle ));
+
+            oObstacle tmp = Main.AddComponent<oObstacle>();
+            tmp.alloc( time, tmpX, tmpY, 0.5f , "rond");
             listObs.Add(tmp);
         }
     }
