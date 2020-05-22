@@ -53,19 +53,19 @@ public class levelCreator : MonoBehaviour
 
         env.circleGeneration(5f);
         // 0 > 10
-        env.randomGeneration(0f+start, 10f + start, 0.2f);
-        env.randomGeneration(0f+start, 10f + start, 0.2f);
+        env.randomGeneration(0f+start, 10f + start, 0.3f);
+        env.randomGeneration(0f+start, 10f + start, 0.7f);
         //10 > 20
-        env.geometryBalayage(10f + start, 20f + start, 0.3f, 2, 0, 0.05f);
+        env.geometryBalayage(10f + start, 20f + start, 0.7f, 2, 0, 0.1f);
         //20 > 30
         env.randomGeneration(20f + start, 30f + start, 2f);
         env.randomGeneration(20f + start, 30f + start, 0.5f);
         env.randomGeneration(20f + start, 30f + start, 1.0f);
         //30 > 40
-        env.geometryBalayage(30f + start, 40f + start, 0.3f, 6, 0, 0.05f);
+        env.geometryBalayage(30f + start, 40f + start, 0.7f, 5, 0, 0.1f);
         //40 > 50
         //50 > 60
-        env.randomGeneration(40f + start, 60f + start, 0.5f);
+        env.randomGeneration(40f + start, 60f + start, 0.3f);
         env.randomGeneration(40f + start, 60f + start, 0.5f);
         env.zoneGeneration(40f + start, 60f + start, 1f);
 

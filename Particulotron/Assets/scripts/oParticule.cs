@@ -109,23 +109,23 @@ public class oParticule : MonoBehaviour
 
     void deplacementCirculaire()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.RightArrow) | Input.GetKey(KeyCode.D))
         {
             angle += Time.deltaTime*vitesseAngle / rayon;
             if (inertieAngle < 1) { inertieAngle += Time.deltaTime * 3; }
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) | Input.GetKey(KeyCode.A))
         {
             angle -= Time.deltaTime*vitesseAngle / rayon;
             if (inertieAngle > -1) { inertieAngle -= Time.deltaTime * 3; }
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow) | Input.GetKey(KeyCode.W))
         {
             if (rayon < rayonMax)
             { rayon += Time.deltaTime * vitesseRayon; }
             inertieRayon += Time.deltaTime*3;
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow) | Input.GetKey(KeyCode.S))
         {
             if (rayon > rayonMin)
             { rayon -= Time.deltaTime * vitesseRayon; }
