@@ -144,7 +144,7 @@ public class oEnv : MonoBehaviour
     public void demarrageObstacles()
     {
         //foreach (oObstacle obst in listObs)
-        foreach (oObstacle obst in listObs.GetRange(0, Math.Min(1000,listObs.Count)))
+        foreach (oObstacle obst in listObs)//.GetRange(0, Math.Min(1000,listObs.Count)))
         {
             if (!obst.started && oTimer.tps > obst.apparitionTime)
             {
@@ -405,7 +405,7 @@ public class oEnv : MonoBehaviour
     public void randomGeneration( float firstTime , float totalTime , float interval )
     {
         //generation obstacles
-        int nb = (int)( (totalTime - firstTime -3f) / interval);
+        int nb = (int)( (totalTime - firstTime) / interval);
         for( int i=0 ;i<nb ; i++)
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();

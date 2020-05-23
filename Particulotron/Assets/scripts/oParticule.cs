@@ -133,8 +133,8 @@ public class oParticule : MonoBehaviour
         }
 
         //ajustements
-        if( rayon < rayonMin) { rayon = rayonMin; }
-        if (rayon > rayonMax) { rayon = rayonMax; }
+        if( rayon < rayonMin) { rayon = rayonMin ; }
+        if (rayon > rayonMax) { rayon = rayonMax ; }
     }
 
     void posCirc()
