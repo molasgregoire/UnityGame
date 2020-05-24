@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class levelCreator : MonoBehaviour
 {
-    public static int level;
+    public static int level = 0;
     public oEnv env;
 
     // Start is called before the first frame update
@@ -20,10 +20,12 @@ public class levelCreator : MonoBehaviour
 
         switch(level)
         {
-            case 0: levelTest();
+            case 0:
+                levelDemo();
                 //print(0);
                 break;
-            case 1: levelDemo();
+            case 1:
+                levelTest();
                 //print(1);
                 break;
             default: print("Default");
@@ -50,14 +52,16 @@ public class levelCreator : MonoBehaviour
 
       env.initialisation();
 
-      float intervalTest = 0.5f;
-      env.randomGeneration( env.startTime, env.maxTime-10f, intervalTest);
-      env.randomGeneration( env.startTime, env.maxTime-10f, intervalTest);
+     env.targetTab = new List<float>() { start , 50f , 1f , 50f ,60f,0.001f };
+
+        float intervalTest = 0.5f;
+      env.randomGeneration( 0, env.maxTime-10f, intervalTest);
+      env.randomGeneration( 0, env.maxTime-10f, intervalTest);
       //randomGeneration( startTime, maxTime, intervalTest);
-      env.randomGeneration( env.maxTime/3f, env.maxTime, intervalTest);
+      env.randomGeneration( (env.maxTime-10f)/3f, env.maxTime-10f, intervalTest);
       //randomGeneration(maxTime / 3f, maxTime, intervalTest);
       //randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
-      env.randomGeneration( 2f* env.maxTime / 3f, env.maxTime-10f, intervalTest);
+      env.randomGeneration( 2f* (env.maxTime-10f) / 3f, env.maxTime-10f, intervalTest);
       //test
       env.zoneGeneration(env.startTime, env.maxTime-10f, 3f);
 

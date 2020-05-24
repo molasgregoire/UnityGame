@@ -34,6 +34,8 @@ public class oEnv : MonoBehaviour
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
+    
+    public List<float> targetTab = new List<float>();
 
     //modif vitesse
     public float speedFactor = 1.0f;
@@ -112,26 +114,27 @@ public class oEnv : MonoBehaviour
     {
 
         //gestion du score + chose sur timer
-        if (oTimer.tps < maxTime-10f && oTimer.tps > startTime)
+        if (oTimer.tps < maxTime && oTimer.tps > startTime)
         {
             score += Time.deltaTime*scoreBonusTime;
             //linearSpeedChange();
             proportionalSpeedChange();
             tourni();
             //!!!!!!!!!!!
-            obsTraqueurs(1f);
-        }
+           // obsTraqueurs(1f);
+        }/*
         if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
         {
             score += Time.deltaTime * scoreBonusTime*2f;
             obsTraqueurs(0.001f);
-        }
+        }*/
 
 
         demarrageObstacles();
         particleGetHit();
         destroyObstacle();
         activeCircle();
+        manageTraqueur();
 
         //addMagnetOverTime();
 
@@ -139,7 +142,7 @@ public class oEnv : MonoBehaviour
         //if( oTimer.tps > maxTime+startTime) { deleteAll(); }
 
         //Affichage du score
-        if(oTimer.tps > maxTime) {
+        if (oTimer.tps > maxTime) {
           Scoretext.SetActive(true);
           affichageScore();
           restartorMenu();
@@ -202,7 +205,7 @@ public class oEnv : MonoBehaviour
 
     public void obsTraqueurs( float interval)
     {
-        if (chronoTarget < oTimer.tps )
+        if ( chronoTarget < oTimer.tps )
         {
             chronoTarget += interval;
             oObstacle tmp = Main.AddComponent<oObstacle>();
@@ -211,7 +214,25 @@ public class oEnv : MonoBehaviour
         }
     }
 
+    // 0 = start 1 = end 2 = frq
+    public void manageTraqueur()
+    {
+        if(targetTab.Count > 0)
+        { 
+        if (oTimer.tps > targetTab[0])
+        {
+            obsTraqueurs(targetTab[2]);
+        }
 
+        if (oTimer.tps > targetTab[1])
+        {
+            targetTab.RemoveAt(2);
+            targetTab.RemoveAt(1);
+            targetTab.RemoveAt(0);
+        }
+
+        }
+    }
 
     void OnGUI()
     {

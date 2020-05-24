@@ -66,7 +66,7 @@ public class transition : MonoBehaviour
             tmp.AddComponent<oEnv>();*/
 
             //passer par levelCreator ici
-            levelCreator.level = 1;
+            //levelCreator.level = 0;
             GameObject tmp = new GameObject();
             levelCreator lancement = tmp.AddComponent<levelCreator>();
             //lancement.Go();*/
