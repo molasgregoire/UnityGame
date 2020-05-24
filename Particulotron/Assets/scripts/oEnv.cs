@@ -67,7 +67,7 @@ public class oEnv : MonoBehaviour
 
         //reinit
         oTimer.tps = 0;
-        
+
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
         /*
