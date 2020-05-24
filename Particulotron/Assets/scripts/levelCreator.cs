@@ -101,7 +101,7 @@ public class levelCreator : MonoBehaviour
         { env.geometryLine(30f+(float)i, i+1, (float)i, 0.1f); }
         //40 > 50
         env.zoneGeneration(40f , 50f , 0.25f);
-
+        env.targetTab = new List<float>() { 40f,50f,1f };
         //50 > 70
         env.randomGeneration(50f , 70f , 0.3f);
         env.randomGeneration(50f , 70f, 0.5f);
