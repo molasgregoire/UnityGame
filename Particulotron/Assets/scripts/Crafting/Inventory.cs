@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +14,12 @@ public class Inventory : MonoBehaviour
   public GameObject inventoryPanel;
   public GameObject craftingPanel;
   public GameObject particlePanel;
+  
+    public List<int> baryons = new List<int>();
+    public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
   public static Inventory instance;
+  
+
 
   private void Start() {
     instance = this;
@@ -75,14 +82,30 @@ public class Inventory : MonoBehaviour
       }
     }
   }
+    public void addToLoadMenu(Baryon baryon)
+    {
 
+        GameObject list = GameObject.Find("List");
+        LoadList loadList = list.GetComponent<LoadList>();
+        loadList.GenButton(baryon,itemCraft);
+    }
   public void Craft() {
     int idToCraft = GetIdCraft();
     if (idToCraft != 0) {
       Baryon baryon = itemDatabase.GetBaryon(idToCraft);
       if (baryon != null) {
         this.particle = baryon;
-      }
+                List<ElmParticule> value;
+        if (previouslyCrafted.TryGetValue(baryon.id,out value))
+        {
+
+                    }else
+                    {
+                        previouslyCrafted.Add(baryon.id, itemCraft);
+                        addToLoadMenu(baryon);
+                    }
+
+            }
       else {
         this.particle = itemDatabase.GetBaryon(8);
       }
@@ -92,7 +115,15 @@ public class Inventory : MonoBehaviour
     }
     updateParticle();
   }
+    public void CraftPreviouslyCrafted(Baryon baryon)
+    {
+        
+        this.itemCraft = previouslyCrafted[baryon.id];
+        Craft();
+    }
+        
 
+    
   void updateParticle() {
     foreach(Transform child in particlePanel.transform) {
       UIParticle slot = child.GetComponent<UIParticle>();
