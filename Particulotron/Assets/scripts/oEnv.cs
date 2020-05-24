@@ -30,7 +30,7 @@ public class oEnv : MonoBehaviour
 
     public float score = 0f;
     public int compteur = 0;
-    public float maxTime = 70f; //60
+    public float maxTime = 70f; //70
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
@@ -65,6 +65,9 @@ public class oEnv : MonoBehaviour
         Aimant.Part = Particule;
         chronoTarget = startTime;
 
+        //reinit
+        oTimer.tps = 0;
+
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
         /*
@@ -83,6 +86,8 @@ public class oEnv : MonoBehaviour
         //randomGeneration(0f, 30f, 0.5f);
 
        // geometryBalayage(1f, 31f, 0.2f, 3, 0, 0.01f);
+
+       circleGeneration(5f);
 
 
         //set de la jauge (en fonction du score max)
@@ -114,13 +119,13 @@ public class oEnv : MonoBehaviour
             proportionalSpeedChange();
             tourni();
             //!!!!!!!!!!!
-            //obsTraqueurs(1f);
+            obsTraqueurs(1f);
         }
-        /*if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
+        if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
         {
             score += Time.deltaTime * scoreBonusTime*2f;
             obsTraqueurs(0.001f);
-        }*/
+        }
 
 
         demarrageObstacles();
@@ -206,7 +211,7 @@ public class oEnv : MonoBehaviour
         }
     }
 
-    
+
 
     void OnGUI()
     {
@@ -405,7 +410,7 @@ public class oEnv : MonoBehaviour
     public void randomGeneration( float firstTime , float totalTime , float interval )
     {
         //generation obstacles
-        int nb = (int)( (totalTime - firstTime) / interval);
+        int nb = (int)( (totalTime - firstTime -3f) / interval);
         for( int i=0 ;i<nb ; i++)
         {
             oObstacle tmp = Main.AddComponent<oObstacle>();
@@ -489,4 +494,3 @@ public class oEnv : MonoBehaviour
         }
     }
 }
-

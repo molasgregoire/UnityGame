@@ -861,12 +861,14 @@ MonoBehaviour:
   Music: {fileID: 0}
   Aimant: {fileID: 0}
   sceneChanger: {fileID: 0}
+  generationObs: {fileID: 0}
   Main: {fileID: 0}
   Score: {fileID: 0}
   Scoretext: {fileID: 2034198381}
+  Command: {fileID: 0}
   test: {fileID: 0}
-  listObs: []
   listObsSuperpos: []
+  listObs: []
   score: 0
   compteur: 0
   maxTime: 60

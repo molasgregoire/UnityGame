@@ -16,14 +16,14 @@ public class levelCreator : MonoBehaviour
     {
         GameObject tmp = new GameObject();
         env = tmp.AddComponent<oEnv>();
-        
-        
+
+
         switch(level)
         {
             case 0: levelTest();
                 //print(0);
                 break;
-            case 1:
+            case 1: levelDemo();
                 //print(1);
                 break;
             default: print("Default");
@@ -35,17 +35,45 @@ public class levelCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    void levelDemo()
+    {
+      float start = 3f;
+      env.maxTime = 60f; //70
+      env.startTime = start;
+      env.speedFactor = 1.5f;
+      env.maxScore = 100f;
+      env.scoreBonusTime = 1f;
+      oTimer.tps = 0;
+
+      env.initialisation();
+
+      float intervalTest = 0.5f;
+      env.randomGeneration( env.startTime, env.maxTime-10f, intervalTest);
+      env.randomGeneration( env.startTime, env.maxTime-10f, intervalTest);
+      //randomGeneration( startTime, maxTime, intervalTest);
+      env.randomGeneration( env.maxTime/3f, env.maxTime, intervalTest);
+      //randomGeneration(maxTime / 3f, maxTime, intervalTest);
+      //randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
+      env.randomGeneration( 2f* env.maxTime / 3f, env.maxTime-10f, intervalTest);
+      //test
+      env.zoneGeneration(env.startTime, env.maxTime-10f, 3f);
+
+      foreach( oObstacle obs in env.listObs) { obs.apparitionTime += start; }
     }
 
     void levelTest()
     {
         float start = 3f;
-        env.maxTime = 90f;
+        env.maxTime = 70f;
         env.startTime = start;
         env.speedFactor = 1.0f;
         env.maxScore = 130f;
         env.scoreBonusTime = 1.5f;
+        //reinit
+        oTimer.tps = 0;
         //etc..
 
         //empeche les probleme d'instanciation
@@ -69,7 +97,7 @@ public class levelCreator : MonoBehaviour
         { env.geometryLine(30f+(float)i, i+1, (float)i, 0.1f); }
         //40 > 50
         env.zoneGeneration(40f , 50f , 0.25f);
-        
+
         //50 > 70
         env.randomGeneration(50f , 70f , 0.3f);
         env.randomGeneration(50f , 70f, 0.5f);
