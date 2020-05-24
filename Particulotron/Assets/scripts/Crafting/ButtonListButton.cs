@@ -22,39 +22,40 @@ public class ButtonListButton : MonoBehaviour
     Image thirdSprite;
 
     private Baryon baryon;
- 
-    
+
+
     public void OnClick()
     {
-       
-        Inventory.instance.CraftPreviouslyCrafted(baryon);
+      Debug.Log("click "+baryon.title);
+
+      Inventory.instance.CraftPreviouslyCrafted(baryon);
        /* for(int i =0; i < 3; i++)
         {
             Inventory.instance.RemoveCraft(Inventory.instance.itemCraft[i].id);
-           
+
         }
         for(int j =0; j<3; j++)
         {
             Inventory.instance.AddCraft(Inventory.instance.previouslyCrafted[baryon][j].id);
         }
         Inventory.instance.Craft();*/
-        
+
     }
+
     public void SetBaryonQuarks(Baryon baryon,List<ElmParticule> quarks )
     {
-
         this.baryon = baryon;
 
         SetText(baryon.Q, baryon.S, baryon.C, baryon.B);
-        firstSprite.sprite = quarks[0].icon;
-        secondSprite.sprite = quarks[1].icon;
-        thirdSprite.sprite = quarks[2].icon;
+        firstSprite.sprite = quarks[0].icon2;
+        secondSprite.sprite = quarks[1].icon2;
+        thirdSprite.sprite = quarks[2].icon2;
 
     }
    public void SetText(int q,int s, int c, int b)
     {
-        myText.text = "Q :" + q + " , S :" + s + " , C :" + c + " , B:" + b + "";
+        myText.text = "Q : " + q + ", S : " + s + ", C : " + c + ", B : " + b + "";
     }
 
-   
+
 }

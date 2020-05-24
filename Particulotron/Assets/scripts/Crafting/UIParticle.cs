@@ -13,7 +13,6 @@ public class UIParticle : MonoBehaviour
 
   void Update() {
     Inventory.instance.Craft();
-    //UpdateParticle();
   }
 
   public void Craft() {
