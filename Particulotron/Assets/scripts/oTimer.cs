@@ -9,7 +9,7 @@ public class oTimer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        tps = 0f;
     }
 
     // Update is called once per frame
