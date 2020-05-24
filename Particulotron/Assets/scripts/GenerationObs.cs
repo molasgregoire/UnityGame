@@ -63,17 +63,6 @@ public class GenerationObs : MonoBehaviour
       //circleGeneration(5f);
     }
 
-/*
-    void GetPattern(int id, float time){
-      switch (id)
-      {
-          case 1:
-          case 2:
-
-      }
-    }
-*/
-
     public oTuyau listCircle(oTuyau Tuyau){
       return circleGeneration(5f, Tuyau);
     }

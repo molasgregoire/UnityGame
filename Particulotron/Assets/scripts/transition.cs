@@ -61,12 +61,12 @@ public class transition : MonoBehaviour
             ecranTransition.transform.position += new Vector3(newX, newY, 0.0f);
         }
         else {
-            
+
             /*GameObject tmp = new GameObject();
             tmp.AddComponent<oEnv>();*/
 
             //passer par levelCreator ici
-            levelCreator.level = 0;
+            levelCreator.level = 1;
             GameObject tmp = new GameObject();
             levelCreator lancement = tmp.AddComponent<levelCreator>();
             //lancement.Go();*/

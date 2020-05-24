@@ -23,7 +23,7 @@ public class levelCreator : MonoBehaviour
             case 0: levelTest();
                 //print(0);
                 break;
-            case 1:
+            case 1: levelDemo();
                 //print(1);
                 break;
             default: print("Default");
@@ -38,10 +38,36 @@ public class levelCreator : MonoBehaviour
 
     }
 
+    void levelDemo()
+    {
+      float start = 3f;
+      env.maxTime = 60f; //70
+      env.startTime = start;
+      env.speedFactor = 1.5f;
+      env.maxScore = 100f;
+      env.scoreBonusTime = 1f;
+      oTimer.tps = 0;
+
+      env.initialisation();
+
+      float intervalTest = 0.5f;
+      env.randomGeneration( env.startTime, env.maxTime-10f, intervalTest);
+      env.randomGeneration( env.startTime, env.maxTime-10f, intervalTest);
+      //randomGeneration( startTime, maxTime, intervalTest);
+      env.randomGeneration( env.maxTime/3f, env.maxTime, intervalTest);
+      //randomGeneration(maxTime / 3f, maxTime, intervalTest);
+      //randomGeneration( 2f* maxTime / 3f, maxTime, intervalTest);
+      env.randomGeneration( 2f* env.maxTime / 3f, env.maxTime-10f, intervalTest);
+      //test
+      env.zoneGeneration(env.startTime, env.maxTime-10f, 3f);
+
+      foreach( oObstacle obs in env.listObs) { obs.apparitionTime += start; }
+    }
+
     void levelTest()
     {
         float start = 3f;
-        env.maxTime = 10f;
+        env.maxTime = 70f;
         env.startTime = start;
         env.speedFactor = 1.0f;
         env.maxScore = 130f;
