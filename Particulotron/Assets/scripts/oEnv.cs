@@ -30,7 +30,7 @@ public class oEnv : MonoBehaviour
 
     public float score = 0f;
     public int compteur = 0;
-    public float maxTime = 70f; //60
+    public float maxTime = 70f; //70
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
@@ -65,6 +65,9 @@ public class oEnv : MonoBehaviour
         Aimant.Part = Particule;
         chronoTarget = startTime;
 
+        //reinit
+        oTimer.tps = 0;
+        
         //pose des obstacles
         // >> pour linstant manuel, mais à initialiser depuis le createur de niveau (?)
         /*
@@ -206,7 +209,7 @@ public class oEnv : MonoBehaviour
         }
     }
 
-    
+
 
     void OnGUI()
     {
@@ -489,4 +492,3 @@ public class oEnv : MonoBehaviour
         }
     }
 }
-

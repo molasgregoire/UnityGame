@@ -16,8 +16,8 @@ public class levelCreator : MonoBehaviour
     {
         GameObject tmp = new GameObject();
         env = tmp.AddComponent<oEnv>();
-        
-        
+
+
         switch(level)
         {
             case 0: levelTest();
@@ -35,17 +35,19 @@ public class levelCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void levelTest()
     {
         float start = 3f;
-        env.maxTime = 90f;
+        env.maxTime = 10f;
         env.startTime = start;
         env.speedFactor = 1.0f;
         env.maxScore = 130f;
         env.scoreBonusTime = 1.5f;
+        //reinit
+        oTimer.tps = 0;
         //etc..
 
         //empeche les probleme d'instanciation
@@ -69,7 +71,7 @@ public class levelCreator : MonoBehaviour
         { env.geometryLine(30f+(float)i, i+1, (float)i, 0.1f); }
         //40 > 50
         env.zoneGeneration(40f , 50f , 0.25f);
-        
+
         //50 > 70
         env.randomGeneration(50f , 70f , 0.3f);
         env.randomGeneration(50f , 70f, 0.5f);
