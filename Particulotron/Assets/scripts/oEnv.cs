@@ -22,6 +22,7 @@ public class oEnv : MonoBehaviour
     public GameObject Main;
     public GameObject Score;
     public GameObject Scoretext;
+    public GameObject CaraText;
 
     public oObstacle test;
     //public List<oObstacle> listObs = new List<oObstacle>();
@@ -57,6 +58,7 @@ public class oEnv : MonoBehaviour
         Main = new GameObject();
         Score = new GameObject();
         Scoretext = GameObject.Find("Scoretext");
+        CaraText = GameObject.Find("CaraText");
         Particule = Main.AddComponent<oParticule>();
         Timer = Main.AddComponent<oTimer>();
         Tuyau = Main.AddComponent<oTuyau>();
@@ -105,8 +107,12 @@ public class oEnv : MonoBehaviour
         Score.AddComponent<SpriteRenderer>();
         designWow();
         //aimants();
+
+        //AddOn
         Aimant.speed = speed;
+        Particule.degrade = degrade;
         //affichageScore();
+        affichageCara();
     }
 
     // Update is called once per frame
@@ -166,12 +172,12 @@ public class oEnv : MonoBehaviour
         overlaping();
         foreach (oObstacle obst in listObsSuperpos)
         {
-            if( obst.normalizeSized() > 0.95f && !obst.hit)
+            if( obst.normalizeSized() > 0.95f && !obst.hit && !(Particule.invincible > 0f))
             {
                 obst.hit = true;
-                //compteur += 1;
                 score -= scoreMalusObs;
                 Music.playMe("hit");
+                Particule.invincible = 0.2f;
             }
         }
     }
@@ -309,6 +315,14 @@ public class oEnv : MonoBehaviour
 
     }
 
+    public void affichageCara()
+    {
+        foreach (Text txt in CaraText.GetComponentsInChildren<Text>())
+        {
+            txt.text = "Q : " + 1.ToString() + "\n\nS : " + 0.ToString() + "\n\nC : " + 0.ToString() + "\n\nB : " + 0.ToString();
+        }
+    }
+
     public void designWow()
     {
         /*GameObject ecran = new GameObject();
@@ -362,10 +376,21 @@ public class oEnv : MonoBehaviour
         speed.transform.localScale = new Vector3(1.814f, 1.24f, 0);
         speed.transform.position = new Vector3(-0.031f, -0.031f, 0.0f);
         speed.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+
+        //bordure dégradée
+        degrade = new GameObject();
+        degrade.AddComponent<SpriteRenderer>();
+        degrade.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("bordures_grad2") as Sprite;
+        degrade.transform.localScale = new Vector3(4.0334f, 3.49f, 0);
+        degrade.transform.position = new Vector3(-0.058f, -0.025f, 0.0f);
+        degrade.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0);
     }
 
     public GameObject speed;
     public GameObject bordure;
+    public GameObject degrade;
+
+
     public void tourni()
     {
         bordure.transform.rotation = Quaternion.Euler(0, 0, 360f / maxTime * oTimer.tps* oTimer.tps);

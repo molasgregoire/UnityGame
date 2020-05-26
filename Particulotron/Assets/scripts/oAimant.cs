@@ -17,6 +17,7 @@ public class oAimant : MonoBehaviour
     float brillance = 0.2f;
 
     public GameObject speed;
+
     // Start is called before the first frame update
     void Start()
     {

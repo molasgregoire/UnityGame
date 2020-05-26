@@ -31,6 +31,8 @@ public class oParticule : MonoBehaviour
     public float inertieRayon = 0f;
     public float mass = 3.0f;
 
+    public GameObject degrade;
+    public float invincible = 0.0f;
     // Use this for initialization
     public void Start()
     {
@@ -68,7 +70,13 @@ public class oParticule : MonoBehaviour
         cercle.transform.localScale = new Vector3(rayon * 0.42f, rayon * 0.42f, 0);
         //deplacement();
 
+        if( invincible > 0f )
+        {
+            invincible -= Time.deltaTime;
+        }
+        if (invincible < 0f) { invincible = 0f; }
 
+        degrade.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, invincible*5f);
 
     }
 
