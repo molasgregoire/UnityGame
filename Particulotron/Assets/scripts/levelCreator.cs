@@ -9,6 +9,8 @@ public class levelCreator : MonoBehaviour
     public static int level = 0;
     public oEnv env;
 
+    public static List<int> Blocks = new List<int>();
+
     // Start is called before the first frame update
     void Start() { Go(); }
 
@@ -28,6 +30,9 @@ public class levelCreator : MonoBehaviour
                 levelTest();
                 //print(1);
                 break;
+            case 2:
+                levelBlock();
+                break;
             default: print("Default");
                 levelTest();
                 break;
@@ -38,6 +43,47 @@ public class levelCreator : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void blocinit(int blocky, float first, float total) {
+      switch(blocky)
+      {
+        case 0: //ZONE
+            env.zoneGeneration(first, total,0.5f);
+            break;
+        case 1: //ETC...
+
+            break;
+        default: //RANDOM
+            env.randomGeneration(first, total,0.5f);
+            break;
+      }
+    }
+
+    public void initlevel() {
+
+      foreach(int bloc in Blocks) {
+        float first = 0f; //a changer...
+        float total = 10f;
+        blocinit(bloc, first, total);
+      }
+
+    }
+
+    void levelBlock() {
+      float start = 3f;
+      env.maxTime = 60f; //70
+      env.startTime = start;
+      env.speedFactor = 1.5f;
+      env.maxScore = 100f;
+      env.scoreBonusTime = 1f;
+      oTimer.tps = 0;
+
+      env.initialisation();
+
+      //initialisation nb blocks
+      //random list de int de la taille du nb
+      //initialisation
     }
 
     void levelDemo()
