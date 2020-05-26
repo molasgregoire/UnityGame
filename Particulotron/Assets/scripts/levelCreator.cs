@@ -98,7 +98,11 @@ public class levelCreator : MonoBehaviour
 
       env.initialisation();
 
-     env.targetTab = new List<float>() { start , 50f , 1f , 50f ,60f,0.001f };
+        List<List<float>> magnetTab = new List<List<float>>() {
+            new List<float> {10f+start , 1f, 1f, 0f, 0f, -1f, -1f, 0f, 0f }, };
+        env.Aimant.magnetTab = magnetTab;
+
+        env.targetTab = new List<float>() { start , 50f , 1f , 50f ,60f,0.001f };
 
         float intervalTest = 0.5f;
       env.randomGeneration( 0, env.maxTime-10f, intervalTest);
@@ -117,10 +121,10 @@ public class levelCreator : MonoBehaviour
     void levelTest()
     {
         float start = 3f;
-        env.maxTime = 70f;
+        env.maxTime = 95f;
         env.startTime = start;
         env.speedFactor = 1.0f;
-        env.maxScore = 130f;
+        env.maxScore = 150f;
         env.scoreBonusTime = 1.5f;
         //reinit
         oTimer.tps = 0;
@@ -128,6 +132,21 @@ public class levelCreator : MonoBehaviour
 
         //empeche les probleme d'instanciation
         env.initialisation();
+
+        //aimants
+        // doit contenir des liste de 9 float
+        // 1 pour le temps, et les 8 autres -1 0 ou +1 pour les aimants
+        List<List<float>> magnetTab = new List<List<float>>() { 
+            new List<float> {10f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
+            new List<float> {20f+start , 1f,1f,0f,0f,-1f,-1f,0f,0f },
+            new List<float> {30f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+            new List<float> {40f+start , -1f,-1f,-1f,-1f,-1f,-1f,-1f,-1f },
+            new List<float> {50f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
+            new List<float> {70f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
+            new List<float> {80f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+        };
+
+        env.Aimant.magnetTab = magnetTab;
 
         env.circleGeneration(5f);
         // 0 > 10
@@ -147,7 +166,7 @@ public class levelCreator : MonoBehaviour
         { env.geometryLine(30f+(float)i, i+1, (float)i, 0.1f); }
         //40 > 50
         env.zoneGeneration(40f , 50f , 0.25f);
-        env.targetTab = new List<float>() { 40f,50f,1f };
+        env.targetTab = new List<float>() { 40f+start,50f+start,1f };
         //50 > 70
         env.randomGeneration(50f , 70f , 0.3f);
         env.randomGeneration(50f , 70f, 0.5f);
@@ -159,13 +178,13 @@ public class levelCreator : MonoBehaviour
         //80 > 90
         for( int i = 0; i < 20; i++)
         {
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
-            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(0,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
+            env.geometryGenerator(80f+(float)i*0.5f, UnityEngine.Random.Range(2,8), UnityEngine.Random.Range(0.5f,3.5f), UnityEngine.Random.Range(0f,3.141f));
         }
 
 

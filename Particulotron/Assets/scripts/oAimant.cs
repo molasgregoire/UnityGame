@@ -18,12 +18,16 @@ public class oAimant : MonoBehaviour
 
     public GameObject speed;
 
+    // doit contenir des liste de 9 float
+    // 1 pour le temps, et les 8 autres -1 0 ou +1 pour les aimants
+    public List<List<float>> magnetTab = new List<List<float>>();
+
     // Start is called before the first frame update
     void Start()
     {
         aimants();
-        listCharge = new List<int> { 1, 1, 0, 0, -1, -1, 0, 0 };
-        //listCharge = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 };
+        //listCharge = new List<int> { 1, 1, 0, 0, -1, -1, 0, 0 };
+        listCharge = new List<int> { 0, 0, 0, 0, 0, 0, 0, 0 };
         //listCharge = new List<int> { 1, 1, 1, 1, 1, 1, 1, 1 };
         //listCharge = new List<int> { -1, -1, -1, -1, -1, -1, -1, -1 };
         //listCharge = new List<int> { -1, -1, 1, 1, -1, -1, 1, 1 };
@@ -33,6 +37,7 @@ public class oAimant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        manageMagnets();
         colorEachMagnet();
         colorCurrentMagnet();
         
@@ -190,5 +195,23 @@ public class oAimant : MonoBehaviour
     void affectRayon()
     {
         Part.rayon -= factor*Time.deltaTime * Part.magnetisme * listCharge[indexTab()];
+    }
+
+    public void manageMagnets()
+    {
+        if (magnetTab.Count > 0)
+        {
+            if (oTimer.tps > magnetTab[0][0])
+            {
+                listCharge = new List<int>();
+                for ( int i = 1; i < 9; i++ )
+                {
+                    listCharge.Add((int)magnetTab[0][i]);
+                }
+
+                magnetTab.RemoveAt(0);
+            }
+
+        }
     }
 }

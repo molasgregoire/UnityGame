@@ -126,14 +126,12 @@ public class oEnv : MonoBehaviour
             //linearSpeedChange();
             proportionalSpeedChange();
             tourni();
-            //!!!!!!!!!!!
-           // obsTraqueurs(1f);
-        }/*
-        if (oTimer.tps < maxTime-3  && oTimer.tps > maxTime-10f)
-        {
-            score += Time.deltaTime * scoreBonusTime*2f;
-            obsTraqueurs(0.001f);
-        }*/
+            
+            //bonus de score si longtps sans etre touché
+            if( scoreBonusTime < 2f) { scoreBonusTime += Time.deltaTime * 0.5f; }
+
+            
+        }
 
 
         demarrageObstacles();
@@ -153,6 +151,8 @@ public class oEnv : MonoBehaviour
           affichageScore();
           restartorMenu();
         }
+
+        if (score < 0f) { score = 0f; }
     }
 
     public void demarrageObstacles()
@@ -178,6 +178,7 @@ public class oEnv : MonoBehaviour
                 score -= scoreMalusObs;
                 Music.playMe("hit");
                 Particule.invincible = 0.2f;
+                scoreBonusTime = 1f;
             }
         }
     }
