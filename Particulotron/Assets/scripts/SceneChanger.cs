@@ -6,7 +6,19 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
     public void Race() {
-      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+
+        //GameObject.Find("Canvas");
+        Baryon tmparticle = GameObject.Find("Canvas1").GetComponent<Inventory>().particle;
+        
+        //test static
+        oEnv.Q = tmparticle.Q;
+        oEnv.S = tmparticle.S;
+        oEnv.C = tmparticle.C;
+        oEnv.B = tmparticle.B;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        
+        
     }
 
     public void Crafting() {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class transition : MonoBehaviour
@@ -20,6 +21,12 @@ public class transition : MonoBehaviour
     public GameObject ecranTransition ;
     public GameObject font;
 
+    //particule en transfert
+    public int Q = 0;
+    public int S = 0;
+    public int C = 0;
+    public int B = 0;
+
     //levelCreator lancement = new levelCreator();
 
     // Start is called before the first frame update
@@ -30,6 +37,8 @@ public class transition : MonoBehaviour
         ecranTransition.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran_clean") as Sprite;
         ecranTransition.transform.localScale = new Vector3(0.405f, 0.39f, 1f);
         ecranTransition.transform.position = new Vector3(3.59f, 1.18f, 3f);
+
+       
 
         font = new GameObject();
         font.AddComponent<SpriteRenderer>();
@@ -69,11 +78,14 @@ public class transition : MonoBehaviour
             //levelCreator.level = 0;
             GameObject tmp = new GameObject();
             levelCreator lancement = tmp.AddComponent<levelCreator>();
+            lancement.Go();
+            lancement.env.initCara(/*Q, S, C, B*/);
             //lancement.Go();*/
-
 
 
             Destroy(this);
         }
     }
+
+    
 }

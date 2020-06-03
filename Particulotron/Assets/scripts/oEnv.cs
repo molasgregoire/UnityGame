@@ -49,8 +49,15 @@ public class oEnv : MonoBehaviour
 
     //poubelle
     List<GameObject> corbeille = new List<GameObject>();
+
+    //caracteristiques particule
+    public static int Q = 0;
+    public static int S = 0;
+    public static int C = 0;
+    public static int B = 0;
+
     // Start is called before the first frame update
-    public void Start() { }
+    public void Start() {  }
 
     public void initialisation()
     {
@@ -112,6 +119,31 @@ public class oEnv : MonoBehaviour
         Aimant.speed = speed;
         Particule.degrade = degrade;
         //affichageScore();
+        affichageCara();
+    }
+
+    public void initCara(/* int newQ , int newS , int newC , int newB*/ )
+    {
+        //Q = charge electrique
+        Particule.magnetisme = Q;
+        //Particule.magnetisme = newQ;
+        //Q = newQ;
+
+        //S = inertie
+        Particule.mass = -3f * (float)S;
+        //Particule.mass = 3f * (float)newS;
+        //S = newS;
+
+        //C = Bonus anneaux accelerateurs ?
+        scoreBonusCircle = 3f * (1f + C);
+        //scoreBonusCircle = 3f * (1f + newC);
+        //C = newC;
+
+        //B = vitesse particule ?
+        Particule.vitesseAngle = 4.5f + (float)B / 2f;
+        //Particule.vitesseAngle = 3.5f + (float)newB / 2f;
+        //B = newB;
+
         affichageCara();
     }
 
@@ -320,7 +352,7 @@ public class oEnv : MonoBehaviour
     {
         foreach (Text txt in CaraText.GetComponentsInChildren<Text>())
         {
-            txt.text = "Q : " + 1.ToString() + "\n\nS : " + 0.ToString() + "\n\nC : " + 0.ToString() + "\n\nB : " + 0.ToString();
+            txt.text = "Q : " + Q.ToString() + "\n\nS : " + S.ToString() + "\n\nC : " + C.ToString() + "\n\nB : " + B.ToString();
         }
     }
 

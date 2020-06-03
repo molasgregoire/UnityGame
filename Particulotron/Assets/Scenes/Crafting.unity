@@ -367,6 +367,10 @@ MonoBehaviour:
   vector: {x: 0, y: 0}
   ecranTransition: {fileID: 0}
   font: {fileID: 0}
+  Q: 0
+  S: 0
+  C: 0
+  B: 0
 --- !u!4 &403312072
 Transform:
   m_ObjectHideFlags: 0
@@ -497,6 +501,7 @@ MonoBehaviour:
   Main: {fileID: 0}
   Score: {fileID: 0}
   Scoretext: {fileID: 0}
+  CaraText: {fileID: 0}
   test: {fileID: 0}
   listObsSuperpos: []
   listObs: []
@@ -513,6 +518,7 @@ MonoBehaviour:
   scoreBonusTime: 1
   speed: {fileID: 0}
   bordure: {fileID: 0}
+  degrade: {fileID: 0}
 --- !u!4 &441851860
 Transform:
   m_ObjectHideFlags: 0
@@ -3207,7 +3213,7 @@ GameObject:
   - component: {fileID: 2007116767}
   - component: {fileID: 2007116768}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

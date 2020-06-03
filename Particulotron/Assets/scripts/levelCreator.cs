@@ -12,7 +12,7 @@ public class levelCreator : MonoBehaviour
     public static List<int> Blocks = new List<int>();
 
     // Start is called before the first frame update
-    void Start() { Go(); }
+    void Start() { /*Go();*/ }
 
     public void Go()
     {
