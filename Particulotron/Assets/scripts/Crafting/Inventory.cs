@@ -19,16 +19,25 @@ public class Inventory : MonoBehaviour
   public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
   public static Inventory instance;
 
+  public History history; //Progression state
+
   private void Start() {
     instance = this;
 
     //Initiate Elementary particles
     AddItem(1);
     AddItem(2);
-    AddItem(3);
-    AddItem(4);
-    AddItem(5);
-    AddItem(6);
+    //AddItem(3);
+    //AddItem(4);
+    //AddItem(5);
+    //AddItem(6);
+
+    //initialise l'histoire
+    //history = tmp.AddComponent<History>();
+    history = new History();
+    history.state = 0;
+    history.inventory = this;
+    history.first = true;
 
     initializeSlots();
     initializeCraftingSlots();
@@ -36,6 +45,7 @@ public class Inventory : MonoBehaviour
     //updateCaftingSlots();
     updateParticle();
 
+    history.HistoryStart();
   }
 
 
