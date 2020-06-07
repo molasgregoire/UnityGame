@@ -23,7 +23,8 @@ public class levelCreator : MonoBehaviour
         switch(level)
         {
             case 0:
-                levelDemo();
+                lvl1Proton();
+                //levelDemo();
                 //print(0);
                 break;
             case 1:
@@ -149,6 +150,7 @@ public class levelCreator : MonoBehaviour
         env.Aimant.magnetTab = magnetTab;
 
         env.circleGeneration(5f);
+
         // 0 > 10
         env.randomGeneration(0f, 10f , 0.3f);
         env.randomGeneration(0f, 10f , 0.7f);
@@ -191,5 +193,73 @@ public class levelCreator : MonoBehaviour
         foreach( oObstacle obs in env.listObs) { obs.apparitionTime += start; }
         ///peut etre juste faire une iteration sur les obs pour ajouté start à la fin ?
         //print(env.listObs.Count);
+    }
+
+    void lvl1Proton()
+    {
+        float start = 3f;
+        env.maxTime = 65f;
+        env.startTime = start;
+        env.speedFactor = 1.0f;
+        env.maxScore = 100f;
+        env.scoreBonusTime = 1.0f;
+        //reinit
+        oTimer.tps = 0;
+        //etc..
+
+        //empeche les probleme d'instanciation
+        env.initialisation();
+
+        List<List<float>> magnetTab = new List<List<float>>() {
+            //new List<float> {10f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
+            new List<float> {10f+start , -1f,-1f,-1f,-1f,-1f,-1f,-1f,-1f },
+            new List<float> {20f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
+            new List<float> {30f+start , 1f,0f,0f,0f,-1f,0f,0f,0f },
+            new List<float> {40f+start , 0f,1f,0f,0f,0f,-1f,0f,0f },
+            new List<float> {42f+start , 0f,0f,1f,0f,0f,0f,-1f,0f },
+            new List<float> {44f+start , 0f,0f,0f,1f,0f,0f,0f,-1f },
+            new List<float> {46f+start , -1f,0f,0f,0f,1f,0f,0f,0f },
+            new List<float> {48f+start , 0f,-1f,0f,0f,0f,1f,0f,0f },
+            new List<float> {50f+start , 0f,0f,-1f,0f,0f,0f,1f,0f },
+            new List<float> {52f+start , 0f,0f,0f,-1f,0f,0f,0f,1f },
+            new List<float> {54f+start , 1f,0f,0f,0f,-1f,0f,0f,0f },
+            new List<float> {56f+start , 0f,1f,0f,0f,0f,-1f,0f,0f },
+            new List<float> {58f+start , 0f,0f,1f,0f,0f,0f,-1f,0f },
+            new List<float> {60f+start , 0f,0f,0f,1f,0f,0f,0f,-1f },
+            //new List<float> {50f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
+           // new List<float> {70f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
+           // new List<float> {80f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+        };
+
+        env.Aimant.magnetTab = magnetTab;
+
+        // 0 > 10 aleatoire leger
+        env.randomGeneration(0f, 10f, 1.2f);
+        env.randomGeneration(0f, 10f, 0.4f);
+        env.randomGeneration(0f, 10f, 0.8f);
+        //10 > 20 aimant bleu et obs en bordure
+        env.zoneGeneration(10f, 20f, 0.25f);
+        env.zoneGeneration(10f, 20f, 0.25f);
+        env.zoneGeneration(10f, 20f, 0.25f);
+        env.zoneGeneration(10f, 20f, 0.25f);
+        //20 > 30 traqueur + aimants alt + aleatoire leger
+        env.randomGeneration(20f, 30f, 0.3f);
+        env.randomGeneration(20f, 30f, 0.4f);
+        env.randomGeneration(20f, 30f, 0.8f);
+        env.targetTab = new List<float>() { 20f + start, 30f + start, 1.0f };
+        //30 > 40 balayage lent
+        env.geometryBalayage(30f, 40f, 0.5f, 3, 0, 0.1f);
+        env.geometryBalayage(30f, 40f, 0.5f, 3, 0, -0.1f);
+        //40 > 60 accumunlation aleatoire + aimants rota
+        env.randomGeneration(40f, 60f, 0.5f);
+        env.randomGeneration(43f, 60f, 0.5f);
+        env.randomGeneration(45f, 60f, 0.5f);
+        env.randomGeneration(47.5f, 60f, 0.5f);
+        env.randomGeneration(50f, 60f, 0.5f);
+        env.randomGeneration(55f, 60f, 0.5f);
+        env.randomGeneration(55f, 60f, 0.5f);
+
+
+        foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
     }
 }

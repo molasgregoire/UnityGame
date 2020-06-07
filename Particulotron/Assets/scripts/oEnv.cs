@@ -98,7 +98,7 @@ public class oEnv : MonoBehaviour
 
        // geometryBalayage(1f, 31f, 0.2f, 3, 0, 0.01f);
 
-       circleGeneration(5f);
+      //  circleGeneration(5f);
 
 
         //set de la jauge (en fonction du score max)
