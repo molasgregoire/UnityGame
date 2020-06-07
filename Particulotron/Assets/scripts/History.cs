@@ -34,6 +34,7 @@ public class History
 
   public void UpdateQuark() {
     inventory.AddItem(state+2);
+    first = true;
   }
 
   bool CheckforHistory() {

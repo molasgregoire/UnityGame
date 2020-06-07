@@ -16,28 +16,17 @@ public class Inventory : MonoBehaviour
   public GameObject particlePanel;
 
   public List<int> baryons = new List<int>();
-  public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
+  //public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
   public static Inventory instance;
 
   public History history; //Progression state
 
+  public GameData data;
+
   private void Start() {
     instance = this;
 
-    //Initiate Elementary particles
-    AddItem(1);
-    AddItem(2);
-    //AddItem(3);
-    //AddItem(4);
-    //AddItem(5);
-    //AddItem(6);
-
-    //initialise l'histoire
-    //history = tmp.AddComponent<History>();
-    history = new History();
-    history.state = 0;
-    history.inventory = this;
-    history.first = true;
+    InitializeGame();
 
     initializeSlots();
     initializeCraftingSlots();
@@ -46,6 +35,26 @@ public class Inventory : MonoBehaviour
     updateParticle();
 
     history.HistoryStart();
+  }
+
+  void InitializeGame() {
+    //Initiate Elementary particles
+    AddItem(1);
+    AddItem(2);
+    //AddItem(3);
+    //AddItem(4);
+    //AddItem(5);
+    //AddItem(6);
+
+    //load ici si ça existe /!\ 
+    data = new GameData();
+
+    //initialise l'histoire
+    //history = tmp.AddComponent<History>();
+    history = new History();
+    history.state = data.state;
+    history.inventory = this;
+    history.first = data.first;;
   }
 
 
@@ -105,12 +114,12 @@ public class Inventory : MonoBehaviour
       if (baryon != null) {
         this.particle = baryon;
                 List<ElmParticule> value;
-        if (previouslyCrafted.TryGetValue(baryon.id,out value))
+        if (data.previouslyCrafted.TryGetValue(baryon.id,out value))
         {
 
           }else
                     {
-                        previouslyCrafted.Add(baryon.id, itemCraft);
+                        data.previouslyCrafted.Add(baryon.id, itemCraft);
                         addToLoadMenu(baryon);
                     }
       }
@@ -126,7 +135,7 @@ public class Inventory : MonoBehaviour
 
     public void CraftPreviouslyCrafted(Baryon baryon)
     {
-        this.itemCraft = previouslyCrafted[baryon.id];
+        this.itemCraft = data.previouslyCrafted[baryon.id];
         this.particle = baryon;
         updateParticle();
     }
