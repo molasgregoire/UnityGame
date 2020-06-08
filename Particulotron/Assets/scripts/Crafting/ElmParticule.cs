@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[CreateAssetMenu]
+//[System.Serializable]
 public class ElmParticule : Item {
 
     public ElmParticule(int id, string title, string description, string sprite, string icon)

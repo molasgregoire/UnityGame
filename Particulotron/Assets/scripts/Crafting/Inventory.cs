@@ -21,23 +21,12 @@ public class Inventory : MonoBehaviour
 
   public History history; //Progression state
 
+  //public GameData data;
+
   private void Start() {
     instance = this;
 
-    //Initiate Elementary particles
-    AddItem(1);
-    AddItem(2);
-    //AddItem(3);
-    //AddItem(4);
-    //AddItem(5);
-    //AddItem(6);
-
-    //initialise l'histoire
-    //history = tmp.AddComponent<History>();
-    history = new History();
-    history.state = 0;
-    history.inventory = this;
-    history.first = true;
+    InitializeGame();
 
     initializeSlots();
     initializeCraftingSlots();
@@ -46,6 +35,30 @@ public class Inventory : MonoBehaviour
     updateParticle();
 
     history.HistoryStart();
+  }
+
+  void InitializeGame() {
+    //Initiate Elementary particles
+    AddItem(1);
+    AddItem(2);
+    //AddItem(3);
+    //AddItem(4);
+    //AddItem(5);
+    //AddItem(6);
+
+    //load ici si ça existe /!\
+    //data = new GameData();
+    SaveLoad.Load();
+    Debug.Log("Loaded");
+
+    //initialise l'histoire
+    //history = tmp.AddComponent<History>();
+    history = new History();
+    history.state = GameData.current.state;
+    //history.inventory = this;
+    history.first = GameData.current.first;;
+
+    SaveLoad.Save();
   }
 
 

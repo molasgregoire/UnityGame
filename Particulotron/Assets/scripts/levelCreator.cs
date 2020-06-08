@@ -34,6 +34,9 @@ public class levelCreator : MonoBehaviour
             case 2:
                 levelBlock();
                 break;
+            case 3:
+                levelEndtest();
+                break;
             default: print("Default");
                 levelTest();
                 break;
@@ -137,7 +140,7 @@ public class levelCreator : MonoBehaviour
         //aimants
         // doit contenir des liste de 9 float
         // 1 pour le temps, et les 8 autres -1 0 ou +1 pour les aimants
-        List<List<float>> magnetTab = new List<List<float>>() { 
+        List<List<float>> magnetTab = new List<List<float>>() {
             new List<float> {10f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
             new List<float> {20f+start , 1f,1f,0f,0f,-1f,-1f,0f,0f },
             new List<float> {30f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
@@ -261,5 +264,20 @@ public class levelCreator : MonoBehaviour
 
 
         foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
+    }
+
+    void levelEndtest() {
+      float start = 3f;
+      env.maxTime = 5f;
+      env.startTime = start;
+      env.speedFactor = 1.0f;
+      env.maxScore = 100f;
+      env.scoreBonusTime = 1.0f;
+      //reinit
+      oTimer.tps = 0;
+      //etc..
+
+      //empeche les probleme d'instanciation
+      env.initialisation();
     }
 }
