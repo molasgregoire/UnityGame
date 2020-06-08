@@ -16,12 +16,12 @@ public class Inventory : MonoBehaviour
   public GameObject particlePanel;
 
   public List<int> baryons = new List<int>();
-  //public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
+  public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
   public static Inventory instance;
 
   public History history; //Progression state
 
-  public GameData data;
+  //public GameData data;
 
   private void Start() {
     instance = this;
@@ -46,15 +46,19 @@ public class Inventory : MonoBehaviour
     //AddItem(5);
     //AddItem(6);
 
-    //load ici si ça existe /!\ 
-    data = new GameData();
+    //load ici si ça existe /!\
+    //data = new GameData();
+    SaveLoad.Load();
+    Debug.Log("Loaded");
 
     //initialise l'histoire
     //history = tmp.AddComponent<History>();
     history = new History();
-    history.state = data.state;
-    history.inventory = this;
-    history.first = data.first;;
+    history.state = GameData.current.state;
+    //history.inventory = this;
+    history.first = GameData.current.first;;
+
+    SaveLoad.Save();
   }
 
 
@@ -114,12 +118,12 @@ public class Inventory : MonoBehaviour
       if (baryon != null) {
         this.particle = baryon;
                 List<ElmParticule> value;
-        if (data.previouslyCrafted.TryGetValue(baryon.id,out value))
+        if (previouslyCrafted.TryGetValue(baryon.id,out value))
         {
 
           }else
                     {
-                        data.previouslyCrafted.Add(baryon.id, itemCraft);
+                        previouslyCrafted.Add(baryon.id, itemCraft);
                         addToLoadMenu(baryon);
                     }
       }
@@ -135,7 +139,7 @@ public class Inventory : MonoBehaviour
 
     public void CraftPreviouslyCrafted(Baryon baryon)
     {
-        this.itemCraft = data.previouslyCrafted[baryon.id];
+        this.itemCraft = previouslyCrafted[baryon.id];
         this.particle = baryon;
         updateParticle();
     }

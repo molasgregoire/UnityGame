@@ -19,6 +19,8 @@ public class SceneChanger : MonoBehaviour
         History tmphistory = GameObject.Find("Canvas1").GetComponent<Inventory>().history;
         tmphistory.HistoryRun();
 
+        SaveLoad.Save();
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
 
     }

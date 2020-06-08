@@ -7,11 +7,12 @@ public class History
   public int state; //0-u,d; 1-u,d,s; 2-u,d,s,c; 3-u,d,u,c,b; 4-u,d,u,c,b,t;
   public bool first; //si c'est la première fois ou non
 
-  public Inventory inventory;
+  //public Inventory inventory;
 
   public void Advance() {
     state = state + 1;
     first = true;
+    SaveLoad.Save();
   }
 
   public void HistoryStart() {
@@ -25,6 +26,7 @@ public class History
     if(CheckforHistory() && first) {
       Debug.Log("Scene Run");
       first = false;
+      SaveLoad.Save();
     }
   }
 
@@ -33,30 +35,31 @@ public class History
   }
 
   public void UpdateQuark() {
-    inventory.AddItem(state+2);
+    Inventory.instance.AddItem(state+2);
     first = true;
+    SaveLoad.Save();
   }
 
   bool CheckforHistory() {
     switch(state)
     {
         case 0: //proton
-            if(inventory.particle.id == 211) {
+            if(Inventory.instance.particle.id == 211) {
               return true;
             }
             break;
         case 1: //Sigma
-            if(inventory.particle.id == 311) {
+            if(Inventory.instance.particle.id == 311) {
               return true;
             }
             break;
         case 2: //charmed xi
-            if(inventory.particle.id == 431) {
+            if(Inventory.instance.particle.id == 431) {
               return true;
             }
             break;
         case 3: //bottom xi
-            if(inventory.particle.id == 632) {
+            if(Inventory.instance.particle.id == 632) {
               return true;
             }
             break;
