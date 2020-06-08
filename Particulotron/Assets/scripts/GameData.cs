@@ -30,10 +30,14 @@ public class GameData
     foreach(int idtmp in previouslyCraftedId) {
       tmp.Add(idtmp, CreateElmList(idtmp));
     }
+
+        Inventory.instance.previouslyCrafted = tmp;
+
   }
 
   public void DictToList() {
       previouslyCraftedId = new List<int>(Inventory.instance.previouslyCrafted.Keys);
+        Debug.Log(previouslyCraftedId.Count);
   }
 
   List<ElmParticule> CreateElmList(int id) {

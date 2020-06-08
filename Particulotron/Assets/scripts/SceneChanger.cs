@@ -27,6 +27,7 @@ public class SceneChanger : MonoBehaviour
 
     public void Crafting() {
       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
+        SaveLoad.Save();
     }
 
 }
