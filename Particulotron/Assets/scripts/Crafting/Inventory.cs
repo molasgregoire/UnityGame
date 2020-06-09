@@ -38,6 +38,7 @@ public class Inventory : MonoBehaviour
   }
 
   void InitializeGame() {
+
     //Initiate Elementary particles
     AddItem(1);
     AddItem(2);
@@ -45,11 +46,25 @@ public class Inventory : MonoBehaviour
     //AddItem(4);
     //AddItem(5);
     //AddItem(6);
+    //Debug.Log("before load ? "+itemDatabase.GetQuark(1).title);
 
     //load ici si ça existe /!\
     //data = new GameData();
     SaveLoad.Load();
-    Debug.Log("Loaded");
+    //Debug.Log("Loaded");
+
+    //Load the Load inventory
+    if(previouslyCrafted.Count != 0) {
+      foreach(KeyValuePair<int, List<ElmParticule>> element in previouslyCrafted) {
+        //Debug.Log(element.Key);
+        itemCraft = element.Value;
+        //Debug.Log("itemcraft "+element.Value[0].title);
+        addToLoadMenu(itemDatabase.GetBaryon(element.Key));
+      }
+      itemCraft.Clear();
+    }
+
+    //Debug.Log("Loading complete");
 
     //initialise l'histoire
     //history = tmp.AddComponent<History>();

@@ -42,7 +42,7 @@ public class ButtonListButton : MonoBehaviour
 
     }
 
-    public void SetBaryonQuarks(Baryon baryon,List<ElmParticule> quarks )
+    public void SetBaryonQuarks(Baryon baryon,List<ElmParticule> quarks)
     {
         this.baryon = baryon;
 

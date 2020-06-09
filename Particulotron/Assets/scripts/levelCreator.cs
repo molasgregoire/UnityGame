@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class levelCreator : MonoBehaviour
 {
-    public static int level = 0;
+    public static int level = 3;
     public oEnv env;
 
     public static List<int> Blocks = new List<int>();

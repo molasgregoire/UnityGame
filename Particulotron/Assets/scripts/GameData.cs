@@ -30,21 +30,18 @@ public class GameData
     foreach(int idtmp in previouslyCraftedId) {
       tmp.Add(idtmp, CreateElmList(idtmp));
     }
-
         Inventory.instance.previouslyCrafted = tmp;
-
   }
 
   public void DictToList() {
       previouslyCraftedId = new List<int>(Inventory.instance.previouslyCrafted.Keys);
-        Debug.Log(previouslyCraftedId.Count);
   }
 
   List<ElmParticule> CreateElmList(int id) {
     List<ElmParticule> tmplist = new List<ElmParticule>();
     string ids = id.ToString();
     for(int i=0; i < ids.Length; i++) {
-      char tmpid =ids[i];
+      int tmpid = int.Parse(ids[i].ToString());
       tmplist.Add(Inventory.instance.itemDatabase.GetQuark(tmpid));
     }
     return tmplist;

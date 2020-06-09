@@ -12,7 +12,7 @@ public static class SaveLoad {
     //it's static so we can call it from anywhere
     public static void Save() {
       GameData.current.DictToList();
-        Debug.Log(GameData.current.previouslyCraftedId.Count);
+        //Debug.Log(GameData.current.previouslyCraftedId.Count);
         if (GameData.current.previouslyCraftedId.Count != 0)
         {
             SaveLoad.savedGame = GameData.current;
@@ -37,6 +37,7 @@ public static class SaveLoad {
             file.Close();
             GameData.current = SaveLoad.savedGame;
             GameData.current.ListToDict();
+            Debug.Log("Loaded");
         }
     }
 }
