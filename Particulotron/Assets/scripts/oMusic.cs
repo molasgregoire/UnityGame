@@ -8,6 +8,8 @@ public class oMusic : MonoBehaviour
     public AudioSource channel1;
     public AudioSource mainTheme;
 
+    public List<string> listMusic = new List<string> { "full" , "c" };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,10 @@ public class oMusic : MonoBehaviour
         channel1 = radio.AddComponent<AudioSource>();
         mainTheme = radio.AddComponent<AudioSource>();
         mainTheme.loop = true;
-        mainTheme.clip = (AudioClip)Resources.Load("full");
+        //slection musique aleatoire
+        mainTheme.clip = (AudioClip)Resources.Load(listMusic[UnityEngine.Random.Range(0, listMusic.Count)] );
+        //mainTheme.clip = (AudioClip)Resources.Load("full");
+
         mainTheme.Play();
         //radio.GetComponent<AudioSource>().loop = true;
         //radio.GetComponent<AudioSource>().PlayOneShot( (AudioClip)Resources.Load("musicTest") ) ;
