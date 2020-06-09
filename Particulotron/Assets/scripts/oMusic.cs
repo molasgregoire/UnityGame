@@ -8,7 +8,7 @@ public class oMusic : MonoBehaviour
     public AudioSource channel1;
     public AudioSource mainTheme;
 
-    public List<string> listMusic = new List<string> { "full" , "c" };
+    public List<string> listMusic = new List<string> { "Jeu1" , "c" };
 
     // Start is called before the first frame update
     void Start()
