@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
   public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
   public static Inventory instance;
 
-  public History history; //Progression state
+  //public History history; //Progression state
 
   //public GameData data;
 
@@ -34,7 +34,7 @@ public class Inventory : MonoBehaviour
     //updateCaftingSlots();
     updateParticle();
 
-    history.HistoryStart();
+    GameData.HistoryStart();
   }
 
   void InitializeGame() {
@@ -65,13 +65,6 @@ public class Inventory : MonoBehaviour
     }
 
     //Debug.Log("Loading complete");
-
-    //initialise l'histoire
-    //history = tmp.AddComponent<History>();
-    history = new History();
-    history.state = GameData.current.state;
-    //history.inventory = this;
-    history.first = GameData.current.first;;
 
     SaveLoad.Save();
   }

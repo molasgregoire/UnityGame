@@ -16,11 +16,11 @@ public class SceneChanger : MonoBehaviour
         oEnv.C = tmparticle.C;
         oEnv.B = tmparticle.B;
 
-        History tmphistory = GameObject.Find("Canvas1").GetComponent<Inventory>().history;
-        tmphistory.HistoryRun();
+        //History tmphistory = GameObject.Find("Canvas1").GetComponent<Inventory>().history;
+        GameData.HistoryRun();
 
         SaveLoad.Save();
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
 
     }

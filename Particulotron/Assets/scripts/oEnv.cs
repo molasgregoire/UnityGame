@@ -35,7 +35,7 @@ public class oEnv : MonoBehaviour
     public float startTime = 1f;
 
     public float chronoTarget = 0f;
-    
+
     public List<float> targetTab = new List<float>();
 
     //modif vitesse
@@ -158,11 +158,11 @@ public class oEnv : MonoBehaviour
             //linearSpeedChange();
             proportionalSpeedChange();
             tourni();
-            
+
             //bonus de score si longtps sans etre touché
             if( scoreBonusTime < 2f) { scoreBonusTime += Time.deltaTime * 0.5f; }
 
-            
+
         }
 
 
@@ -181,6 +181,7 @@ public class oEnv : MonoBehaviour
         if (oTimer.tps > maxTime) {
           Scoretext.SetActive(true);
           affichageScore();
+          GameData.HistoryEnd();
           restartorMenu();
         }
 
@@ -257,7 +258,7 @@ public class oEnv : MonoBehaviour
     public void manageTraqueur()
     {
         if(targetTab.Count > 0)
-        { 
+        {
         if (oTimer.tps > targetTab[0])
         {
             obsTraqueurs(targetTab[2]);
