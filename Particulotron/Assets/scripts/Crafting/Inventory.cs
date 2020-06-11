@@ -94,8 +94,8 @@ public class Inventory : MonoBehaviour
     SaveLoad.Save();
   }
 
-  public void AffichageText(int nb) {
-      fax.GetComponent<Image>().sprite = Resources.Load<Sprite>("Text/text"+nb.ToString()) as Sprite;
+  public void AffichageText(string file) {
+      fax.GetComponent<Image>().sprite = Resources.Load<Sprite>(file) as Sprite;
       fax.GetComponent<Image>().color = Color.white;
       fax.transform.SetAsLastSibling();
       fax.transform.localScale = new Vector3(0.75f, 1.75f, 0);

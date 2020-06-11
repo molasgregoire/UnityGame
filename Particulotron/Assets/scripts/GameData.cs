@@ -61,7 +61,7 @@ public class GameData
   public static void HistoryStart() {
     if(GameData.current.first){
       Debug.Log("Scene start");
-      Inventory.instance.AffichageText(GameData.current.state+1);
+      Inventory.instance.AffichageText("Text/text"+(GameData.current.state+1).ToString());
     }
   }
 
@@ -69,7 +69,7 @@ public class GameData
       GameData.current.inprogress = CheckforHistory();
       Debug.Log("Scene Run");
       GameData.current.first = false;
-      Inventory.instance.AffichageText(GameData.current.state+2);
+      Inventory.instance.AffichageText("Text/text"+(GameData.current.state+1).ToString()+"a");
       SaveLoad.Save();
 
       //pause ?
@@ -108,6 +108,7 @@ public class GameData
     {
         case 0: //proton
             if(Inventory.instance.particle.id == 211) {
+              Debug.Log("Proton");
               return true;
             }
             break;
