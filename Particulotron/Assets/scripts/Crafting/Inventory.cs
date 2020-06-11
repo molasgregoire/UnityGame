@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
@@ -40,6 +41,12 @@ public class Inventory : MonoBehaviour
 
   private void Update() {
     Continue();
+
+    if(Input.GetKey(KeyCode.N)) {
+        GameData.current = new GameData();
+        SaveLoad.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
   }
 
   //private void Update() {
@@ -88,10 +95,11 @@ public class Inventory : MonoBehaviour
   }
 
   public void AffichageText(int nb) {
-
       fax.GetComponent<Image>().sprite = Resources.Load<Sprite>("Text/text"+nb.ToString()) as Sprite;
+      fax.GetComponent<Image>().color = Color.white;
       fax.transform.SetAsLastSibling();
-      fax.transform.localScale = new Vector3(0.5f, 1.5f, 0);
+      fax.transform.localScale = new Vector3(0.75f, 1.75f, 0);
+      //fax.transform.position = new Vector3(0, -400, 0);
   }
 
 
