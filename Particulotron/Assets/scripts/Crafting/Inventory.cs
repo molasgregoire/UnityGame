@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
   public GameObject inventoryPanel;
   public GameObject craftingPanel;
   public GameObject particlePanel;
+  public GameObject fax;
 
   public List<int> baryons = new List<int>();
   public Dictionary<int, List<ElmParticule>> previouslyCrafted = new Dictionary<int, List<ElmParticule>>();
@@ -37,11 +38,27 @@ public class Inventory : MonoBehaviour
     GameData.HistoryStart();
   }
 
+  private void Update() {
+    Continue();
+  }
+
+  //private void Update() {
+    //AffichageText();
+  //}
+
+  void Continue() {
+    if(Input.GetKey(KeyCode.Space)) {
+      fax.GetComponent<Image>().sprite = null;
+      fax.GetComponent<Image>().color = Color.clear;
+      fax.transform.SetAsFirstSibling();
+    }
+  }
+
   void InitializeGame() {
 
     //Initiate Elementary particles
-    AddItem(1);
-    AddItem(2);
+    //AddItem(1);
+    //AddItem(2);
     //AddItem(3);
     //AddItem(4);
     //AddItem(5);
@@ -52,7 +69,8 @@ public class Inventory : MonoBehaviour
     //data = new GameData();
     SaveLoad.Load();
     //Debug.Log("Loaded");
-
+    GameData.UpdateQuark();
+    
     //Load the Load inventory
     if(previouslyCrafted.Count != 0) {
       foreach(KeyValuePair<int, List<ElmParticule>> element in previouslyCrafted) {
@@ -67,6 +85,13 @@ public class Inventory : MonoBehaviour
     //Debug.Log("Loading complete");
 
     SaveLoad.Save();
+  }
+
+  public void AffichageText(int nb) {
+
+      fax.GetComponent<Image>().sprite = Resources.Load<Sprite>("Text/text"+nb.ToString()) as Sprite;
+      fax.transform.SetAsLastSibling();
+      fax.transform.localScale = new Vector3(0.5f, 1.5f, 0);
   }
 
 

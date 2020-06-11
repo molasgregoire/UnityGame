@@ -17,6 +17,9 @@ public class GameData
   public bool first;
   public bool inprogress;
 
+  //Affichage
+  //public bool faxShow = false;
+
   public GameData() {
       current = this;
       state = 0;
@@ -58,7 +61,7 @@ public class GameData
   public static void HistoryStart() {
     if(GameData.current.first){
       Debug.Log("Scene start");
-      //first = false;
+      Inventory.instance.AffichageText(GameData.current.state+1);
     }
   }
 
@@ -67,6 +70,7 @@ public class GameData
     if(CheckforHistory() && GameData.current.first) {
       Debug.Log("Scene Run");
       GameData.current.first = false;
+      Inventory.instance.AffichageText(GameData.current.state+2);
       SaveLoad.Save();
     }
   }
@@ -77,12 +81,16 @@ public class GameData
     if(GameData.current.inprogress) {
       Debug.Log("Scene end");
       GameData.current.inprogress = false;
+      GameData.Advance();
+      //GameData.UpdateQuark();
     }
     //SaveLoad.Save();
   }
 
   public static void UpdateQuark() {
-    Inventory.instance.AddItem(GameData.current.state+2);
+    for (int i = 1; i < (GameData.current.state + 3); i++) {
+      Inventory.instance.AddItem(i);
+    }
     GameData.current.first = true;
     SaveLoad.Save();
   }
