@@ -119,7 +119,7 @@ public class oEnv : MonoBehaviour
         Aimant.speed = speed;
         Particule.degrade = degrade;
         //affichageScore();
-        affichageCara();
+        //affichageCara();
     }
 
     public void initCara(/* int newQ , int newS , int newC , int newB*/ )
@@ -144,7 +144,7 @@ public class oEnv : MonoBehaviour
         //Particule.vitesseAngle = 3.5f + (float)newB / 2f;
         //B = newB;
 
-        affichageCara();
+        //affichageCara();
     }
 
     // Update is called once per frame
@@ -181,11 +181,16 @@ public class oEnv : MonoBehaviour
         if (oTimer.tps > maxTime) {
           Scoretext.SetActive(true);
           affichageScore();
-          GameData.HistoryEnd();
           restartorMenu();
 
-            if (victory()) { /*victore*/}
-            else { /*défaite*/}
+            if (victory()) {
+              Music.playMe("win", 0.3f);
+              GameData.HistoryEnd();
+            }
+            else {
+              Music.playMe("lose", 0.3f);
+            /*défaite*/
+            }
         }
 
         if (score < 0f) { score = 0f; }
@@ -352,7 +357,12 @@ public class oEnv : MonoBehaviour
       foreach( Text txt in Scoretext.GetComponentsInChildren<Text>())
         {
           double scoreint = Math.Round(score*1000);
-          txt.text = "Score\n\n" + scoreint.ToString() + "\n\nPress M to Menu";
+          if(victory()){
+            txt.text = "Collision sucessful.\n\nScore\n\n" + scoreint.ToString() + "\n\nContinue : M";
+          }
+          else {
+            txt.text = "Not enough energy.\n\nScore\n\n" + scoreint.ToString() + "\n\nTry again : M";
+          }
         }
 
     }

@@ -31,12 +31,12 @@ public class oMusic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void playMe( string titre)
+    public void playMe(string titre, float vol = 1f)
     {
+        channel1.volume = vol;
         channel1.PlayOneShot((AudioClip)Resources.Load(titre));
     }
 }
-

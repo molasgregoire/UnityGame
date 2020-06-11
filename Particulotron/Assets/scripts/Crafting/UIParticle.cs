@@ -8,7 +8,7 @@ public class UIParticle : MonoBehaviour
     public Baryon item;
 
   private void Start() {
-    UpdateParticle(null);
+    //UpdateParticle(null);
   }
 
   void Update() {
@@ -17,6 +17,11 @@ public class UIParticle : MonoBehaviour
 
   public void Craft() {
     //Inventory.instance.Craft();
+  }
+
+  public void UpdateText(string tosay) {
+    Text displayText = transform.Find("Error").GetComponent<Text>();
+    displayText.text = tosay;
   }
 
     public void UpdateParticle(Baryon particle) {
@@ -29,7 +34,13 @@ public class UIParticle : MonoBehaviour
       Text displayC = transform.Find("C").GetComponent<Text>();
       Text displayQ = transform.Find("Q").GetComponent<Text>();
 
+      if(Inventory.instance.itemCraft.Count != 0) {
+        Text displayText2 = transform.Find("Error").GetComponent<Text>();
+        displayText2.text = "";
+      }
+
       if (this.item != null) {
+
         displayText.text = item.title;
         displayImage.sprite = item.icon;
         displayImage.color = Color.white;
