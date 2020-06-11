@@ -116,8 +116,8 @@ public class ItemDatabase : MonoBehaviour {
                 new ElmParticule(2, "Quark Down", "d", "postit_DOWN", "icon_DOWN"),
                 new ElmParticule(3, "Quark Strange", "s", "postit_STRANGE", "icon_STRANGE"),
                 new ElmParticule(4, "Quark Charm", "c", "postit_CHARM", "icon_CHARM"),
-                new ElmParticule(6, "Quark Bottom", "b", "postit_BOTTOM", "icon_BOTTOM"),
-                new ElmParticule(5, "Quark Top", "t", "postit_TOP", "icon_TOP")
+                new ElmParticule(5, "Quark Bottom", "b", "postit_BOTTOM", "icon_BOTTOM"),
+                new ElmParticule(6, "Quark Top", "t", "postit_TOP", "icon_TOP")
       };
     }
 }

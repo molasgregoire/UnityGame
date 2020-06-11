@@ -336,7 +336,7 @@ public class oEnv : MonoBehaviour
       //GameObject Score = new GameObject();
       Score.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("écran_clean") as Sprite;
       Score.transform.localScale = new Vector3(0.75f, 0.75f, 0);
-      Score.transform.position = new Vector3(0f, -1f, 3f);;
+      Score.transform.position = new Vector3(0f, -1f, 3f);
       Score.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0.7f);
       Score.GetComponent<SpriteRenderer>().sortingOrder = 2;
 

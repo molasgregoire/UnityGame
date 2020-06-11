@@ -7,22 +7,28 @@ public class SceneChanger : MonoBehaviour
 {
     public void Race() {
 
-        //GameObject.Find("Canvas");
-        Baryon tmparticle = GameObject.Find("Canvas1").GetComponent<Inventory>().particle;
+        if(Inventory.instance.particle != null){
+          if(GameData.CheckforHistory() && GameData.current.first) {
+              GameData.HistoryRun();
+          }
+          else {
+              //GameObject.Find("Canvas");
+              Baryon tmparticle = GameObject.Find("Canvas1").GetComponent<Inventory>().particle;
 
-        //test static
-        oEnv.Q = tmparticle.Q;
-        oEnv.S = tmparticle.S;
-        oEnv.C = tmparticle.C;
-        oEnv.B = tmparticle.B;
+              //test static
+              oEnv.Q = tmparticle.Q;
+              oEnv.S = tmparticle.S;
+              oEnv.C = tmparticle.C;
+              oEnv.B = tmparticle.B;
 
-        //History tmphistory = GameObject.Find("Canvas1").GetComponent<Inventory>().history;
-        GameData.HistoryRun();
+              //History tmphistory = GameObject.Find("Canvas1").GetComponent<Inventory>().history;
+              //GameData.HistoryRun();
 
-        SaveLoad.Save();
+              SaveLoad.Save();
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-
+              SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+            }
+      }
     }
 
     public void Crafting() {

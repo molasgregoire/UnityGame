@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Inventory : MonoBehaviour
 {
@@ -40,6 +41,12 @@ public class Inventory : MonoBehaviour
 
   private void Update() {
     Continue();
+
+    if(Input.GetKey(KeyCode.N)) {
+        GameData.current = new GameData();
+        SaveLoad.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
   }
 
   //private void Update() {
@@ -47,7 +54,7 @@ public class Inventory : MonoBehaviour
   //}
 
   void Continue() {
-    if(Input.GetKey(KeyCode.Space)) {
+    if(Input.anyKey) {
       fax.GetComponent<Image>().sprite = null;
       fax.GetComponent<Image>().color = Color.clear;
       fax.transform.SetAsFirstSibling();
@@ -70,7 +77,7 @@ public class Inventory : MonoBehaviour
     SaveLoad.Load();
     //Debug.Log("Loaded");
     GameData.UpdateQuark();
-    
+
     //Load the Load inventory
     if(previouslyCrafted.Count != 0) {
       foreach(KeyValuePair<int, List<ElmParticule>> element in previouslyCrafted) {
@@ -87,11 +94,12 @@ public class Inventory : MonoBehaviour
     SaveLoad.Save();
   }
 
-  public void AffichageText(int nb) {
-
-      fax.GetComponent<Image>().sprite = Resources.Load<Sprite>("Text/text"+nb.ToString()) as Sprite;
+  public void AffichageText(string file) {
+      fax.GetComponent<Image>().sprite = Resources.Load<Sprite>(file) as Sprite;
+      fax.GetComponent<Image>().color = Color.white;
       fax.transform.SetAsLastSibling();
-      fax.transform.localScale = new Vector3(0.5f, 1.5f, 0);
+      fax.transform.localScale = new Vector3(0.75f, 1.75f, 0);
+      //fax.transform.position = new Vector3(0, -400, 0);
   }
 
 
