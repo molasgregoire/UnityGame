@@ -183,9 +183,17 @@ public class oEnv : MonoBehaviour
           affichageScore();
           GameData.HistoryEnd();
           restartorMenu();
+
+            if (victory()) { /*victore*/}
+            else { /*défaite*/}
         }
 
         if (score < 0f) { score = 0f; }
+    }
+
+    public bool victory()
+    {
+        return (score/maxScore > 0.75f);
     }
 
     public void demarrageObstacles()
