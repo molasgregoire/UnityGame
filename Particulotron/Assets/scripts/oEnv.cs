@@ -514,7 +514,7 @@ public class oEnv : MonoBehaviour
 
     public void zoneGeneration(float firstTime, float totalTime, float interval)
     {
-        int nb = (int)((totalTime - firstTime - 3f) / interval);
+        int nb = (int)((totalTime - firstTime) / interval);
         for (int i = 0; i < nb; i++)
         {
             //int taille = (1 + UnityEngine.Random.Range(0, 2));
@@ -525,6 +525,22 @@ public class oEnv : MonoBehaviour
             float tmpX = zoneX[which];
             float tmpY = zoneY[which];
             tmp.alloc((float)( firstTime + i * interval), tmpX, tmpY, 0.7f, "Obstacle_2");
+            tmp.rotate(zoneAngles[which]);
+            listObs.Add(tmp);
+        }
+    }
+
+    public void zoneSpiral(float interval, float debut, float fin)
+    {
+        int nb = (int)((fin - debut) / interval);
+        for (int i = 0; i < nb; i++)
+        {
+            int which = i%4;
+
+            oZone tmp = Main.AddComponent<oZone>();
+            float tmpX = zoneX[which];
+            float tmpY = zoneY[which];
+            tmp.alloc((float)(debut + i * interval), tmpX, tmpY, 0.7f, "Obstacle_2");
             tmp.rotate(zoneAngles[which]);
             listObs.Add(tmp);
         }
