@@ -28,6 +28,16 @@ public class SceneChanger : MonoBehaviour
 
               SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
             }
+      } else {
+        //Si pas de particule
+        foreach(Transform child in Inventory.instance.particlePanel.transform) {
+          UIParticle panel = child.GetComponent<UIParticle>();
+          //slot.UpdateParticle(particle);
+          panel.UpdateText("Use the post-it to create a particle.");
+        }
+        //UIParticle panel = Inventory.instance.particlePanel.GetComponent<UIParticle>();
+        //slot.UpdateParticle(particle);
+
       }
     }
 
