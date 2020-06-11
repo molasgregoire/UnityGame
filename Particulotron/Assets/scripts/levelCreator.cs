@@ -284,24 +284,12 @@ public class levelCreator : MonoBehaviour
         env.circleGeneration(4f);
 
         List<List<float>> magnetTab = new List<List<float>>() {
-            //new List<float> {10f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
-            /*new List<float> {10f+start , -1f,-1f,-1f,-1f,-1f,-1f,-1f,-1f },
-            new List<float> {20f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
-            new List<float> {30f+start , 1f,0f,0f,0f,-1f,0f,0f,0f },
-            new List<float> {40f+start , 0f,1f,0f,0f,0f,-1f,0f,0f },
-            new List<float> {42f+start , 0f,0f,1f,0f,0f,0f,-1f,0f },
-            new List<float> {44f+start , 0f,0f,0f,1f,0f,0f,0f,-1f },
-            new List<float> {46f+start , -1f,0f,0f,0f,1f,0f,0f,0f },
-            new List<float> {48f+start , 0f,-1f,0f,0f,0f,1f,0f,0f },
-            new List<float> {50f+start , 0f,0f,-1f,0f,0f,0f,1f,0f },
-            new List<float> {52f+start , 0f,0f,0f,-1f,0f,0f,0f,1f },
-            new List<float> {54f+start , 1f,0f,0f,0f,-1f,0f,0f,0f },
-            new List<float> {56f+start , 0f,1f,0f,0f,0f,-1f,0f,0f },
-            new List<float> {58f+start , 0f,0f,1f,0f,0f,0f,-1f,0f },
-            new List<float> {60f+start , 0f,0f,0f,1f,0f,0f,0f,-1f },*/
-            //new List<float> {50f+start , 1f,1f,1f,1f,-1f,-1f,-1f,-1f },
-           // new List<float> {70f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
-           // new List<float> {80f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+            new List<float> {0f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
+            new List<float> {20f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+            new List<float> {30f+start , 1f,1f,0f,0f,-1f,-1f,0f,0f },
+            new List<float> {40f+start , 1f,1f,-1f,-1f,1f,1f,-1f,-1f },
+            new List<float> {50f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+
         };
 
         // 0 > 10 spiral zone
