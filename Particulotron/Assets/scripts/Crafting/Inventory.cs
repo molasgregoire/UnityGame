@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour
   //}
 
   void Continue() {
-    if(Input.GetKey(KeyCode.Space)) {
+    if(Input.anyKey) {
       fax.GetComponent<Image>().sprite = null;
       fax.GetComponent<Image>().color = Color.clear;
       fax.transform.SetAsFirstSibling();
@@ -70,7 +70,7 @@ public class Inventory : MonoBehaviour
     SaveLoad.Load();
     //Debug.Log("Loaded");
     GameData.UpdateQuark();
-    
+
     //Load the Load inventory
     if(previouslyCrafted.Count != 0) {
       foreach(KeyValuePair<int, List<ElmParticule>> element in previouslyCrafted) {
