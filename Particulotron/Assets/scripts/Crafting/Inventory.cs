@@ -44,6 +44,7 @@ public class Inventory : MonoBehaviour
 
     if(Input.GetKey(KeyCode.N)) {
         GameData.current = new GameData();
+        previouslyCrafted.Clear();
         SaveLoad.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -183,6 +184,7 @@ public class Inventory : MonoBehaviour
         this.itemCraft = previouslyCrafted[baryon.id];
         this.particle = baryon;
         updateParticle();
+        initializeCraftingSlots();
     }
 
   void updateParticle() {
