@@ -43,7 +43,8 @@ public class levelCreator : MonoBehaviour
                 //print(0);
                 break;
             case 8 :
-                levelDemo();
+                randomLvl(2);
+                //levelDemo();
                 break;
             case 5:
                 levelTest();
@@ -606,14 +607,14 @@ public class levelCreator : MonoBehaviour
                 for (int i = 0; i < 3 + 2 * intdifficulty; i++)
                 {
                     env.randomGeneration(time + (float)i*cst, time + 10f, 0.5f);
-                }                
+                }
                 break;
             case 7: //ultra traqueur
                 env.targetTab.Add(time);
                 env.targetTab.Add(time+10f);
                 env.targetTab.Add(0.005f);
                 break;
-            
+
             default: break;
         }
     }
