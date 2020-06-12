@@ -429,6 +429,7 @@ public class levelCreator : MonoBehaviour
     }
 
     float haha() { return 1f - 2f * (float)UnityEngine.Random.Range(0, 2); }
+    float hahaha() { return 1f -  (float)UnityEngine.Random.Range(0, 3); }
 
     void lvl4()
     {
@@ -517,5 +518,103 @@ public class levelCreator : MonoBehaviour
 
       //empeche les probleme d'instanciation
       env.initialisation();
+    }
+
+    // difficulty >= 1)
+    void randomLvl( int difficulty)
+    {
+        float start = 3f;
+        env.maxTime = 65f;
+        env.startTime = start;
+        env.speedFactor = 1.0f;
+        env.maxScore = 100f;
+        env.scoreBonusTime = 1.0f;
+        //reinit
+        oTimer.tps = 0;
+        //etc..
+
+        //empeche les probleme d'instanciation
+        env.initialisation();
+        env.circleGeneration(5f);
+
+        List<List<float>> magnetTab = new List<List<float>>() {
+            new List<float> {0f+start , hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha() },
+            new List<float> {10f+start , hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha() },
+            new List<float> {20f+start , hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha() },
+            new List<float> {30f+start , hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha() },
+            new List<float> {40f+start , hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha() },
+            new List<float> {50f+start , hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha(), hahaha() },
+            new List<float> {60f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+
+        };
+        env.Aimant.magnetTab = magnetTab;
+
+        for ( int i = 0; i < 7; i ++)
+        {
+            for (int j = 0; j < difficulty / 2; j++)
+            { randomBlock(i,difficulty); }
+        }
+
+        foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
+    }
+
+    void randomBlock( int intTime , int intdifficulty )
+    {
+        int alea = UnityEngine.Random.Range(0, 8);
+        float time = (float)intTime * 10f;
+        float difficulty = (float)intdifficulty;
+
+        switch (alea)
+        {
+            case 0: //random
+                for( int i = 0; i < difficulty ; i ++ )
+                {
+                    env.randomGeneration( time , time + 10f, 0.4f/difficulty);
+                    env.randomGeneration( time , time + 10f, 0.8f/difficulty);
+                    env.randomGeneration( time , time + 10f, 1.6f/difficulty);
+                }
+
+                break;
+            case 1: //poussiere etoile
+                for (int j = 0; j < 3 + 2 * intdifficulty; j++ )
+                {
+                    for (int i = 0; i < 10 * intdifficulty; i++)
+                    {
+                        env.geometryGenerator(time + (float)i / difficulty, UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+                    }
+                }
+
+                break;
+            case 2: //balayage
+                env.geometryBalayage(time, time+3f, 0.3f, 1 + intdifficulty, 0, 0.15f);
+                env.geometryBalayage(time+3f, time+6f, 0.3f, 1 + intdifficulty, 0, 0.15f);
+                env.geometryBalayage(time+6f, time+9f, 0.3f, 1 + intdifficulty, 0, 0.15f);
+                break;
+            case 3: //balayage bi
+                env.geometryBalayage(time, time+10f, 0.75f, 2+intdifficulty, 0, 0.07f);
+                env.geometryBalayage(time, time+10f, 0.75f, 2 + intdifficulty, 0, -0.07f);
+                break;
+            case 4: //geometry line croissant
+                for (int i = intdifficulty; i < 10+intdifficulty; i++)
+                { env.geometryLine(time + (float)i, i , (float)i, 0.1f); }
+                break;
+            case 5: //zone random + traqueur
+
+                break;
+            case 6: //accumulation aleatoire
+                float cst = 10f / (float)(3 + 2 * intdifficulty);
+                for (int i = 0; i < 3 + 2 * intdifficulty; i++)
+                {
+                    env.randomGeneration(time + (float)i*cst, time + 10f, 0.5f);
+                }                
+                break;
+            case 7: //ultra traqueur
+                env.targetTab.Add(time);
+                env.targetTab.Add(time+10f);
+                env.targetTab.Add(0.005f);
+                break;
+            
+            default: break;
+        }
     }
 }
