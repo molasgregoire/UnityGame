@@ -123,7 +123,7 @@ public class GameData
             }
             break;
         case 3: //bottom xi
-            if(Inventory.instance.particle.id == 632) {
+            if(Inventory.instance.particle.id == 532) {
               return true;
             }
             break;

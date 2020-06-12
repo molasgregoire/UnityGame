@@ -43,12 +43,23 @@ public class Inventory : MonoBehaviour
     Continue();
 
     if(Input.GetKey(KeyCode.N)) {
-        GameData newGame = new GameData();
-        GameData.current = newGame;
 
+        //clear everything
         previouslyCrafted.Clear();
-        SaveLoad.Save();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        itemList.Clear();
+        itemCraft.Clear();
+
+        GameData.current = new GameData();
+
+        //Reload
+        //InitializeGame();
+        initializeSlots();
+        initializeCraftingSlots();
+        updateParticle();
+        GameData.HistoryStart();
+        GameData.UpdateQuark();
+        //SaveLoad.Save();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
   }
 
