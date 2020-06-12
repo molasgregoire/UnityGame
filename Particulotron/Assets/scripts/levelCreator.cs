@@ -610,8 +610,8 @@ public class levelCreator : MonoBehaviour
                 }
                 break;
             case 7: //ultra traqueur
-                env.targetTab.Add(time);
-                env.targetTab.Add(time+10f);
+                env.targetTab.Add(time+3f);
+                env.targetTab.Add(time+10f+3f);
                 env.targetTab.Add(0.005f);
                 break;
 
