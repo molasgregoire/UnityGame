@@ -23,7 +23,7 @@ public class levelCreator : MonoBehaviour
         switch(level)
         {
             case 0:
-                lvl3();
+                lvl4();
                 ///lvl1Proton();
                 //levelDemo();
                 //print(0);
@@ -331,7 +331,7 @@ public class levelCreator : MonoBehaviour
         foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
     }
 
-    public void lvl3()
+    void lvl3()
     {
         float start = 3f;
         env.maxTime = 65f;
@@ -356,9 +356,10 @@ public class levelCreator : MonoBehaviour
             new List<float> {40f+start , 1f,1f,-1f,-1f,1f,1f,-1f,-1f },
             new List<float> {50f+start , -1f,-1f,1f,1f,-1f,-1f,1f,1f },
         };
+        env.Aimant.magnetTab = magnetTab;
 
         //0 > 10 grandir et revenir + zone en spiral
-        for( int i = 1; i < 6; i++)
+        for ( int i = 1; i < 6; i++)
         { env.geometryLine((float)(i - 1), i, 0, 0.17f);}
         for (int i = 4; i > 0; i--)
         { env.geometryLine((float)(9-i), i, 0, 0.17f); }
@@ -399,7 +400,83 @@ public class levelCreator : MonoBehaviour
         env.geometryBalayage(53f, 56f, 0.5f, 3, 0, 0.15f);
         env.geometryBalayage(56f, 59f, 0.5f, 4, 0, 0.15f);
 
+        
+
+        foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
+    }
+
+    float haha() { return 1f - 2f * (float)UnityEngine.Random.Range(0, 2); }
+
+    void lvl4()
+    {
+        float start = 3f;
+        env.maxTime = 65f;
+        env.startTime = start;
+        env.speedFactor = 1.0f;
+        env.maxScore = 100f;
+        env.scoreBonusTime = 1.0f;
+        //reinit
+        oTimer.tps = 0;
+        //etc..
+
+        //empeche les probleme d'instanciation
+        env.initialisation();
+        env.circleGeneration(10f);
+
+        
+
+        List<List<float>> magnetTab = new List<List<float>>() {
+            new List<float> {0f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+            new List<float> {10f+start , 1f,0f,1f,0f,1f,0f,1f,0f },
+            new List<float> {15f+start , 0f,-1f,0f,-1f,0f,-1f,0f,-1f },
+            new List<float> {20f+start , haha(),haha(),haha(),haha(),haha(),haha(),haha(),haha() },
+            new List<float> {30f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+            new List<float> {40f+start , -1f,1f,-1f,1f,-1f,1f,-1f,1f },
+            new List<float> {50f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
+        };
         env.Aimant.magnetTab = magnetTab;
+
+        // 0 > 10 aleatoire 
+        env.randomGeneration(0f, 10f, 0.2f);
+        env.randomGeneration(0f, 10f, 0.4f);
+        env.randomGeneration(0f, 10f, 0.8f);
+        env.randomGeneration(0f, 10f, 0.2f);
+        env.randomGeneration(0f, 10f, 0.4f);
+        env.randomGeneration(0f, 10f, 0.8f);
+        //10 > 20
+        env.geometryBalayage(10f, 13f, 0.5f, 3, 0, 0.15f);
+        env.geometryBalayage(13f, 16f, 0.5f, 3, 0, 0.15f);
+        env.geometryBalayage(16f, 19f, 0.5f, 3, 0, 0.15f);
+        //20 > 30
+        for (int i = 0; i < 10; i++)
+        {
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+            env.geometryGenerator(20f + (float)i , UnityEngine.Random.Range(2, 8), UnityEngine.Random.Range(0.5f, 3.5f), UnityEngine.Random.Range(0f, 3.141f));
+        }
+        //30 > 40
+        for (int i = 0; i < 10; i++)
+        { env.geometryLine(30f + (float)i, i + 1, (float)i, 0.1f); }
+        env.targetTab = new List<float>() { 30f + start, 40f + start, 1f , 50f + start, 60f + start, 0.5f };
+        // 40 > 50 aleatoire 
+        env.randomGeneration(40f, 50f, 0.3f);
+        env.randomGeneration(40f, 50f, 0.5f);
+        env.randomGeneration(40f, 50f, 0.7f);
+        env.randomGeneration(40f, 50f, 0.9f);
+        env.randomGeneration(40f, 50f, 0.3f);
+        env.randomGeneration(40f, 50f, 0.5f);
+        env.randomGeneration(40f, 50f, 0.7f);
+        env.randomGeneration(40f, 50f, 0.9f);
+        //50 > 60
+        env.zoneSpiral(0.25f, 50f, 60f);
+        env.randomGeneration(50f, 60f, 0.1f);
+
 
         foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
     }

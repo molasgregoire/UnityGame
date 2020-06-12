@@ -45,7 +45,7 @@ public class oEnv : MonoBehaviour
     public float maxScore = 100f;
     public float scoreMalusObs = 1f;
     public float scoreBonusCircle = 3f;
-    public float scoreBonusTime = 1f;
+    public float scoreBonusTime = 0.7f; //1f;
 
     //poubelle
     List<GameObject> corbeille = new List<GameObject>();
