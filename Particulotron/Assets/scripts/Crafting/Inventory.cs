@@ -43,7 +43,9 @@ public class Inventory : MonoBehaviour
     Continue();
 
     if(Input.GetKey(KeyCode.N)) {
-        GameData.current = new GameData();
+        GameData newGame = new GameData();
+        GameData.current = newGame;
+
         previouslyCrafted.Clear();
         SaveLoad.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

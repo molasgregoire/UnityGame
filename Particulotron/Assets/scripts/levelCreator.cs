@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class levelCreator : MonoBehaviour
 {
-    public static int level = 0;
+    public static int level = 8;
     public oEnv env;
 
     public static List<int> Blocks = new List<int>();
@@ -19,23 +19,40 @@ public class levelCreator : MonoBehaviour
         GameObject tmp = new GameObject();
         env = tmp.AddComponent<oEnv>();
 
+        SelectLevel();
 
         switch(level)
         {
-            case 0:
+            case 0 :
+                print("Level 1");
+                lvl1Proton();
+                break;
+            case 1 :
+                print("Level 2");
+                lvl2();
+                break;
+            case 2 :
+                print("Level 3");
+                lvl3();
+                break;
+            case 3:
+                print("Level 4");
                 lvl4();
                 ///lvl1Proton();
                 //levelDemo();
                 //print(0);
                 break;
-            case 1:
+            case 8 :
+                levelDemo();
+                break;
+            case 5:
                 levelTest();
                 //print(1);
                 break;
-            case 2:
+            case 6:
                 levelBlock();
                 break;
-            case 3:
+            case 7:
                 levelEndtest();
                 break;
             default: print("Default");
@@ -48,6 +65,12 @@ public class levelCreator : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void SelectLevel() {
+      if(GameData.current.inprogress){
+        level = GameData.current.state;
+      }
     }
 
     public void blocinit(int blocky, float first, float total) {
@@ -379,14 +402,14 @@ public class levelCreator : MonoBehaviour
         }
         //20 > 30 double grow and back
         for (int i = 1; i < 6; i++)
-        { 
-            env.geometryLine((float)(20+i - 1), i, 0, 0.17f); 
-            env.geometryLine((float)(20+i - 1), i, 0, -0.17f); 
+        {
+            env.geometryLine((float)(20+i - 1), i, 0, 0.17f);
+            env.geometryLine((float)(20+i - 1), i, 0, -0.17f);
         }
         for (int i = 4; i > 0; i--)
-        { 
-            env.geometryLine((float)(20+9 - i), i, 0, 0.17f); 
-            env.geometryLine((float)(20+9 - i), i, 0, -0.17f); 
+        {
+            env.geometryLine((float)(20+9 - i), i, 0, 0.17f);
+            env.geometryLine((float)(20+9 - i), i, 0, -0.17f);
         }
         //30 > 40 aleatoire à lancienne
         env.randomGeneration(30f, 40f, 0.2f);
@@ -400,7 +423,7 @@ public class levelCreator : MonoBehaviour
         env.geometryBalayage(53f, 56f, 0.5f, 3, 0, 0.15f);
         env.geometryBalayage(56f, 59f, 0.5f, 4, 0, 0.15f);
 
-        
+
 
         foreach (oObstacle obs in env.listObs) { obs.apparitionTime += start; }
     }
@@ -423,7 +446,7 @@ public class levelCreator : MonoBehaviour
         env.initialisation();
         env.circleGeneration(10f);
 
-        
+
 
         List<List<float>> magnetTab = new List<List<float>>() {
             new List<float> {0f+start , 0f,0f,0f,0f,0f,0f,0f,0f },
@@ -436,7 +459,7 @@ public class levelCreator : MonoBehaviour
         };
         env.Aimant.magnetTab = magnetTab;
 
-        // 0 > 10 aleatoire 
+        // 0 > 10 aleatoire
         env.randomGeneration(0f, 10f, 0.2f);
         env.randomGeneration(0f, 10f, 0.4f);
         env.randomGeneration(0f, 10f, 0.8f);
@@ -464,7 +487,7 @@ public class levelCreator : MonoBehaviour
         for (int i = 0; i < 10; i++)
         { env.geometryLine(30f + (float)i, i + 1, (float)i, 0.1f); }
         env.targetTab = new List<float>() { 30f + start, 40f + start, 1f , 50f + start, 60f + start, 0.5f };
-        // 40 > 50 aleatoire 
+        // 40 > 50 aleatoire
         env.randomGeneration(40f, 50f, 0.3f);
         env.randomGeneration(40f, 50f, 0.5f);
         env.randomGeneration(40f, 50f, 0.7f);

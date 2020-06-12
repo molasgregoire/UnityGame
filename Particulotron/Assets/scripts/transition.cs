@@ -38,7 +38,7 @@ public class transition : MonoBehaviour
         ecranTransition.transform.localScale = new Vector3(0.405f, 0.39f, 1f);
         ecranTransition.transform.position = new Vector3(3.59f, 1.18f, 3f);
 
-       
+
 
         font = new GameObject();
         font.AddComponent<SpriteRenderer>();
@@ -77,7 +77,7 @@ public class transition : MonoBehaviour
             //passer par levelCreator ici
             //levelCreator.level = 0;
             GameObject tmp = new GameObject();
-            levelCreator lancement = tmp.AddComponent<levelCreator>();
+            levelCreator lancement = tmp.AddComponent<levelCreator>();            
             lancement.Go();
             lancement.env.initCara(/*Q, S, C, B*/);
             //lancement.Go();*/
@@ -87,5 +87,5 @@ public class transition : MonoBehaviour
         }
     }
 
-    
+
 }
