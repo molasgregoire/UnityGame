@@ -43,7 +43,7 @@ public class oEnv : MonoBehaviour
 
     //constante de score (à equilibré)
     public float maxScore = 100f;
-    public float scoreMalusObs = 1f;
+    public float scoreMalusObs = 2f;
     public float scoreBonusCircle = 3f;
     public float scoreBonusTime = 0.7f; //1f;
 
